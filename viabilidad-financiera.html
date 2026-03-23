@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUTTÉ — Viabilidad Financiera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0c1f13;--c2:#163d24;--c3:#1e6b3a;--c4:#27ae60;--c5:#6edd97;--c6:#c8f7d8;--bg:#f6faf4;--surface:#fff;--accent:#f0812d;--accent2:#ff6b1a;--red:#e74c3c;--text:#1a2e1a;--muted:#6b7f6b;--border:rgba(30,107,58,.12);--glass:rgba(255,255,255,.7)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 24px;overflow:hidden;background:var(--c1)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(39,174,96,.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(240,129,45,.15) 0%,transparent 50%)}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='1' fill='%2327ae60' fill-opacity='.15'/%3E%3C/svg%3E")}
+.hero *{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(39,174,96,.2);border:1px solid rgba(39,174,96,.3);border-radius:100px;padding:8px 20px;font-size:.78rem;color:var(--c5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:32px;backdrop-filter:blur(8px);animation:fadeDown .8s ease both}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c4);animation:pulse 2s infinite}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;animation:fadeDown .8s .1s ease both}
+.hero h1 span{background:linear-gradient(135deg,var(--c5),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.6);font-weight:300;max-width:600px;animation:fadeDown .8s .2s ease both}
+.hero-kpis{display:flex;gap:12px;margin-top:48px;flex-wrap:wrap;justify-content:center;animation:fadeDown .8s .4s ease both}
+.hero-kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 28px;backdrop-filter:blur(12px);text-align:center;min-width:140px}
+.hero-kpi .val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:#fff}.hero-kpi .val.ac{color:var(--accent)}
+.hero-kpi .lab{font-size:.7rem;color:rgba(255,255,255,.45);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.3);font-size:.75rem;animation:bounce 2s infinite}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+nav .inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{padding:14px 16px;font-size:.8rem;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+nav a:hover,nav a.active{color:var(--c3);border-color:var(--c4)}
+
+/* SECTIONS */
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+section:not(.hero){opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+section:not(.hero).visible{opacity:1;transform:none}
+.section-label{display:inline-block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--c4);margin-bottom:8px}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:var(--c1);margin-bottom:8px}
+.section-desc{font-size:.95rem;color:var(--muted);max-width:600px;margin-bottom:32px}
+
+/* CARDS */
+.grid{display:grid;gap:16px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all .25s}
+.card:hover{box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-2px)}
+.card-label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.card-val{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;color:var(--c2)}
+.card-val.accent{color:var(--accent)}
+.card-sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+thead{background:var(--c1)}th{padding:12px 16px;text-align:left;font-weight:600;color:#fff;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+td{padding:10px 16px;border-bottom:1px solid rgba(0,0,0,.04)}
+tbody tr:hover{background:rgba(39,174,96,.04)}
+.r{text-align:right}.b{font-weight:700}.pos{color:var(--c3)}.neg{color:var(--red)}
+tr.total{background:var(--c2)!important;color:#fff;font-weight:700}tr.total td{border:none;color:#fff}
+tr.highlight{background:rgba(240,129,45,.08)!important;font-weight:600}
+
+/* SCENARIO TABS */
+.scenario-tabs{display:flex;gap:0;margin-bottom:40px;border-radius:16px;overflow:hidden;border:2px solid var(--border);background:var(--surface)}
+.scenario-tab{flex:1;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative}
+.scenario-tab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--c4);transform:scaleX(0);transition:transform .3s}
+.scenario-tab.active{background:var(--c1);color:#fff}
+.scenario-tab.active::after{transform:scaleX(1)}
+.scenario-tab h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.scenario-tab p{font-size:.78rem;opacity:.6}
+.scenario-content{display:none;animation:fadeIn .5s ease}
+.scenario-content.active{display:block}
+
+/* COMPARISON */
+.vs-card{border-radius:16px;overflow:hidden;border:2px solid var(--border)}
+.vs-row{display:grid;grid-template-columns:200px 1fr 1fr;border-bottom:1px solid var(--border);font-size:.85rem}
+.vs-row:last-child{border:none}
+.vs-row.head{background:var(--c1);color:#fff;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.vs-cell{padding:12px 16px}.vs-cell:not(:first-child){text-align:right}
+.vs-row:not(.head):hover{background:rgba(39,174,96,.04)}
+.badge-win{display:inline-block;background:var(--c4);color:#fff;font-size:.65rem;padding:2px 8px;border-radius:100px;font-weight:600}
+.badge-lose{display:inline-block;background:var(--red);color:#fff;font-size:.65rem;padding:2px 8px;border-radius:100px;font-weight:600}
+
+/* ALERT */
+.callout{border-radius:16px;padding:24px;display:flex;gap:16px;align-items:flex-start;margin:24px 0}
+.callout.green{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2)}
+.callout.orange{background:rgba(240,129,45,.08);border:1px solid rgba(240,129,45,.2)}
+.callout-icon{font-size:1.4rem;flex-shrink:0;line-height:1}
+.callout h4{font-size:.9rem;font-weight:700;margin-bottom:4px}.callout p{font-size:.84rem;color:var(--muted);line-height:1.6}
+
+/* VERDICT */
+.verdict{position:relative;background:var(--c1);border-radius:24px;padding:48px 40px;color:#fff;overflow:hidden;margin:40px 0}
+.verdict::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(39,174,96,.3),transparent 60%)}
+.verdict *{position:relative}
+.verdict h3{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;margin-bottom:20px}
+.verdict p{font-size:.95rem;line-height:1.8;color:rgba(255,255,255,.75);max-width:700px}
+.verdict p+p{margin-top:14px}
+.verdict strong{color:#fff}
+
+/* CHECKLIST */
+.check-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.check-item:last-child{border:none}
+.check-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;margin-top:2px}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:.8rem}
+footer a{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* ANIMATIONS */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+    .hero-kpis{flex-direction:column;align-items:center}
+    .scenario-tabs{flex-direction:column}
+    .vs-row{grid-template-columns:120px 1fr 1fr;font-size:.76rem}
+    .vs-cell{padding:8px 10px}
+    .verdict{padding:32px 24px;border-radius:16px}
+    section{padding:48px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-badge"><span></span> Estudio de Viabilidad &middot; Marzo 2026</div>
+    <h1>FRUTT<span>&Eacute;</span></h1>
+    <p class="hero-sub">Pulpa de fruta pasteurizada de larga vida. Sin cadena de fr&iacute;o. Un nicho de menos de 10 competidores en un mercado de USD $447.5M.</p>
+    <div class="hero-kpis">
+        <div class="hero-kpi"><div class="val">49.7%</div><div class="lab">Margen bruto</div></div>
+        <div class="hero-kpi"><div class="val ac">~2.5%</div><div class="lab">Carga fiscal (RST)</div></div>
+        <div class="hero-kpi"><div class="val">&lt;10</div><div class="lab">Competidores directos</div></div>
+        <div class="hero-kpi"><div class="val">4.8%</div><div class="lab">CAGR mercado</div></div>
+    </div>
+    <div class="scroll-hint">&#8595; Scroll para explorar</div>
+</section>
+
+<!-- NAV -->
+<nav>
+    <div class="inner">
+        <a href="#fundamentos">Fundamentos</a>
+        <a href="#escenarios">Escenarios</a>
+        <a href="#comparacion">A+ vs B</a>
+        <a href="#conclusion">Conclusi&oacute;n</a>
+        <a href="#pasos">Pr&oacute;ximos pasos</a>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- FUNDAMENTOS -->
+<section id="fundamentos">
+    <span class="section-label">Fundamentos</span>
+    <div class="section-title">Econom&iacute;a del negocio</div>
+    <p class="section-desc">N&uacute;meros base que aplican a ambos escenarios. Sociedad SAS 50/50 entre Luigy y Fabi&aacute;n.</p>
+
+    <div class="grid grid-2" style="margin-bottom:24px;">
+        <div class="card">
+            <div class="card-label">Costo producci&oacute;n / kg pulpa</div>
+            <table>
+                <tr><td>Fruta fresca (1.54 kg &rarr; 1 kg pulpa)</td><td class="r">$4,615</td></tr>
+                <tr><td>Empaque + etiqueta</td><td class="r">$900</td></tr>
+                <tr><td>Gas + insumos</td><td class="r">$450</td></tr>
+                <tr style="font-weight:700;border-top:2px solid var(--c4)"><td>Total costo variable</td><td class="r b">$5,965</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-label">Precio de venta / kg pulpa</div>
+            <table>
+                <tr><td>B2B (70%) &mdash; restaurantes, jugueras</td><td class="r">$10,500</td></tr>
+                <tr><td>B2C (30%) &mdash; tiendas, directo</td><td class="r">$15,000</td></tr>
+                <tr style="font-weight:700;border-top:2px solid var(--c4)"><td>Promedio ponderado</td><td class="r b">$11,850</td></tr>
+                <tr><td class="pos b">Margen bruto</td><td class="r pos b">$5,885 (49.7%)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid grid-2">
+        <div class="card">
+            <div class="card-label">Carga tributaria</div>
+            <table>
+                <tr><td><strong>RST</strong> (renta + ICA)</td><td class="r">1.8 &ndash; 5.4%</td></tr>
+                <tr><td>GMF (4x1000)</td><td class="r">0.4%</td></tr>
+                <tr><td>INVIMA / Bomberos</td><td class="r pos b">GRATIS</td></tr>
+                <tr><td>Parafiscales</td><td class="r pos b">EXONERADOS</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-label">Salario Luigy (gasto operativo)</div>
+            <table>
+                <tr><td>Mes 1-3</td><td class="r">$0</td></tr>
+                <tr><td>Mes 4-7</td><td class="r b">$3M/mes</td></tr>
+                <tr><td>Mes 8-11</td><td class="r b">$6M/mes</td></tr>
+                <tr><td>Mes 12+</td><td class="r b">$8M &rarr; $15M/mes</td></tr>
+            </table>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:8px;">Compensaci&oacute;n laboral, no adelanto de utilidades. Utilidades restantes se reparten 50/50.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ESCENARIOS -->
+<section id="escenarios">
+    <span class="section-label">Escenarios de inversi&oacute;n</span>
+    <div class="section-title">Elige tu escala</div>
+    <p class="section-desc">Dos opciones analizadas. Misma econom&iacute;a unitaria, diferente capacidad de producci&oacute;n.</p>
+
+    <div class="scenario-tabs">
+        <div class="scenario-tab active" onclick="switchTab('a')">
+            <h3>A+</h3>
+            <p>300-400 kg fruta/d&iacute;a &middot; $39M c/u</p>
+        </div>
+        <div class="scenario-tab" onclick="switchTab('b')">
+            <h3>B</h3>
+            <p>750 kg fruta/d&iacute;a &middot; $60M c/u</p>
+        </div>
+    </div>
+
+    <!-- TAB A+ -->
+    <div id="tab-a" class="scenario-content active">
+        <div class="grid grid-4" style="margin-bottom:32px;">
+            <div class="card" style="text-align:center"><div class="card-label">Inversi&oacute;n total</div><div class="card-val">$78M</div><div class="card-sub">~USD $17,740</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Por socio</div><div class="card-val accent">$39M</div><div class="card-sub">~USD $8,870</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Capacidad</div><div class="card-val">4,290</div><div class="card-sub">kg pulpa/mes</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Payback Luigy</div><div class="card-val">~8m</div><div class="card-sub">Fabi&aacute;n ~30 meses</div></div>
+        </div>
+
+        <div class="table-wrap" style="margin-bottom:24px;">
+            <table>
+                <thead><tr><th></th><th class="r">A&ntilde;o 1</th><th class="r">A&ntilde;o 2</th><th class="r">A&ntilde;o 3</th><th class="r">A&ntilde;o 4</th><th class="r">A&ntilde;o 5</th></tr></thead>
+                <tbody>
+                    <tr><td>Capacidad</td><td class="r">59%</td><td class="r">88%</td><td class="r">95%</td><td class="r">100%</td><td class="r">100%</td></tr>
+                    <tr><td><strong>Ingresos</strong></td><td class="r b">$361M</td><td class="r b">$569M</td><td class="r b">$651M</td><td class="r b">$727M</td><td class="r b">$770M</td></tr>
+                    <tr><td>Margen bruto</td><td class="r pos">$179M</td><td class="r pos">$279M</td><td class="r pos">$317M</td><td class="r pos">$351M</td><td class="r pos">$367M</td></tr>
+                    <tr><td>Gastos op. + salario</td><td class="r">$139M</td><td class="r">$203M</td><td class="r">$234M</td><td class="r">$265M</td><td class="r">$309M</td></tr>
+                    <tr><td>Impuestos</td><td class="r">$9M</td><td class="r">$14M</td><td class="r">$16M</td><td class="r">$18M</td><td class="r">$19M</td></tr>
+                    <tr class="total"><td>Utilidad neta</td><td class="r">$31M</td><td class="r">$62M</td><td class="r">$67M</td><td class="r">$68M</td><td class="r">$39M</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th></th><th class="r">A&ntilde;o 1</th><th class="r">A&ntilde;o 2</th><th class="r">A&ntilde;o 3</th><th class="r">A&ntilde;o 4</th><th class="r">A&ntilde;o 5</th></tr></thead>
+                <tbody>
+                    <tr class="highlight"><td><strong>Luigy</strong> (salario + 50% util.)</td><td class="r b">$59.5M</td><td class="r b">$127M</td><td class="r b">$153.5M</td><td class="r b">$178M</td><td class="r b">$199.5M</td></tr>
+                    <tr class="highlight"><td><strong>Fabi&aacute;n</strong> (50% utilidades)</td><td class="r b">$15.5M</td><td class="r b">$31M</td><td class="r b">$33.5M</td><td class="r b">$34M</td><td class="r b">$19.5M</td></tr>
+                    <tr><td>Luigy acumulado</td><td class="r">$59.5M</td><td class="r">$186.5M</td><td class="r">$340M</td><td class="r">$518M</td><td class="r">$717.5M</td></tr>
+                    <tr><td>Fabi&aacute;n acumulado</td><td class="r">$15.5M</td><td class="r">$46.5M</td><td class="r">$80M</td><td class="r">$114M</td><td class="r">$133.5M</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="callout orange" style="margin-top:24px;">
+            <span class="callout-icon">&#9888;&#65039;</span>
+            <div>
+                <h4>Problema: desbalance entre socios</h4>
+                <p>En A&ntilde;o 5 la proporci&oacute;n es 10:1 (Luigy $199.5M vs Fabi&aacute;n $19.5M). El salario consume casi toda la utilidad porque la capacidad es limitada. Luigy <strong>no alcanza $20M/mes</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB B -->
+    <div id="tab-b" class="scenario-content">
+        <div class="grid grid-4" style="margin-bottom:32px;">
+            <div class="card" style="text-align:center"><div class="card-label">Inversi&oacute;n total</div><div class="card-val">$120M</div><div class="card-sub">~USD $27,272</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Por socio</div><div class="card-val accent">$60M</div><div class="card-sub">~USD $13,636</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Capacidad</div><div class="card-val">10,725</div><div class="card-sub">kg pulpa/mes (2.5x A+)</div></div>
+            <div class="card" style="text-align:center"><div class="card-label">Payback</div><div class="card-val" style="color:var(--c3)">~6-8m</div><div class="card-sub">Ambos socios</div></div>
+        </div>
+
+        <div class="table-wrap" style="margin-bottom:24px;">
+            <table>
+                <thead><tr><th></th><th class="r">A&ntilde;o 1</th><th class="r">A&ntilde;o 2</th><th class="r">A&ntilde;o 3</th><th class="r">A&ntilde;o 4</th><th class="r">A&ntilde;o 5</th></tr></thead>
+                <tbody>
+                    <tr><td>Capacidad</td><td class="r">59%</td><td class="r">88%</td><td class="r">95%</td><td class="r">100%</td><td class="r">100%</td></tr>
+                    <tr><td>Producci&oacute;n (kg)</td><td class="r">76,150</td><td class="r">113,256</td><td class="r">122,265</td><td class="r">128,700</td><td class="r">128,700</td></tr>
+                    <tr><td><strong>Ingresos</strong></td><td class="r b">$902M</td><td class="r b">$1,423M</td><td class="r b">$1,628M</td><td class="r b">$1,816M</td><td class="r b">$1,925M</td></tr>
+                    <tr><td>Margen bruto</td><td class="r pos">$448M</td><td class="r pos">$700M</td><td class="r pos">$793M</td><td class="r pos">$876M</td><td class="r pos">$919M</td></tr>
+                    <tr><td>Gastos op. + salario</td><td class="r">$239M</td><td class="r">$306M</td><td class="r">$345M</td><td class="r">$420M</td><td class="r">$436M</td></tr>
+                    <tr><td>Impuestos</td><td class="r">$27M</td><td class="r">$43M</td><td class="r">$73M</td><td class="r">$82M</td><td class="r">$96M</td></tr>
+                    <tr class="total"><td>Utilidad neta</td><td class="r">$182M</td><td class="r">$351M</td><td class="r">$375M</td><td class="r">$374M</td><td class="r">$387M</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrap" style="margin-bottom:24px;">
+            <table>
+                <thead><tr><th></th><th class="r">A&ntilde;o 1</th><th class="r">A&ntilde;o 2</th><th class="r">A&ntilde;o 3</th><th class="r">A&ntilde;o 4</th><th class="r">A&ntilde;o 5</th></tr></thead>
+                <tbody>
+                    <tr class="highlight"><td><strong>Luigy</strong> (salario + 50% util.)</td><td class="r b">$135M</td><td class="r b">$271.5M</td><td class="r b">$307.5M</td><td class="r b">$367M</td><td class="r b">$373.5M</td></tr>
+                    <tr><td style="font-size:.78rem;color:var(--muted)">Equivalente mensual</td><td class="r" style="font-size:.78rem">$11.3M</td><td class="r" style="font-size:.78rem">$22.6M</td><td class="r" style="font-size:.78rem">$25.6M</td><td class="r" style="font-size:.78rem">$30.6M</td><td class="r" style="font-size:.78rem">$31.1M</td></tr>
+                    <tr class="highlight"><td><strong>Fabi&aacute;n</strong> (50% utilidades)</td><td class="r b">$91M</td><td class="r b">$175.5M</td><td class="r b">$187.5M</td><td class="r b">$187M</td><td class="r b">$193.5M</td></tr>
+                    <tr><td style="font-size:.78rem;color:var(--muted)">Equivalente mensual</td><td class="r" style="font-size:.78rem">$7.6M</td><td class="r" style="font-size:.78rem">$14.6M</td><td class="r" style="font-size:.78rem">$15.6M</td><td class="r" style="font-size:.78rem">$15.6M</td><td class="r" style="font-size:.78rem">$16.1M</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title" style="font-size:1.3rem;margin-top:40px;margin-bottom:16px;">Proyecci&oacute;n 10 a&ntilde;os</div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>A&ntilde;o</th><th class="r">Ingresos</th><th class="r">Util. Neta</th><th class="r">Luigy</th><th class="r">Fabi&aacute;n</th><th class="r">Acum. Luigy</th><th class="r">Acum. Fabi&aacute;n</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td class="r">$902M</td><td class="r">$182M</td><td class="r b">$135M</td><td class="r b">$91M</td><td class="r">$135M</td><td class="r">$91M</td></tr>
+                    <tr><td>2</td><td class="r">$1,423M</td><td class="r">$351M</td><td class="r b">$271.5M</td><td class="r b">$175.5M</td><td class="r">$406.5M</td><td class="r">$266.5M</td></tr>
+                    <tr><td>3</td><td class="r">$1,628M</td><td class="r">$375M</td><td class="r b">$307.5M</td><td class="r b">$187.5M</td><td class="r">$714M</td><td class="r">$454M</td></tr>
+                    <tr><td>4</td><td class="r">$1,816M</td><td class="r">$374M</td><td class="r b">$367M</td><td class="r b">$187M</td><td class="r">$1,081M</td><td class="r">$641M</td></tr>
+                    <tr><td>5</td><td class="r">$1,925M</td><td class="r">$387M</td><td class="r b">$373.5M</td><td class="r b">$193.5M</td><td class="r">$1,454.5M</td><td class="r">$834.5M</td></tr>
+                    <tr><td>6</td><td class="r">$2,041M</td><td class="r">$413M</td><td class="r b">$386.5M</td><td class="r b">$206.5M</td><td class="r">$1,841M</td><td class="r">$1,041M</td></tr>
+                    <tr><td>7</td><td class="r">$2,163M</td><td class="r">$440M</td><td class="r b">$400M</td><td class="r b">$220M</td><td class="r">$2,241M</td><td class="r">$1,261M</td></tr>
+                    <tr><td>8</td><td class="r">$2,293M</td><td class="r">$469M</td><td class="r b">$414.5M</td><td class="r b">$234.5M</td><td class="r">$2,655.5M</td><td class="r">$1,495.5M</td></tr>
+                    <tr><td>9</td><td class="r">$2,431M</td><td class="r">$498M</td><td class="r b">$429M</td><td class="r b">$249M</td><td class="r">$3,084.5M</td><td class="r">$1,744.5M</td></tr>
+                    <tr class="total"><td>10</td><td class="r">$2,577M</td><td class="r">$529M</td><td class="r b">$444.5M</td><td class="r b">$264.5M</td><td class="r">$3,529M</td><td class="r">$2,009M</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid grid-2" style="margin-top:24px;">
+            <div class="card" style="text-align:center;border:2px solid var(--accent)">
+                <div class="card-label">Luigy &mdash; 10 a&ntilde;os</div>
+                <div class="card-val accent" style="font-size:2.2rem">$3,529M</div>
+                <div class="card-sub">59x retorno sobre $60M invertidos</div>
+            </div>
+            <div class="card" style="text-align:center;border:2px solid var(--c4)">
+                <div class="card-label">Fabi&aacute;n &mdash; 10 a&ntilde;os</div>
+                <div class="card-val" style="font-size:2.2rem">$2,009M</div>
+                <div class="card-sub">33x retorno sobre $60M invertidos</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARACIÓN -->
+<section id="comparacion">
+    <span class="section-label">Comparaci&oacute;n directa</span>
+    <div class="section-title">A+ vs B</div>
+    <p class="section-desc">Misma econom&iacute;a, diferente escala. $21M adicionales por socio (~USD $4,770) cambian todo.</p>
+
+    <div class="vs-card">
+        <div class="vs-row head"><div class="vs-cell"></div><div class="vs-cell">A+</div><div class="vs-cell">B</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Inversi&oacute;n/socio</strong></div><div class="vs-cell r">$39M</div><div class="vs-cell r b">$60M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Capacidad</strong></div><div class="vs-cell r">4,290 kg/mes</div><div class="vs-cell r b">10,725 kg/mes</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Payback Luigy</strong></div><div class="vs-cell r">~8 meses</div><div class="vs-cell r"><span class="badge-win">~6 meses</span></div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Payback Fabi&aacute;n</strong></div><div class="vs-cell r"><span class="badge-lose">~30 meses</span></div><div class="vs-cell r"><span class="badge-win">~8 meses</span></div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Luigy A&ntilde;o 1</strong></div><div class="vs-cell r">$59.5M</div><div class="vs-cell r b pos">$135M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Fabi&aacute;n A&ntilde;o 1</strong></div><div class="vs-cell r neg">$15.5M</div><div class="vs-cell r b pos">$91M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Luigy A&ntilde;o 5</strong></div><div class="vs-cell r">$199.5M</div><div class="vs-cell r b pos">$373.5M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Fabi&aacute;n A&ntilde;o 5</strong></div><div class="vs-cell r neg">$19.5M</div><div class="vs-cell r b pos">$193.5M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Meta $20M/mes</strong></div><div class="vs-cell r"><span class="badge-lose">No</span></div><div class="vs-cell r"><span class="badge-win">A&ntilde;o 2</span></div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Equitativo</strong></div><div class="vs-cell r"><span class="badge-lose">10:1</span></div><div class="vs-cell r"><span class="badge-win">~2:1</span></div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Acum. 10a Luigy</strong></div><div class="vs-cell r">$1,734M</div><div class="vs-cell r b pos">$3,529M</div></div>
+        <div class="vs-row"><div class="vs-cell"><strong>Acum. 10a Fabi&aacute;n</strong></div><div class="vs-cell r neg">$254M</div><div class="vs-cell r b pos">$2,009M</div></div>
+    </div>
+</section>
+
+<!-- CONCLUSIÓN -->
+<section id="conclusion">
+    <span class="section-label">Veredicto</span>
+    <div class="section-title">Conclusi&oacute;n ejecutiva</div>
+
+    <div class="verdict">
+        <h3>FRUTT&Eacute; es financieramente viable. El Escenario B es el indicado.</h3>
+        <p><strong>El mercado:</strong> USD $447.5M en pulpa tropical colombiana, creciendo al 4.8% anual, con menos de 10 competidores en pasteurizada frente a 34,000+ en congelada. Margen bruto del 49.7% y carga fiscal del 2.5-5% gracias al RST.</p>
+        <p><strong>Por qu&eacute; B y no A+:</strong> Por $21M adicionales por socio (~USD $4,770) se obtiene 2.5x la capacidad. Esto resuelve los tres problemas del A+: Fabi&aacute;n pasa de $15.5M a <strong>$91M en A&ntilde;o 1</strong>; Luigy alcanza <strong>$20M/mes en A&ntilde;o 2</strong>; y ambos recuperan su inversi&oacute;n en <strong>6-8 meses</strong>.</p>
+        <p><strong>Los n&uacute;meros:</strong> Inversi&oacute;n de $60M por socio (~USD $13,636). A 10 a&ntilde;os, Luigy acumula <strong>$3,529M</strong> y Fabi&aacute;n <strong>$2,009M</strong>. Retorno de 59x y 33x respectivamente.</p>
+        <p><strong>Condici&oacute;n:</strong> Antes de comprometer capital, ejecutar validaci&oacute;n de demanda: prueba piloto + 15 clientes B2B confirmados. Costo: $3-5M. Tiempo: 4-6 semanas.</p>
+    </div>
+</section>
+
+<!-- PRÓXIMOS PASOS -->
+<section id="pasos">
+    <span class="section-label">Acci&oacute;n</span>
+    <div class="section-title">Pr&oacute;ximos pasos</div>
+    <p class="section-desc">Lo que hay que hacer antes de meter un peso.</p>
+
+    <div class="card">
+        <div class="check-item"><div class="check-box"></div><div><strong>Confirmar IVA con DIAN</strong> &mdash; &iquest;5% o 19%? Cr&iacute;tico para m&aacute;rgenes.</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Prueba piloto</strong> &mdash; Lote peque&ntilde;o para validar sabor y vida &uacute;til. $3-5M, 4-6 semanas.</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Validar precios B2B</strong> &mdash; Visitar 15 restaurantes/juguer&iacute;as. &iquest;Pagan $5,250 por 500g?</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Cotizar equipos</strong> &mdash; COMEK, Tecnomack, Tecnilac Willgo, Tedmaq.</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Buscar local</strong> &mdash; 150-200 m&sup2; zona industrial Bogot&aacute;. Verificar uso de suelos.</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Constituir SAS + inscribirse RST</strong></div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Acordar compensaci&oacute;n</strong> &mdash; Salario Luigy, rol de Fabi&aacute;n, pol&iacute;tica de distribuciones.</div></div>
+        <div class="check-item"><div class="check-box"></div><div><strong>Definir escenario y aporte</strong> &mdash; A+ ($39M c/u) o B ($60M c/u).</div></div>
+    </div>
+
+    <div class="card" style="text-align:center;margin-top:24px;background:rgba(240,129,45,.06);border-color:rgba(240,129,45,.2);">
+        <p style="font-size:.9rem;"><strong>Modelo financiero detallado:</strong> <a href="https://docs.google.com/spreadsheets/d/1AB3inJJQJ4rY48k0QskmFjJsyrhvFqCa1pbVygMGCcg/edit" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none;">Abrir Google Sheet &rarr;</a></p>
+    </div>
+</section>
+
+</div>
+
+<footer>
+    <strong>FRUTT&Eacute;</strong> &middot; Viabilidad Financiera &middot; Marzo 2026 &middot; Luigy Roso &amp; Fabi&aacute;n<br>
+    <a href="https://docs.google.com/spreadsheets/d/1AB3inJJQJ4rY48k0QskmFjJsyrhvFqCa1pbVygMGCcg/edit" target="_blank">Google Sheet</a>
+</footer>
+
+<script>
+// Tab switching
+function switchTab(t){
+    document.querySelectorAll('.scenario-tab').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.scenario-content').forEach(el=>el.classList.remove('active'));
+    if(t==='a'){
+        document.querySelectorAll('.scenario-tab')[0].classList.add('active');
+        document.getElementById('tab-a').classList.add('active');
+    }else{
+        document.querySelectorAll('.scenario-tab')[1].classList.add('active');
+        document.getElementById('tab-b').classList.add('active');
+    }
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.05,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('section:not(.hero)').forEach(s=>obs.observe(s));
+// Fallback: reveal all after 2s in case observer fails
+setTimeout(()=>{document.querySelectorAll('section:not(.hero)').forEach(s=>s.classList.add('visible'))},2000);
+
+// Active nav link
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+    let c='';
+    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)c=s.id});
+    document.querySelectorAll('nav a').forEach(a=>{
+        a.classList.toggle('active',a.getAttribute('href')==='#'+c)
+    })
+})
+</script>
+
+</body>
+</html>

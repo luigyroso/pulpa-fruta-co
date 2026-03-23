@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUTTÉ — Escenario B · Costos Reales + Opciones de Viabilidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0c1f13;--c2:#163d24;--c3:#1e6b3a;--c4:#27ae60;--c5:#6edd97;--bg:#f6faf4;--surface:#fff;--accent:#f0812d;--accent2:#ff6b1a;--red:#e74c3c;--text:#1a2e1a;--muted:#6b7f6b;--border:rgba(30,107,58,.12);--glass:rgba(255,255,255,.7)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.hero{position:relative;padding:60px 24px 48px;text-align:center;overflow:hidden;background:#1a0a0a}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(231,76,60,.2) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(240,129,45,.15) 0%,transparent 50%)}.hero *{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(231,76,60,.3);border:1px solid rgba(231,76,60,.5);border-radius:100px;padding:8px 20px;font-size:.78rem;color:#ff7675;letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px}.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:12px}.hero h1 span{color:var(--red)}
+.hero-sub{font-size:clamp(.9rem,1.8vw,1.1rem);color:rgba(255,255,255,.55);font-weight:300;max-width:700px;margin:0 auto}
+nav{position:sticky;top:0;z-index:100;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}nav .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}nav .inner::-webkit-scrollbar{display:none}nav a{padding:14px 16px;font-size:.8rem;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}nav a:hover,nav a.active{color:var(--c3);border-color:var(--c4)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}section{padding:64px 0}section:not(.hero){opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}section:not(.hero).visible{opacity:1;transform:none}
+.section-label{display:inline-block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--c4);margin-bottom:8px}.section-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:var(--c1);margin-bottom:8px}.section-desc{font-size:.9rem;color:var(--muted);max-width:650px;margin-bottom:28px;line-height:1.6}
+.grid{display:grid;gap:14px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-5{grid-template-columns:repeat(5,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;transition:all .25s}.card:hover{box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-2px)}.card-label{font-size:.66rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px}.card-val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--c2)}.card-val.accent{color:var(--accent)}.card-val.green{color:var(--c3)}.card-val.red{color:var(--red)}.card-sub{font-size:.75rem;color:var(--muted);margin-top:3px}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:var(--surface)}table{width:100%;border-collapse:collapse;font-size:.78rem}thead{background:var(--c1)}th{padding:10px 12px;text-align:left;font-weight:600;color:#fff;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.04);white-space:nowrap}tbody tr:hover{background:rgba(39,174,96,.04)}.r{text-align:right}.b{font-weight:700}.pos{color:var(--c3)}.neg{color:var(--red)}tr.total{background:var(--c2)!important;color:#fff;font-weight:700}tr.total td{border:none;color:#fff}tr.subtotal{background:rgba(39,174,96,.06)!important;font-weight:600}tr.subtotal td{border-top:2px solid var(--c4);border-bottom:2px solid var(--c4)}tr.loss{background:rgba(231,76,60,.08)!important;font-weight:600}tr.highlight{background:rgba(240,129,45,.08)!important;font-weight:600}.cat{font-weight:700;color:var(--c2);padding-top:14px!important}.indent{padding-left:24px!important;color:var(--muted)}
+.callout{border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start;margin:20px 0}.callout.green{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2)}.callout.orange{background:rgba(240,129,45,.08);border:1px solid rgba(240,129,45,.2)}.callout.red{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)}.callout-icon{font-size:1.3rem;flex-shrink:0;line-height:1}.callout h4{font-size:.88rem;font-weight:700;margin-bottom:3px}.callout p{font-size:.82rem;color:var(--muted);line-height:1.6}
+.option-card{border-radius:16px;overflow:hidden;border:2px solid var(--border);background:var(--surface)}.option-header{padding:20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.option-header h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:800}.option-body{padding:0 20px 20px}.option-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.84rem;border-bottom:1px solid var(--border)}.option-row:last-child{border:none}.option-row .label{color:var(--muted)}.option-row .val{font-weight:600}
+.tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:6px}.tag-red{background:rgba(231,76,60,.15);color:var(--red)}.tag-green{background:rgba(39,174,96,.15);color:var(--c3)}.tag-orange{background:rgba(240,129,45,.15);color:var(--accent)}
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:.78rem}footer a{color:var(--accent);text-decoration:none;font-weight:600}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4,.grid-5{grid-template-columns:1fr}section{padding:40px 0}th,td{padding:6px 8px;font-size:.7rem}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-badge"><span></span> Corabastos DANE 9 Mar 2025 &middot; Arriendo $2.5M</div>
+    <h1>Costos <span>reales</span> + opciones</h1>
+    <p class="hero-sub">Escenario B con fruta a Corabastos: <strong>-$135M</strong>. Pero hay 4 caminos viables. Arriendo ajustado a $2.5M/mes. Sin IVA.</p>
+</section>
+
+<nav><div class="inner">
+    <a href="#crudo">Corabastos</a><a href="#mensual">Mes a Mes</a><a href="#sabores">Sabores</a><a href="#equipos">Equipos</a><a href="#fijos">Fijos</a><a href="#opciones">4 Opciones</a><a href="#detalle">Detalle</a><a href="#pasos">Acci&oacute;n</a>
+</div></nav>
+
+<div class="container">
+
+<!-- REALIDAD CRUDA -->
+<section id="crudo">
+    <span class="section-label" style="color:var(--red)">Escenario Corabastos puro</span>
+    <div class="section-title">P&amp;L a precios Corabastos — sin descuento</div>
+    <p class="section-desc">Arriendo $2.5M/mes. Fruta a precio completo de Corabastos ($5,108/kg promedio). Costo variable $9,215/kg vs precio venta $10,427/kg.</p>
+
+    <div class="grid grid-2" style="margin-bottom:20px">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th colspan="2">P&amp;L — Corabastos puro, Esc. B</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Ingresos</strong> (76,364 kg &times; $10,427)</td><td class="r b">$796M</td></tr>
+                    <tr><td><strong>(-) Variables</strong> ($9,215/kg)</td><td class="r b neg">($704M)</td></tr>
+                    <tr><td class="indent">Fruta Corabastos ($7,866/kg pulpa)</td><td class="r">$601M</td></tr>
+                    <tr><td class="indent">Empaque + gas</td><td class="r">$103M</td></tr>
+                    <tr style="background:rgba(231,76,60,.06);font-weight:700"><td>= Margen bruto</td><td class="r neg b">$92M (11.6%)</td></tr>
+                    <tr style="height:4px"><td colspan="2"></td></tr>
+                    <tr><td><strong>(-) Fijos</strong> (arriendo $2.5M)</td><td class="r neg">($104M)</td></tr>
+                    <tr><td><strong>(-) Personal</strong></td><td class="r neg">($57M)</td></tr>
+                    <tr><td><strong>(-) Marketing</strong></td><td class="r neg">($37M)</td></tr>
+                    <tr><td><strong>(-) Salario Luigy</strong></td><td class="r neg">($29M)</td></tr>
+                    <tr style="height:4px"><td colspan="2"></td></tr>
+                    <tr class="total" style="background:var(--red)!important"><td>= P&Eacute;RDIDA OPERATIVA</td><td class="r" style="font-size:1.2rem">-$135M</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div class="grid grid-2" style="margin-bottom:14px">
+                <div class="card" style="text-align:center;border:2px solid var(--red)"><div class="card-label" style="color:var(--red)">Margen bruto / kg</div><div class="card-val red" style="font-size:2rem">$1,212</div><div class="card-sub">11.6% — no cubre fijos</div></div>
+                <div class="card" style="text-align:center;border:2px solid var(--red)"><div class="card-label" style="color:var(--red)">Kg necesarios para breakeven</div><div class="card-val red" style="font-size:2rem">188K</div><div class="card-sub">Capacidad m&aacute;x: 129K &rarr; imposible</div></div>
+            </div>
+            <div class="callout red"><span class="callout-icon">&#128683;</span><div>
+                <h4>F&iacute;sicamente imposible</h4>
+                <p>Para cubrir $228M de gastos fijos+personal+mkt+salario con $1,212/kg de margen, necesitas vender 188,000 kg. La planta produce m&aacute;x 128,700 kg/a&ntilde;o. <strong>Ni al 100% de capacidad se rompe even.</strong></p>
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<!-- MES A MES -->
+<section id="mensual">
+    <span class="section-label" style="color:var(--red)">12 meses en rojo</span>
+    <div class="section-title">Mes a mes — Corabastos puro</div>
+
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th></th><th class="r">M1</th><th class="r">M2</th><th class="r">M3</th><th class="r">M4</th><th class="r">M5</th><th class="r">M6</th><th class="r">M7</th><th class="r">M8</th><th class="r">M9</th><th class="r">M10</th><th class="r">M11</th><th class="r">M12</th><th class="r" style="background:var(--red)">TOTAL</th></tr></thead>
+            <tbody>
+                <tr><td class="indent">Producci&oacute;n (kg)</td><td class="r">1,609</td><td class="r">2,681</td><td class="r">3,754</td><td class="r">4,826</td><td class="r">5,899</td><td class="r">6,650</td><td class="r">7,186</td><td class="r">7,722</td><td class="r">8,258</td><td class="r">8,795</td><td class="r">9,331</td><td class="r">9,653</td><td class="r b">76,364</td></tr>
+                <tr><td><strong>Variables</strong></td><td class="r">14.8</td><td class="r">24.7</td><td class="r">34.6</td><td class="r">44.5</td><td class="r">54.4</td><td class="r">61.3</td><td class="r">66.2</td><td class="r">71.2</td><td class="r">76.1</td><td class="r">81.1</td><td class="r">86.0</td><td class="r">89.0</td><td class="r b neg">704</td></tr>
+                <tr><td><strong>Fijos</strong> ($2.5M arr.)</td><td class="r">6.2</td><td class="r">6.7</td><td class="r">7.2</td><td class="r">7.8</td><td class="r">8.4</td><td class="r">8.8</td><td class="r">9.0</td><td class="r">9.4</td><td class="r">9.7</td><td class="r">9.9</td><td class="r">10.2</td><td class="r">10.5</td><td class="r b">104</td></tr>
+                <tr><td><strong>Personal</strong></td><td class="r">0</td><td class="r">0</td><td class="r">1.3</td><td class="r">4.0</td><td class="r">4.0</td><td class="r">4.0</td><td class="r">7.3</td><td class="r">7.3</td><td class="r">7.3</td><td class="r">7.3</td><td class="r">7.3</td><td class="r">7.3</td><td class="r b">57</td></tr>
+                <tr><td><strong>Marketing</strong></td><td class="r">1.8</td><td class="r">1.8</td><td class="r">1.8</td><td class="r">2.5</td><td class="r">2.5</td><td class="r">3.0</td><td class="r">3.5</td><td class="r">3.5</td><td class="r">4.0</td><td class="r">4.0</td><td class="r">4.5</td><td class="r">4.5</td><td class="r b">37</td></tr>
+                <tr><td><strong>Salario</strong></td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">2</td><td class="r">2</td><td class="r">2</td><td class="r">2</td><td class="r">4</td><td class="r">4</td><td class="r">4</td><td class="r">4</td><td class="r">5</td><td class="r b">29</td></tr>
+                <tr class="total"><td><strong>EGRESOS</strong></td><td class="r">22.8</td><td class="r">33.2</td><td class="r">44.9</td><td class="r">60.8</td><td class="r">71.3</td><td class="r">79.1</td><td class="r">88.0</td><td class="r">95.4</td><td class="r">101.1</td><td class="r">106.3</td><td class="r">112.0</td><td class="r">116.3</td><td class="r" style="font-size:.9rem">$931</td></tr>
+                <tr class="highlight"><td><strong>Ingresos</strong></td><td class="r">16.8</td><td class="r">27.9</td><td class="r">39.1</td><td class="r">50.3</td><td class="r">61.5</td><td class="r">69.3</td><td class="r">74.9</td><td class="r">80.5</td><td class="r">86.1</td><td class="r">91.7</td><td class="r">97.3</td><td class="r">100.6</td><td class="r b">$796</td></tr>
+                <tr class="loss"><td><strong>Resultado</strong></td><td class="r neg">-6.0</td><td class="r neg">-5.3</td><td class="r neg">-5.8</td><td class="r neg">-10.5</td><td class="r neg">-9.8</td><td class="r neg">-9.8</td><td class="r neg">-13.1</td><td class="r neg">-14.9</td><td class="r neg">-15.0</td><td class="r neg">-14.6</td><td class="r neg">-14.7</td><td class="r neg">-15.7</td><td class="r neg b" style="font-size:.9rem">-$135</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- POR SABOR -->
+<section id="sabores">
+    <span class="section-label">Por sabor</span>
+    <div class="section-title">Margen bruto a Corabastos — solo 3 de 6 sirven</div>
+
+    <div class="table-wrap" style="margin-bottom:20px">
+        <table>
+            <thead><tr><th>Sabor</th><th class="r">Fruta $/kg</th><th class="r">Costo var.</th><th class="r">Precio venta</th><th class="r">Margen bruto</th><th class="r">%</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(39,174,96,.06)"><td>&#127815; <strong>Guayaba</strong></td><td class="r">$3,214</td><td class="r">$6,299</td><td class="r pos b">$8,600</td><td class="r pos b">$2,301</td><td class="r pos b">26.8%</td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td>&#127825; <strong>Guan&aacute;bana</strong></td><td class="r">$5,000</td><td class="r">$9,049</td><td class="r pos b">$10,850</td><td class="r pos b">$1,801</td><td class="r pos b">16.6%</td></tr>
+                <tr style="background:rgba(39,174,96,.03)"><td>&#127820; <strong>Maracuy&aacute;</strong></td><td class="r">$6,000</td><td class="r">$10,589</td><td class="r pos b">$12,370</td><td class="r pos b">$1,781</td><td class="r pos b">14.4%</td></tr>
+                <tr><td>&#129361; Lulo</td><td class="r">$5,600</td><td class="r">$9,973</td><td class="r">$10,850</td><td class="r" style="color:var(--accent)">$877</td><td class="r" style="color:var(--accent)">8.1%</td></tr>
+                <tr><td>&#129744; Mora</td><td class="r">$5,833</td><td class="r">$10,332</td><td class="r">$10,850</td><td class="r neg">$518</td><td class="r neg">4.8%</td></tr>
+                <tr><td>&#127816; Mango</td><td class="r">$5,000</td><td class="r">$9,049</td><td class="r">$9,460</td><td class="r neg">$411</td><td class="r neg">4.3%</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted)"><strong>Top 3</strong> (guayaba, guan&aacute;bana, maracuy&aacute;): margen bruto promedio <strong>$1,961/kg (19.3%)</strong>. Los otros 3 no dan ni para pagar luz.</p>
+</section>
+
+<!-- EQUIPOS -->
+<section id="equipos">
+    <span class="section-label">Inversi&oacute;n en maquinaria</span>
+    <div class="section-title">Equipos sugeridos — Escenario B (750 kg fruta/d&iacute;a)</div>
+    <p class="section-desc">Lista de equipos m&iacute;nimos para arrancar producci&oacute;n de pulpa pasteurizada. Proveedores colombianos cotizables. Acero inox 304 en todo lo que toca alimento.</p>
+
+    <div class="table-wrap" style="margin-bottom:20px">
+        <table>
+            <thead><tr><th>#</th><th>Equipo</th><th>Especificaci&oacute;n</th><th class="r">Precio est. (COP)</th><th>Proveedor sugerido</th></tr></thead>
+            <tbody>
+                <tr><td class="b">1</td><td><strong>Despulpadora industrial</strong></td><td>500 kg/h, inox 304, motor 3HP, 3 tamices</td><td class="r b">$8,500,000</td><td>COMEK &middot; Casa Licuadora</td></tr>
+                <tr><td class="b">2</td><td><strong>Marmita pasteurizadora</strong></td><td>300L, enchaquetada, agitador, inox 304</td><td class="r b">$30,000,000</td><td>COMEK &middot; Tecnomack</td></tr>
+                <tr><td class="b">3</td><td><strong>Empacadora semiautom&aacute;tica</strong></td><td>Dosificadora neum&aacute;tica 100-1000ml, inox</td><td class="r b">$12,000,000</td><td>COMEK &middot; Tecnomack</td></tr>
+                <tr><td class="b">4</td><td><strong>Selladora continua de banda</strong></td><td>Para bolsas polietileno, sellado t&eacute;rmico</td><td class="r b">$1,500,000</td><td>MercadoLibre</td></tr>
+                <tr><td class="b">5</td><td><strong>Tanque de lavado / recepci&oacute;n</strong></td><td>200L, inox 304, con desag&uuml;e</td><td class="r b">$4,000,000</td><td>Fabricaci&oacute;n local</td></tr>
+                <tr><td class="b">6</td><td><strong>Tanque de enfriamiento</strong></td><td>200L, serpent&iacute;n agua fr&iacute;a, inox</td><td class="r b">$5,000,000</td><td>Fabricaci&oacute;n local</td></tr>
+                <tr><td class="b">7</td><td><strong>Mesas inox &times;2</strong></td><td>2m &times; 0.7m, calibre 16, con entrepa&ntilde;o</td><td class="r b">$2,500,000</td><td>MercadoLibre</td></tr>
+                <tr><td class="b">8</td><td><strong>Cuarto fr&iacute;o / congeladores</strong></td><td>Prefabricado 2&times;2m o 3 congeladores horizontales</td><td class="r b">$12,000,000</td><td>Cotizaci&oacute;n local</td></tr>
+                <tr><td class="b">9</td><td><strong>B&aacute;scula plataforma</strong></td><td>300 kg, digital, plataforma inox</td><td class="r b">$600,000</td><td>MercadoLibre</td></tr>
+                <tr><td class="b">10</td><td><strong>Kit control calidad</strong></td><td>Refract&oacute;metro + pH-metro + term&oacute;metro</td><td class="r b">$800,000</td><td>MercadoLibre</td></tr>
+                <tr><td class="b">11</td><td><strong>Utensilios + EPP</strong></td><td>Cuchillos, canastas, baldes inox, mangueras, dotaci&oacute;n</td><td class="r b">$1,500,000</td><td>Proveedores locales</td></tr>
+                <tr class="subtotal"><td></td><td colspan="2"><strong>SUBTOTAL MAQUINARIA</strong></td><td class="r b">$78,400,000</td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title" style="font-size:1.2rem;margin-bottom:12px">Costos adicionales de arranque</div>
+    <div class="table-wrap" style="margin-bottom:20px">
+        <table>
+            <thead><tr><th>Concepto</th><th>Detalle</th><th class="r">Costo (COP)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Adecuaci&oacute;n de planta</strong></td><td>Pisos ep&oacute;xicos, muros sanitarios, drenajes, ventilaci&oacute;n, instalaci&oacute;n el&eacute;ctrica trif&aacute;sica</td><td class="r b">$15,000,000</td></tr>
+                <tr><td><strong>Dep&oacute;sito arriendo</strong></td><td>3 meses &times; $2,500,000 + primer mes</td><td class="r b">$10,000,000</td></tr>
+                <tr><td><strong>Capital de trabajo</strong></td><td>Fruta, empaques e insumos para 2 meses + n&oacute;mina</td><td class="r b">$12,000,000</td></tr>
+                <tr><td><strong>INVIMA</strong></td><td>Gratis para microempresas (Ley 2069/2020)</td><td class="r pos b">$0</td></tr>
+                <tr><td><strong>Registro PN + contrato participaci&oacute;n</strong></td><td>Matr&iacute;cula CCB ($150K) + contrato con Fabi&aacute;n ($200K abogado)</td><td class="r b">$350,000</td></tr>
+                <tr><td><strong>Bomberos</strong></td><td>Gratis (Acuerdo 927/2024)</td><td class="r pos b">$0</td></tr>
+                <tr><td><strong>Dise&ntilde;o marca + empaques</strong></td><td>Logo, etiquetas, dise&ntilde;o doypack (ya tenemos logo)</td><td class="r b">$2,000,000</td></tr>
+                <tr class="subtotal"><td colspan="2"><strong>SUBTOTAL ARRANQUE</strong></td><td class="r b">$39,500,000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid grid-3" style="margin-bottom:20px">
+        <div class="card" style="text-align:center;border:2px solid var(--c4)"><div class="card-label">Maquinaria</div><div class="card-val green">$78.4M</div></div>
+        <div class="card" style="text-align:center;border:2px solid var(--accent)"><div class="card-label">Arranque</div><div class="card-val accent">$39.5M</div></div>
+        <div class="card" style="text-align:center;border:2px solid var(--c1)"><div class="card-val" style="font-size:2rem">$117.9M</div><div class="card-sub">$59M por socio &mdash; dentro del presupuesto de $60M c/u</div></div>
+    </div>
+
+    <div class="callout green"><span class="callout-icon">&#128736;</span><div>
+        <h4>Proveedores a cotizar primero</h4>
+        <p><strong>COMEK</strong> (Bogot&aacute;, desde 1970): despulpadora + marmita + empacadora. Pedir paquete combo.<br>
+        <strong>Tecnomack</strong> (Cali): alternativa en despulpadoras y empacadoras. Ofrecen cursos t&eacute;cnicos.<br>
+        <strong>Tecnilac Willgo</strong> (Antioquia): para cuando se escale a HTST (pasteurizador tubular).<br>
+        <strong>Tedmaq</strong> (Bogot&aacute;): empacadora doypack autom&aacute;tica, ofrecen leasing.</p>
+    </div></div>
+
+    <div class="callout orange"><span class="callout-icon">&#9757;</span><div>
+        <h4>Ruta de escalamiento</h4>
+        <p><strong>Fase 1 (arranque):</strong> Marmita batch (63&deg;C &times; 30 min). Vida &uacute;til: 2-6 meses con refrigeraci&oacute;n. Suficiente para B2B local.<br>
+        <strong>Fase 2 (6-12 meses):</strong> Migrar a HTST tubular ($15-50M USD). Vida &uacute;til: 6 meses sin refrigeraci&oacute;n. Abre tiendas de barrio y exportaci&oacute;n.<br>
+        <strong>Fase 3 (A&ntilde;o 2+):</strong> UHT + empaque as&eacute;ptico. 12-24 meses de vida &uacute;til. Contenedor seco = exportaci&oacute;n.</p>
+    </div></div>
+</section>
+
+<!-- GASTOS FIJOS DETALLADOS -->
+<section id="fijos">
+    <span class="section-label">Detalle operativo</span>
+    <div class="section-title">Gastos fijos mensuales — desglose</div>
+    <p class="section-desc">$103.8M/a&ntilde;o en gastos fijos. Algunos son constantes, otros escalan con la producci&oacute;n. Arriendo $2.5M/mes.</p>
+
+    <div class="table-wrap" style="margin-bottom:20px">
+        <table>
+            <thead><tr><th>Gasto fijo</th><th>Detalle</th><th class="r">Mensual</th><th class="r">Anual</th><th>Nota</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Arriendo local</strong></td><td>150-200 m&sup2; zona industrial Bogot&aacute;</td><td class="r b">$2,500,000</td><td class="r">$30,000,000</td><td>Fijo. Fontib&oacute;n, Puente Aranda, Montevideo</td></tr>
+                <tr><td><strong>Agua</strong></td><td>Lavado fruta, limpieza equipos, sanitizaci&oacute;n</td><td class="r b">$400,000–$800,000</td><td class="r">$7,200,000</td><td>Escala con producci&oacute;n</td></tr>
+                <tr><td><strong>Energ&iacute;a el&eacute;ctrica</strong></td><td>Despulpadora, empacadora, cuarto fr&iacute;o, iluminaci&oacute;n</td><td class="r b">$500,000–$1,200,000</td><td class="r">$10,200,000</td><td>Cuarto fr&iacute;o consume ~40%</td></tr>
+                <tr><td><strong>Gas natural</strong></td><td>Marmita pasteurizadora (enchaquetada)</td><td class="r b">$300,000–$800,000</td><td class="r">$6,600,000</td><td>Escala con batches</td></tr>
+                <tr><td><strong>Contador</strong></td><td>Externo, RST + facturaci&oacute;n + n&oacute;mina</td><td class="r b">$800,000</td><td class="r">$9,600,000</td><td>Fijo. Puede subir al contratar m&aacute;s</td></tr>
+                <tr><td><strong>Internet + telefon&iacute;a</strong></td><td>Fibra + l&iacute;nea celular empresa + WhatsApp Business</td><td class="r b">$200,000</td><td class="r">$2,400,000</td><td>Fijo</td></tr>
+                <tr><td><strong>Seguros</strong></td><td>P&oacute;liza todo riesgo (equipos, local, RC, transporte)</td><td class="r b">$500,000</td><td class="r">$6,000,000</td><td>Fijo. Obligatorio para maquinaria</td></tr>
+                <tr><td><strong>Mantenimiento equipos</strong></td><td>Preventivo mensual + repuestos (cuchillas, empaques, motor)</td><td class="r b">$200,000–$500,000</td><td class="r">$3,900,000</td><td>Aumenta con uso</td></tr>
+                <tr><td><strong>Transporte / log&iacute;stica</strong></td><td>Despacho B2B + recogida fruta en Corabastos o finca</td><td class="r b">$500,000–$2,900,000</td><td class="r">$22,800,000</td><td>Escala con volumen de ventas</td></tr>
+                <tr><td><strong>Varios</strong></td><td>Papeler&iacute;a, aseo industrial, detergentes, toallas, dotaci&oacute;n EPP</td><td class="r b">$300,000</td><td class="r">$3,600,000</td><td>Relativamente fijo</td></tr>
+                <tr class="subtotal"><td colspan="2"><strong>TOTAL GASTOS FIJOS</strong></td><td class="r b">$6,200,000–$10,500,000</td><td class="r b">$103,800,000</td><td>Prom. $8,650,000/mes</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom:20px">
+        <div class="card">
+            <div style="font-weight:700;margin-bottom:10px;color:var(--c2)">&#128309; Costos fijos puros (no escalan)</div>
+            <div style="font-size:.85rem;color:var(--muted);line-height:1.8">
+                Arriendo: <strong>$2.5M</strong><br>
+                Contador: <strong>$0.8M</strong><br>
+                Internet: <strong>$0.2M</strong><br>
+                Seguros: <strong>$0.5M</strong><br>
+                Varios: <strong>$0.3M</strong><br>
+                <strong>Subtotal: $4.3M/mes ($51.6M/a&ntilde;o)</strong>
+            </div>
+        </div>
+        <div class="card">
+            <div style="font-weight:700;margin-bottom:10px;color:var(--accent)">&#128308; Semi-variables (escalan con producci&oacute;n)</div>
+            <div style="font-size:.85rem;color:var(--muted);line-height:1.8">
+                Agua: <strong>$0.4M–$0.8M</strong><br>
+                Electricidad: <strong>$0.5M–$1.2M</strong><br>
+                Gas: <strong>$0.3M–$0.8M</strong><br>
+                Mantenimiento: <strong>$0.2M–$0.5M</strong><br>
+                Transporte: <strong>$0.5M–$2.9M</strong><br>
+                <strong>Rango: $1.9M–$6.2M/mes</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout green"><span class="callout-icon">&#128161;</span><div>
+        <h4>El piso de costos fijos es $4.3M/mes</h4>
+        <p>Incluso sin producir un kg, FRUTT&Eacute; gasta <strong>$4.3M/mes</strong> en arriendo, contador, internet, seguros y varios. Con producci&oacute;n al 90% sube a ~$10.5M/mes. Esto define el <strong>punto de cierre:</strong> si los ingresos no cubren ni $4.3M mensuales, toca cerrar.</p>
+    </div></div>
+</section>
+
+<!-- 4 OPCIONES -->
+<section id="opciones">
+    <span class="section-label" style="color:var(--c4)">Caminos a la viabilidad</span>
+    <div class="section-title">4 opciones para hacer FRUTT&Eacute; rentable</div>
+    <p class="section-desc">Cada opci&oacute;n ataca el problema desde un &aacute;ngulo diferente. Pueden combinarse. Arriendo $2.5M/mes en todas las que usan planta propia.</p>
+
+    <div class="table-wrap" style="margin-bottom:32px">
+        <table>
+            <thead><tr><th></th><th class="r">Inversi&oacute;n</th><th class="r">Fruta</th><th class="r">Sabores</th><th class="r">Precio /kg</th><th class="r">Margen bruto</th><th class="r">Utilidad Y1</th><th class="r">Luigy Y1</th><th class="r">Fabi&aacute;n Y1</th><th class="r">Riesgo</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(231,76,60,.06)"><td><strong>&#128683; Corabastos puro</strong></td><td class="r">$120M</td><td class="r">Corab.</td><td class="r">6</td><td class="r">$10,427</td><td class="r neg">11.6%</td><td class="r neg b">-$135M</td><td class="r neg">—</td><td class="r neg">—</td><td class="r"><span class="tag tag-red">MUERTO</span></td></tr>
+                <tr style="height:6px"><td colspan="10"></td></tr>
+                <tr style="background:rgba(39,174,96,.06)"><td><strong>A. Compra fincas</strong></td><td class="r">$120M</td><td class="r pos">Finca -40%</td><td class="r">6</td><td class="r">$10,427</td><td class="r pos b">41.8%</td><td class="r pos b">$81M</td><td class="r pos">$70M</td><td class="r pos">$41M</td><td class="r"><span class="tag tag-green">Medio</span></td></tr>
+                <tr style="background:rgba(240,129,45,.06)"><td><strong>B. Top 3 + premium</strong></td><td class="r">$120M</td><td class="r">Corab.</td><td class="r">3</td><td class="r b">$12,500</td><td class="r b" style="color:var(--accent)">31.6%</td><td class="r b" style="color:var(--accent)">$48M</td><td class="r">$44M</td><td class="r">$24M</td><td class="r"><span class="tag tag-orange">Alto</span></td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td><strong>C. Maquila</strong></td><td class="r pos b">$25M</td><td class="r">Corab.</td><td class="r">3</td><td class="r b">$12,500</td><td class="r pos">22.4%</td><td class="r pos">$26M</td><td class="r">$28M</td><td class="r">$13M</td><td class="r"><span class="tag tag-orange">Medio</span></td></tr>
+                <tr style="background:rgba(39,174,96,.1)"><td><strong>D. Fincas + top 3 + premium</strong></td><td class="r">$120M</td><td class="r pos">Finca -40%</td><td class="r">3</td><td class="r b">$12,500</td><td class="r pos b">54.2%</td><td class="r pos b">$194M</td><td class="r pos b">$126M</td><td class="r pos b">$97M</td><td class="r"><span class="tag tag-green">Medio</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- DETALLE OPCIONES -->
+<section id="detalle">
+    <span class="section-label">Detalle</span>
+    <div class="section-title">C&oacute;mo funciona cada opci&oacute;n</div>
+
+    <div class="grid grid-2" style="margin-bottom:20px">
+        <div class="option-card" style="border-color:var(--c4)">
+            <div class="option-header" style="background:var(--c2);color:#fff"><h3>A. Compra directa fincas</h3><span class="tag tag-green">RECOMENDADA</span></div>
+            <div class="option-body">
+                <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Fruta 40% bajo Corabastos. 6 sabores. Precios de mercado. <strong>Est&aacute;ndar en la industria.</strong></p>
+                <div class="option-row"><span class="label">Fruta promedio</span><span class="val pos">$3,065/kg (-40% Corab.)</span></div>
+                <div class="option-row"><span class="label">Costo variable</span><span class="val">$6,069/kg</span></div>
+                <div class="option-row"><span class="label">Precio venta</span><span class="val">$10,427/kg (mercado)</span></div>
+                <div class="option-row"><span class="label">Margen bruto</span><span class="val pos">41.8%</span></div>
+                <div class="option-row"><span class="label">Ingresos Y1</span><span class="val">$796M</span></div>
+                <div class="option-row"><span class="label">Utilidad neta</span><span class="val pos b">$81M</span></div>
+                <div class="option-row"><span class="label">Luigy ($29M sal + 50%)</span><span class="val pos">$70M ($5.8M/mes)</span></div>
+                <div class="option-row"><span class="label">Fabi&aacute;n (50%)</span><span class="val pos">$41M ($3.4M/mes)</span></div>
+                <div class="option-row"><span class="label">Payback</span><span class="val">Luigy ~10m &middot; Fabi&aacute;n ~17m</span></div>
+                <div class="option-row"><span class="label">Prerequisito</span><span class="val neg">Contratos finca &le; $3,650/kg</span></div>
+            </div>
+        </div>
+
+        <div class="option-card" style="border-color:var(--accent)">
+            <div class="option-header" style="background:var(--accent);color:#fff"><h3>B. Top 3 + premium</h3><span class="tag" style="background:rgba(255,255,255,.2);color:#fff">SIN FINCA</span></div>
+            <div class="option-body">
+                <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Solo guayaba/guan&aacute;bana/maracuy&aacute;. B2B +25%, B2C +50% sobre competencia. Funciona <strong>con Corabastos</strong>.</p>
+                <div class="option-row"><span class="label">Sabores</span><span class="val">3 (top margen)</span></div>
+                <div class="option-row"><span class="label">Costo variable</span><span class="val">$8,646/kg (Corab.)</span></div>
+                <div class="option-row"><span class="label">Precio venta</span><span class="val b">$12,500/kg (+25/+50%)</span></div>
+                <div class="option-row"><span class="label">Margen bruto</span><span class="val" style="color:var(--accent)">31.6%</span></div>
+                <div class="option-row"><span class="label">Utilidad neta</span><span class="val" style="color:var(--accent)">$48M</span></div>
+                <div class="option-row"><span class="label">Luigy ($20M sal + 50%)</span><span class="val">$44M ($3.7M/mes)</span></div>
+                <div class="option-row"><span class="label">Fabi&aacute;n (50%)</span><span class="val">$24M ($2.0M/mes)</span></div>
+                <div class="option-row"><span class="label">Riesgo</span><span class="val neg">Precio alto para marca nueva</span></div>
+            </div>
+        </div>
+
+        <div class="option-card" style="border-color:var(--c5)">
+            <div class="option-header" style="background:var(--c3);color:#fff"><h3>C. Maquila (sin planta)</h3><span class="tag" style="background:rgba(255,255,255,.2);color:#fff">$12.5M C/U</span></div>
+            <div class="option-body">
+                <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Copacker produce. FRUTT&Eacute; vende. <strong>Inversi&oacute;n $25M</strong> ($12.5M c/u). Sin arriendo ni equipos.</p>
+                <div class="option-row"><span class="label">Inversi&oacute;n</span><span class="val pos b">$25M ($12.5M c/u)</span></div>
+                <div class="option-row"><span class="label">Maquila</span><span class="val">~$1,500/kg procesamiento</span></div>
+                <div class="option-row"><span class="label">Producci&oacute;n</span><span class="val">~50,000 kg/a&ntilde;o</span></div>
+                <div class="option-row"><span class="label">Costo variable</span><span class="val">$9,695/kg (Corab. + maquila)</span></div>
+                <div class="option-row"><span class="label">Precio venta</span><span class="val b">$12,500/kg</span></div>
+                <div class="option-row"><span class="label">Utilidad neta</span><span class="val pos">$26M</span></div>
+                <div class="option-row"><span class="label">Luigy ($15M sal + 50%)</span><span class="val">$28M</span></div>
+                <div class="option-row"><span class="label">Fabi&aacute;n</span><span class="val">$13M (payback ~12m)</span></div>
+                <div class="option-row"><span class="label">Se elimina</span><span class="val pos">Arriendo, equipos, operario</span></div>
+            </div>
+        </div>
+
+        <div class="option-card" style="border-color:var(--c4);box-shadow:0 0 0 3px rgba(39,174,96,.2)">
+            <div class="option-header" style="background:var(--c1);color:#fff"><h3>D. Fincas + top 3 + premium</h3><span class="tag tag-green">M&Aacute;X RETORNO</span></div>
+            <div class="option-body">
+                <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Lo mejor de todo: fruta barata + solo sabores top + precio premium. <strong>El escenario ideal.</strong></p>
+                <div class="option-row"><span class="label">Fruta finca top 3</span><span class="val pos">$2,615/kg prom.</span></div>
+                <div class="option-row"><span class="label">Costo variable</span><span class="val pos">$5,378/kg</span></div>
+                <div class="option-row"><span class="label">Precio venta</span><span class="val b">$12,500/kg</span></div>
+                <div class="option-row"><span class="label">Margen bruto</span><span class="val pos b">54.2%</span></div>
+                <div class="option-row"><span class="label">Utilidad neta</span><span class="val pos b" style="font-size:1.1rem">$194M</span></div>
+                <div class="option-row"><span class="label">Luigy ($29M sal + 50%)</span><span class="val pos b">$126M ($10.5M/mes)</span></div>
+                <div class="option-row"><span class="label">Fabi&aacute;n (50%)</span><span class="val pos b">$97M ($8.1M/mes)</span></div>
+                <div class="option-row"><span class="label">Payback</span><span class="val pos">Luigy ~5m &middot; Fabi&aacute;n ~7m</span></div>
+                <div class="option-row"><span class="label">Necesita</span><span class="val" style="color:var(--accent)">Fincas + que mercado acepte premium</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout green"><span class="callout-icon">&#127942;</span><div>
+        <h4>Estrategia recomendada: A &rarr; D</h4>
+        <p><strong>Fase 1:</strong> Asegurar contratos con fincas. Arrancar con Opci&oacute;n A (6 sabores, precio mercado). Rentable desde d&iacute;a 1 — $81M neto.<br>
+        <strong>Fase 2:</strong> Testear pricing premium con guayaba, guan&aacute;bana y maracuy&aacute;. Si funciona, migrar a Opci&oacute;n D — $194M neto.<br>
+        <strong>Plan B:</strong> Si no hay $60M por socio, arrancar con Opci&oacute;n C (maquila) a $12.5M c/u. Menor retorno pero riesgo controlado.</p>
+    </div></div>
+</section>
+
+<!-- PRÓXIMOS PASOS -->
+<section id="pasos">
+    <span class="section-label">Acci&oacute;n inmediata</span>
+    <div class="section-title">Antes de invertir un peso</div>
+
+    <div class="grid grid-2">
+        <div class="card" style="border:2px solid var(--red)">
+            <div style="font-weight:700;margin-bottom:10px;color:var(--red)">&#9888; CR&Iacute;TICO — Validar primero</div>
+            <div style="font-size:.85rem;color:var(--muted);line-height:1.8">
+                1. <strong>Cotizar fruta con 5+ fincas</strong> (Tolima, Valle, Cundinamarca)<br>
+                2. <strong>Confirmar IVA con DIAN</strong> — 5% vs 19%<br>
+                3. <strong>Cotizar 2+ maquilas</strong> (plan B)<br>
+                4. <strong>Validar precios B2B</strong> con 15 restaurantes
+            </div>
+        </div>
+        <div class="card" style="border:2px solid var(--c4)">
+            <div style="font-weight:700;margin-bottom:10px;color:var(--c3)">&#10004; Precio m&aacute;ximo de fruta</div>
+            <div style="font-size:.85rem;color:var(--muted);line-height:1.8">
+                <strong>Breakeven:</strong> fruta m&aacute;x $3,650/kg promedio<br>
+                <strong>Para Opc. A ($81M):</strong> fruta &le; $3,065/kg<br>
+                <strong>Para Opc. D ($194M):</strong> fruta &le; $2,615/kg + premium<br><br>
+                Si fincas no bajan de $4,000/kg &rarr; <strong>Opc. C (maquila)</strong> o <strong>solo guayaba</strong> ($3,214 en Corabastos ya funciona)
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer>FRUTT&Eacute; &middot; Escenario B &middot; Corabastos DANE Mar 2025 &middot; Arriendo $2.5M/mes &middot; Sin IVA<br><a href="viabilidad-financiera.html">&larr; Dashboard original</a></footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&s.target.classList.add('visible')})},{threshold:.15});
+document.querySelectorAll('section:not(.hero)').forEach(s=>obs.observe(s));
+const secs=document.querySelectorAll('section[id]'),navs=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)c=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body>
+</html>

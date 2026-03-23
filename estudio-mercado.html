@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Mercado — Pulpa de Fruta Pasteurizada en Colombia</title>
+    <style>
+        :root {
+            --green-dark: #1a472a;
+            --green-mid: #2d6a4f;
+            --green-light: #40916c;
+            --green-pale: #b7e4c7;
+            --green-bg: #d8f3dc;
+            --accent: #e8871e;
+            --accent-light: #fdebd0;
+            --text: #1a1a2e;
+            --text-light: #555;
+            --bg: #fafdf7;
+            --card-bg: #ffffff;
+            --border: #e0e8e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 50%, var(--green-light) 100%);
+            color: white;
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .hero .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            font-weight: 300;
+        }
+        .hero .tagline {
+            margin-top: 16px;
+            font-size: 1rem;
+            opacity: 0.75;
+            position: relative;
+            font-style: italic;
+        }
+        .hero .authors {
+            margin-top: 24px;
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+        }
+        .hero .date {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--green-pale);
+            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav a {
+            text-decoration: none;
+            color: var(--green-mid);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .nav a:hover {
+            background: var(--green-bg);
+            border-color: var(--green-pale);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: linear-gradient(135deg, var(--green-bg), #f0faf0);
+            border: 2px solid var(--green-pale);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 48px;
+        }
+        .executive-summary h2 {
+            color: var(--green-dark);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        .verdict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .verdict-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .verdict-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--green-dark);
+        }
+        .verdict-card .label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 48px;
+        }
+        section h2 {
+            color: var(--green-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--green-pale);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        section h2 .num {
+            background: var(--green-dark);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        section h3 {
+            color: var(--green-mid);
+            font-size: 1.15rem;
+            margin: 24px 0 12px;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .card.highlight {
+            border-left: 4px solid var(--accent);
+            background: var(--accent-light);
+        }
+        .card.key-insight {
+            border-left: 4px solid var(--green-mid);
+            background: var(--green-bg);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+        thead {
+            background: var(--green-dark);
+            color: white;
+        }
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        tbody tr:hover {
+            background: var(--green-bg);
+        }
+        tbody tr:nth-child(even) {
+            background: #f8fdf8;
+        }
+        tbody tr:nth-child(even):hover {
+            background: var(--green-bg);
+        }
+
+        /* Stat Row */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--green-dark);
+        }
+        .stat-box .desc {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Investment Tiers */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .tier-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tier-card.recommended {
+            border-color: var(--accent);
+        }
+        .tier-card.recommended::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: 12px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 36px;
+            transform: rotate(45deg);
+        }
+        .tier-card h4 {
+            color: var(--green-dark);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .tier-card .price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--green-mid);
+        }
+        .tier-card .price small {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+        .tier-card ul {
+            margin-top: 12px;
+            padding-left: 18px;
+            font-size: 0.88rem;
+            color: var(--text-light);
+        }
+        .tier-card ul li { margin-bottom: 4px; }
+
+        /* Comparison boxes */
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0;
+            align-items: stretch;
+            margin: 20px 0;
+        }
+        .vs-box {
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .vs-box.frozen {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+        }
+        .vs-box.pasteurized {
+            background: #e8f5e9;
+            border: 2px solid #66bb6a;
+        }
+        .vs-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            padding: 0 16px;
+        }
+        .vs-box h4 { margin-bottom: 10px; font-size: 1rem; }
+        .vs-box ul { padding-left: 18px; font-size: 0.88rem; }
+        .vs-box li { margin-bottom: 6px; }
+
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .process-step {
+            background: var(--green-mid);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .process-step.core {
+            background: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(232,135,30,0.3);
+        }
+        .process-arrow {
+            color: var(--green-light);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Bar chart */
+        .bar-chart {
+            margin: 20px 0;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 12px;
+        }
+        .bar-label {
+            width: 140px;
+            font-size: 0.85rem;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .bar-track {
+            flex: 1;
+            background: #e8e8e8;
+            border-radius: 6px;
+            height: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: white;
+            transition: width 1s ease;
+        }
+
+        /* Sources */
+        .sources {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        .sources h4 {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .sources a {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--green-mid);
+            margin-bottom: 4px;
+            text-decoration: none;
+        }
+        .sources a:hover { text-decoration: underline; }
+
+        /* SWOT */
+        .swot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .swot-cell {
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .swot-cell h4 { margin-bottom: 10px; font-size: 1rem; }
+        .swot-cell ul { padding-left: 18px; font-size: 0.88rem; }
+        .swot-cell li { margin-bottom: 6px; }
+        .swot-s { background: #e8f5e9; border: 1px solid #a5d6a7; }
+        .swot-w { background: #fff3e0; border: 1px solid #ffcc80; }
+        .swot-o { background: #e3f2fd; border: 1px solid #90caf9; }
+        .swot-t { background: #fce4ec; border: 1px solid #ef9a9a; }
+
+        /* Roadmap */
+        .roadmap {
+            position: relative;
+            padding-left: 40px;
+            margin: 24px 0;
+        }
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--green-pale);
+        }
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 20px;
+            width: 14px;
+            height: 14px;
+            background: var(--green-mid);
+            border-radius: 50%;
+            border: 3px solid var(--green-pale);
+        }
+        .roadmap-item .phase {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .roadmap-item h4 {
+            font-size: 1rem;
+            color: var(--green-dark);
+            margin: 4px 0 8px;
+        }
+        .roadmap-item p {
+            font-size: 0.88rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--green-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+        }
+        footer strong {
+            color: white;
+        }
+
+        /* Table responsive wrapper */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+        }
+        .table-wrap table {
+            margin: 0;
+            min-width: 500px;
+        }
+
+        /* ROI Section */
+        .roi-scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .roi-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .roi-card.base { border-color: var(--accent); }
+        .roi-card h4 {
+            font-size: 1rem;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+        .roi-card .payback {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin: 12px 0;
+        }
+        .roi-card .payback small {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+        .roi-card table {
+            font-size: 0.82rem;
+            min-width: auto;
+        }
+        .roi-card td { padding: 4px 8px; }
+        .roi-card td:last-child { text-align: right; font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding: 50px 20px 40px; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero .subtitle { font-size: 1rem; }
+            .hero .tagline { font-size: 0.85rem; }
+            .container { padding: 20px 12px; }
+            .nav { padding: 10px 12px; gap: 4px; }
+            .nav a { font-size: 0.72rem; padding: 4px 8px; }
+            section h2 { font-size: 1.2rem; }
+            section h2 .num { width: 30px; height: 30px; font-size: 0.8rem; }
+            section h3 { font-size: 1rem; }
+            .executive-summary { padding: 20px 16px; }
+            .executive-summary h2 { font-size: 1.3rem; }
+            .executive-summary p { font-size: 0.88rem; }
+            .verdict-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .verdict-card { padding: 14px 10px; }
+            .verdict-card .number { font-size: 1.4rem; }
+            .verdict-card .label { font-size: 0.75rem; }
+            .stat-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .stat-box { padding: 14px 10px; }
+            .stat-box .value { font-size: 1.2rem; }
+            .stat-box .desc { font-size: 0.75rem; }
+            .swot-grid { grid-template-columns: 1fr; }
+            .bar-label { width: 80px; font-size: 0.72rem; }
+            .bar-fill { font-size: 0.68rem; padding-left: 6px; }
+            .bar-track { height: 24px; }
+            .vs-grid { grid-template-columns: 1fr; }
+            .vs-divider { padding: 8px 0; font-size: 1.2rem; }
+            .tier-grid { grid-template-columns: 1fr; }
+            .tier-card .price { font-size: 1.1rem; }
+            .roi-scenarios { grid-template-columns: 1fr; }
+            .card { padding: 16px; }
+            .process-flow { gap: 4px; }
+            .process-step { padding: 8px 10px; font-size: 0.75rem; }
+            .process-arrow { font-size: 1rem; }
+            .roadmap { padding-left: 32px; }
+            .roadmap-item { padding: 12px 14px; }
+            .roadmap-item::before { left: -25px; width: 12px; height: 12px; }
+            .roadmap::before { left: 11px; }
+            .sources { padding: 14px; }
+            .sources a { font-size: 0.72rem; }
+            footer { padding: 20px 16px; font-size: 0.78rem; }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 1.3rem; }
+            .verdict-grid { grid-template-columns: 1fr; }
+            .stat-row { grid-template-columns: 1fr; }
+            .nav a { font-size: 0.65rem; padding: 3px 6px; }
+        }
+
+        /* Print */
+        @media print {
+            .nav { display: none; }
+            .hero { padding: 40px 20px; }
+            section { page-break-inside: avoid; }
+            .table-wrap { overflow: visible; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+    <h1>Pulpa de Fruta Pasteurizada</h1>
+    <div class="subtitle">Estudio de Viabilidad de Mercado &mdash; Colombia</div>
+    <div class="tagline">Sin cadena de fr&iacute;o. Larga vida. Un mercado sub-atendido.</div>
+    <div class="authors">Luigy Roso &amp; Fabi&aacute;n</div>
+    <div class="date">Marzo 2026</div>
+</header>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+    <a href="#resumen">Resumen</a>
+    <a href="#tesis">Tesis Central</a>
+    <a href="#mercado">Mercado</a>
+    <a href="#competencia">Competencia</a>
+    <a href="#proceso">Proceso y Equipos</a>
+    <a href="#materia-prima">Materia Prima</a>
+    <a href="#distribucion">Distribuci&oacute;n</a>
+    <a href="#exportacion">Exportaci&oacute;n</a>
+    <a href="#regulacion">Regulaci&oacute;n</a>
+    <a href="#financiero">Financiero</a>
+    <a href="#roi">ROI</a>
+    <a href="#swot">DOFA</a>
+    <a href="#roadmap">Hoja de Ruta</a>
+    <a href="#equipos-minimos">Equipos M&iacute;nimos</a>
+</nav>
+
+<div class="container">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section id="resumen" class="executive-summary">
+        <h2>Resumen Ejecutivo</h2>
+        <p>El mercado colombiano de pulpa de fruta tropical vale <strong>USD $447.5M</strong> y crece al <strong>4.8% anual</strong>, pero la inmensa mayor&iacute;a de las 34,000+ empresas venden pulpa <strong>congelada</strong>. La pulpa <strong>pasteurizada de larga vida</strong> (sin cadena de fr&iacute;o) es un nicho sub-atendido: solo un pu&ntilde;ado de empresas lo ofrecen, siendo Alimentos SAS la primera en hacerlo apenas en 2012. Eliminar la cadena de fr&iacute;o &mdash;que representa el <strong>25-35% de los costos log&iacute;sticos</strong> en Colombia&mdash; abre acceso a ~500,000 tiendas de barrio sin congelador, zonas rurales, y exportaci&oacute;n en contenedor seco (ahorro ~50% en env&iacute;o). La inversi&oacute;n es mayor que para congelada, pero la ventaja competitiva y los m&aacute;rgenes de distribuci&oacute;n lo justifican.</p>
+
+        <div class="verdict-grid">
+            <div class="verdict-card">
+                <div class="number">USD $447.5M</div>
+                <div class="label">Mercado pulpa tropical Colombia</div>
+            </div>
+            <div class="verdict-card">
+                <div class="number" style="color:var(--accent);">&lt;10</div>
+                <div class="label">Competidores directos en pasteurizada larga vida</div>
+            </div>
+            <div class="verdict-card">
+                <div class="number">6-24 meses</div>
+                <div class="label">Vida &uacute;til a temperatura ambiente</div>
+            </div>
+            <div class="verdict-card">
+                <div class="number">-25 a -35%</div>
+                <div class="label">Ahorro en costos log&iacute;sticos vs. congelada</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESIS CENTRAL -->
+    <section id="tesis">
+        <h2><span class="num">1</span> Tesis Central: &iquest;Por qu&eacute; Pasteurizada y no Congelada?</h2>
+
+        <p style="margin-bottom:20px;">La gran mayor&iacute;a del mercado colombiano de pulpa opera en <strong>congelada</strong>. Competir ah&iacute; significa pelear contra 34,000+ empresas. Pasteurizada de larga vida es una <strong>categor&iacute;a diferente</strong> con econom&iacute;a, log&iacute;stica y din&aacute;mica competitiva fundamentalmente distintas.</p>
+
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Atributo</th><th>Pulpa Congelada</th><th>Pulpa Pasteurizada (Larga Vida)</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Almacenamiento</strong></td>
+                    <td>-18&deg;C (requiere congelador)</td>
+                    <td>Temperatura ambiente, hasta 24&deg;C</td>
+                </tr>
+                <tr>
+                    <td><strong>Vida &uacute;til</strong></td>
+                    <td>12-24 meses (congelaci&oacute;n continua)</td>
+                    <td>6-24 meses a temperatura ambiente</td>
+                </tr>
+                <tr>
+                    <td><strong>Cadena de fr&iacute;o</strong></td>
+                    <td>S&Iacute; &mdash; de producci&oacute;n a consumidor</td>
+                    <td>NO &mdash; se almacena/env&iacute;a como producto seco</td>
+                </tr>
+                <tr>
+                    <td><strong>Descongelaci&oacute;n</strong></td>
+                    <td>S&Iacute; &mdash; hay que planificar</td>
+                    <td>NO &mdash; lista para usar de inmediato</td>
+                </tr>
+                <tr>
+                    <td><strong>Costo energ&eacute;tico</strong></td>
+                    <td>ALTO &mdash; refrigeraci&oacute;n continua</td>
+                    <td>M&Iacute;NIMO &mdash; bodega convencional</td>
+                </tr>
+                <tr>
+                    <td><strong>Costo log&iacute;stico</strong></td>
+                    <td>25-35% de los costos totales</td>
+                    <td>Log&iacute;stica seca est&aacute;ndar (fracci&oacute;n del costo)</td>
+                </tr>
+                <tr>
+                    <td><strong>Alcance de distribuci&oacute;n</strong></td>
+                    <td>Limitado a infraestructura de fr&iacute;o</td>
+                    <td>Cualquier lugar: rural, tiendas de barrio, export</td>
+                </tr>
+                <tr>
+                    <td><strong>Riesgo por corte de luz</strong></td>
+                    <td>Producto se pierde</td>
+                    <td>Cero riesgo</td>
+                </tr>
+                <tr>
+                    <td><strong>Costo de empaque</strong></td>
+                    <td>Bajo (bolsa polietileno)</td>
+                    <td>Mayor (doypack, as&eacute;ptico, Tetra Pak)</td>
+                </tr>
+                <tr>
+                    <td><strong>Inversi&oacute;n de capital</strong></td>
+                    <td>Menor (congelador + empaque b&aacute;sico)</td>
+                    <td>Mayor (pasteurizador + llenadora as&eacute;ptica)</td>
+                </tr>
+                <tr>
+                    <td><strong>Competidores en Colombia</strong></td>
+                    <td>34,000+ empresas</td>
+                    <td>&lt;10 empresas</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <div class="card key-insight" style="margin-top:20px;">
+            <strong>Hallazgo clave:</strong> Seg&uacute;n estudios (Wiley, Janzantti 2014), la pasteurizaci&oacute;n NO afecta significativamente las caracter&iacute;sticas sensoriales ni fisicoqu&iacute;micas de la pulpa frente a la fresca, excepto una reducci&oacute;n de vitamina C. El sabor se preserva.
+        </div>
+
+        <h3>Ventaja cuantificada en distribuci&oacute;n</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Factor</th><th>Congelada</th><th>Pasteurizada</th><th>Ventaja</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Transporte</strong></td><td>Cami&oacute;n refrigerado</td><td>Cami&oacute;n seco est&aacute;ndar</td><td>30-50% menor costo</td></tr>
+                <tr><td><strong>Bodegaje</strong></td><td>Congelador industrial (-18&deg;C)</td><td>Bodega convencional</td><td>60-80% menor costo</td></tr>
+                <tr><td><strong>Tiendas de barrio</strong></td><td>Casi imposible (no hay congelador)</td><td>Producto de estante perfecto</td><td>Acceso a 500,000+ tiendas</td></tr>
+                <tr><td><strong>Exportaci&oacute;n</strong></td><td>Contenedor refrigerado (~2x costo)</td><td>Contenedor seco est&aacute;ndar</td><td>~50% ahorro en env&iacute;o</td></tr>
+                <tr><td><strong>Merma/desperdicio</strong></td><td>Alto riesgo si se rompe cadena</td><td>Riesgo m&iacute;nimo</td><td>Menor tasa de p&eacute;rdida</td></tr>
+                <tr><td><strong>Onboarding de retailers</strong></td><td>Necesita espacio en congelador (limitado, caro)</td><td>Espacio en estante (abundante, barato)</td><td>M&aacute;s f&aacute;cil entrar a tiendas</td></tr>
+            </tbody>
+        </table></div>
+
+        <div class="card highlight" style="margin-top:20px;">
+            <strong>Dato cr&iacute;tico:</strong> En Colombia, la cadena de fr&iacute;o representa un mercado de ~USD $2,300M. Hasta un 40% de productos perecederos se pierde, del cual 20-25% es por fallas en la log&iacute;stica de fr&iacute;o. <strong>Eliminar esa dependencia es la ventaja competitiva central del negocio.</strong>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.mordorintelligence.com/industry-reports/colombia-cold-chain-logistics-market" target="_blank">Mordor Intelligence &mdash; Colombia Cold Chain Market</a>
+            <a href="https://www.inspirafarms.com/cold_chain_colombia/" target="_blank">InspiraFarms &mdash; Cold chain in Colombia</a>
+            <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1745-4549.2012.00772.x" target="_blank">Wiley &mdash; Shelf life pasteurized passion fruit pulp</a>
+        </div>
+    </section>
+
+    <!-- 2. MERCADO -->
+    <section id="mercado">
+        <h2><span class="num">2</span> Tama&ntilde;o del Mercado</h2>
+
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="value">USD $447.5M</div>
+                <div class="desc">Pulpa tropical concentrada Colombia</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">4.8%</div>
+                <div class="desc">CAGR mercado colombiano</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">USD $5.9B</div>
+                <div class="desc">Mercado global pur&eacute; de fruta 2025</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">USD $10B</div>
+                <div class="desc">Proyecci&oacute;n global 2034</div>
+            </div>
+        </div>
+
+        <h3>Mercado Global de Pulpa de Fruta</h3>
+        <div class="bar-chart">
+            <div class="bar-row">
+                <span class="bar-label">2024</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:15%;background:var(--green-light);">USD $1.52B</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">2025</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:21%;background:var(--green-mid);">USD $2.1B</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">2032</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:31%;background:var(--green-mid);">USD $3.06B</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">2035+</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:100%;background:var(--green-dark);">USD $10B+</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card key-insight">
+            <strong>Segmento as&eacute;ptico:</strong> El segmento de pur&eacute; de fruta as&eacute;ptico crece a <strong>5.6% CAGR</strong>, impulsado por clean label, reducci&oacute;n de desperdicio y flexibilidad operacional. Es el segmento de mayor crecimiento dentro del mercado de pulpa.
+        </div>
+
+        <h3>Tendencias de Consumo</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li><strong>Frutas m&aacute;s consumidas en Colombia:</strong> Aguacate (11%), mango (9.3%), banano (8.8%)</li>
+                <li><strong>Frutas trending para pulpa/bebidas:</strong> Lulo, maracuy&aacute;, guan&aacute;bana &mdash; en bebidas funcionales, cervezas artesanales, smoothies</li>
+                <li>Demanda creciente de productos <strong>naturales, sin conservantes, clean label</strong></li>
+                <li><strong>Exportaciones de fruta Colombia 2024:</strong> USD $1,822M (+34.9%)</li>
+            </ul>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.cognitivemarketresearch.com/tropical-fruit-pulp-concentrate-market-report" target="_blank">Cognitive Market Research &mdash; Tropical Fruit Pulp Concentrate</a>
+            <a href="https://www.fortunebusinessinsights.com/fruit-puree-market-104352" target="_blank">Fortune Business Insights &mdash; Fruit Puree Market</a>
+            <a href="https://asepticfruitpurees.com/blogs/news/planning-ahead-2026-fruit-puree-trends-for-food-beverage-manufacturers" target="_blank">Aseptic Fruit Purees &mdash; 2026 Trends</a>
+        </div>
+    </section>
+
+    <!-- 3. COMPETENCIA -->
+    <section id="competencia">
+        <h2><span class="num">3</span> Competencia</h2>
+
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="value">34,268</div>
+                <div class="desc">Empresas de pulpa de fruta (casi todas congelada)</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" style="color:var(--accent);">&lt;10</div>
+                <div class="desc">Empresas con pulpa pasteurizada larga vida</div>
+            </div>
+        </div>
+
+        <h3>Competidores Directos: Pulpa Pasteurizada / Larga Vida</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Empresa</th><th>Producto</th><th>Empaque</th><th>Vida &Uacute;til</th><th>Detalle Clave</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Alimentos SAS</strong><br><small>Bogot&aacute;</small></td>
+                    <td>Pulpa as&eacute;ptica, pur&eacute;s, concentrados</td>
+                    <td>As&eacute;ptico alta barrera + congelado</td>
+                    <td>12+ meses ambiente</td>
+                    <td>Planta 5,000 m&sup2; Puente Aranda. 900-1,200 ton/mes. <strong>PRIMERA empresa en Colombia con pulpa as&eacute;ptica larga vida</strong> (2012). Exporta globalmente.</td>
+                </tr>
+                <tr>
+                    <td><strong>Frutysabor</strong></td>
+                    <td>"Pulpa larga vida" natural</td>
+                    <td>Doypack</td>
+                    <td>6 meses a &lt;24&deg;C</td>
+                    <td>Durazno, pi&ntilde;a, lulo y otras. 1000g. Sin aditivos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ecorg&aacute;nicos de Colombia</strong></td>
+                    <td>Pasteurizada + esterilizada</td>
+                    <td>Pouches</td>
+                    <td>No especificada</td>
+                    <td>100% natural. L&iacute;nea pasteurizada (13 frutas) y esterilizada (5 frutas).</td>
+                </tr>
+                <tr>
+                    <td><strong>Nutrium</strong><br><small>Ardila L&uuml;lle</small></td>
+                    <td>L&iacute;nea as&eacute;ptica (export) + congelada</td>
+                    <td>Tambores as&eacute;pticos 65 gal</td>
+                    <td>12+ meses</td>
+                    <td>6,000 ton/a&ntilde;o export. Planta COP $55,000M. 50,000 ton/a&ntilde;o. As&eacute;ptico solo para export B2B.</td>
+                </tr>
+                <tr>
+                    <td><strong>Darmanex</strong></td>
+                    <td>Pulpa pasteurizada sin az&uacute;car</td>
+                    <td>No especificado</td>
+                    <td>No especificada</td>
+                    <td>Orientada a exportaci&oacute;n (listada en B2Brazil).</td>
+                </tr>
+                <tr>
+                    <td><strong>Fast Fruit SAS</strong></td>
+                    <td>Pulpa pasteurizada</td>
+                    <td>Varios</td>
+                    <td>Vida extendida</td>
+                    <td>HACCP, ISO 9001, INVIMA. 100% natural.</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <div class="card highlight">
+            <strong>Oportunidad clara:</strong> Alimentos SAS fue la PRIMERA en empacar pulpa as&eacute;ptica larga vida en Colombia, usando tecnolog&iacute;a de la industria l&aacute;ctea, apenas en <strong>2012</strong>. La categor&iacute;a a&uacute;n es joven. Nutrium usa as&eacute;ptico solo para export industrial, no retail. <strong>El espacio de pulpa pasteurizada retail para el consumidor colombiano est&aacute; pr&aacute;cticamente vac&iacute;o.</strong>
+        </div>
+
+        <h3>Competencia Indirecta: Pulpa Congelada (Retail)</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Marca</th><th>Presencia</th><th>Detalle</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Frutinal</strong></td><td>Jumbo, supermercados</td><td>L&iacute;der retail congelada. 250g y 500g.</td></tr>
+                <tr><td><strong>Freskifruta</strong></td><td>Jumbo, cadenas</td><td>Amplio portafolio congelado.</td></tr>
+                <tr><td><strong>Frugy S.A.</strong></td><td>Eje Cafetero</td><td>36+ a&ntilde;os. Congelada regional.</td></tr>
+                <tr><td><strong>Marca propia Cencosud</strong></td><td>Jumbo</td><td>Congelada precio bajo ($13,960/kg).</td></tr>
+                <tr><td colspan="3" style="text-align:center;color:var(--text-light);font-style:italic;">...y 34,000+ empresas m&aacute;s compitiendo en congelada</td></tr>
+            </tbody>
+        </table></div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.alimentossas.com/Quienes-Somos" target="_blank">Alimentos SAS &mdash; Qui&eacute;nes Somos</a>
+            <a href="https://www.frutysabor.com/productos/pulpa-de-fruta-natural-larga-vida/16" target="_blank">Frutysabor &mdash; Larga vida</a>
+            <a href="https://ecorganicosdecolombia.com/pulpa-de-fruta-pasteurizada/" target="_blank">Ecorg&aacute;nicos de Colombia</a>
+            <a href="https://empresite.eleconomistaamerica.co/Actividad/PULPA-DE-FRUTA/" target="_blank">Empresite &mdash; 34,268 empresas</a>
+        </div>
+    </section>
+
+    <!-- 4. PROCESO Y EQUIPOS -->
+    <section id="proceso">
+        <h2><span class="num">4</span> Proceso de Pasteurizaci&oacute;n y Equipos</h2>
+
+        <h3>Flujo de Producci&oacute;n</h3>
+        <div class="process-flow">
+            <div class="process-step">Recepci&oacute;n de fruta</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step">Selecci&oacute;n y lavado</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step">Pelado / Cortado</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step">Despulpado</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step core">PASTEURIZACI&Oacute;N</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step">Enfriamiento</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step core">LLENADO AS&Eacute;PTICO</div>
+            <span class="process-arrow">&rarr;</span>
+            <div class="process-step">Almac&eacute;n seco</div>
+        </div>
+
+        <h3>M&eacute;todos de Pasteurizaci&oacute;n</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>M&eacute;todo</th><th>Temperatura</th><th>Tiempo</th><th>Vida &Uacute;til Resultante</th><th>Ideal Para</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>HTST</strong><br><small>High Temp, Short Time</small></td>
+                    <td>72-85&deg;C</td>
+                    <td>15-30 seg</td>
+                    <td>Semanas/meses (requiere empaque as&eacute;ptico para ambiente)</td>
+                    <td>Buen balance costo/calidad. Preserva m&aacute;s sabor que UHT.</td>
+                </tr>
+                <tr>
+                    <td><strong>UHT</strong><br><small>Ultra High Temp</small></td>
+                    <td>135-150&deg;C</td>
+                    <td>2-5 seg</td>
+                    <td>12-24 meses a temperatura ambiente</td>
+                    <td>Mayor vida &uacute;til. Similar a leche UHT. Posible nota "cocida".</td>
+                </tr>
+                <tr>
+                    <td><strong>As&eacute;ptico</strong><br><small>(Gold Standard)</small></td>
+                    <td>90-110&deg;C</td>
+                    <td>Segundos</td>
+                    <td>18-24 meses a 15-30&deg;C</td>
+                    <td>Mejor preservaci&oacute;n de calidad. Est&aacute;ndar de la industria para export.</td>
+                </tr>
+                <tr>
+                    <td><strong>Batch (Marmita)</strong><br><small>Artesanal</small></td>
+                    <td>63&deg;C</td>
+                    <td>30 min</td>
+                    <td>Corta (requiere refrigeraci&oacute;n)</td>
+                    <td>Solo peque&ntilde;a escala artesanal. NO viable para larga vida.</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <div class="card key-insight">
+            <strong>Par&aacute;metros probados para mango:</strong> 85&deg;C/15s, 85&deg;C/60s, 90&deg;C/60s, 95&deg;C/15s, 95&deg;C/60s &mdash; todos microbiol&oacute;gicamente seguros sin actividad enzim&aacute;tica residual. Pr&aacute;ctica comercial: 110&deg;C por 2-3 segundos, enfriado y llenado as&eacute;ptico.
+        </div>
+
+        <div class="card highlight">
+            <strong>Nota importante para PULPA (vs. jugo):</strong> Las pulpas con alta viscosidad o part&iacute;culas (5-6mm) requieren pasteurizadores <strong>tubulares o de doble tubo</strong>. Los intercambiadores de placas est&aacute;ndar solo sirven para jugos claros y productos de baja viscosidad.
+        </div>
+
+        <h3>Equipos Principales</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Equipo</th><th>Capacidad</th><th>Precio Aprox.</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Despulpadora 2HP</strong></td><td>200 kg/hora</td><td>COP ~$4,700,000</td></tr>
+                <tr><td><strong>Despulpadora 3HP</strong></td><td>300 kg/hora</td><td>COP $6-8M</td></tr>
+                <tr><td><strong>Pasteurizador HTST peque&ntilde;o</strong> (placas)</td><td>90-500 L/hora</td><td>USD $3,000 - $15,000</td></tr>
+                <tr><td><strong>Pasteurizador HTST mediano</strong> (tubular)</td><td>500-1,000 L/hora</td><td>USD $15,000 - $50,000</td></tr>
+                <tr><td><strong>Pasteurizador HTST grande</strong></td><td>1,000-5,000 L/hora</td><td>USD $50,000 - $150,000</td></tr>
+                <tr><td><strong>Sistema HTST/UHT industrial</strong></td><td>5,000-20,000 L/hora</td><td>USD $150,000 - $500,000+</td></tr>
+                <tr><td><strong>Llenadora as&eacute;ptica (entry-level)</strong></td><td>Peque&ntilde;a escala</td><td>USD $150,000 - $250,000</td></tr>
+                <tr><td><strong>L&iacute;nea as&eacute;ptica turnkey completa</strong></td><td>3,000 BPH</td><td>USD $120,000 - $180,000</td></tr>
+                <tr><td><strong>Selladora / Empacadora doypack</strong></td><td>Variable</td><td>Cotizar con proveedores</td></tr>
+            </tbody>
+        </table></div>
+
+        <h3>Opciones de Empaque</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Tipo</th><th>Vida &Uacute;til</th><th>Volumen</th><th>Costo</th><th>Ideal Para</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Doypack as&eacute;ptico</strong> (stand-up pouch)</td>
+                    <td>6-12 meses</td>
+                    <td>100g - 1,000g</td>
+                    <td>Medio</td>
+                    <td>B2C retail / consumidor final</td>
+                </tr>
+                <tr>
+                    <td><strong>Bag-in-Box as&eacute;ptico</strong></td>
+                    <td>18-24 meses</td>
+                    <td>3L - 200L (tambores)</td>
+                    <td>Medio-alto</td>
+                    <td>B2B / industrial / exportaci&oacute;n</td>
+                </tr>
+                <tr>
+                    <td><strong>Tetra Pak</strong> (cart&oacute;n as&eacute;ptico)</td>
+                    <td>12-18 meses</td>
+                    <td>200mL - 1L</td>
+                    <td>Alto (modelo royalties)</td>
+                    <td>Retail masivo / bebidas</td>
+                </tr>
+                <tr>
+                    <td><strong>Retort pouch</strong></td>
+                    <td>12-24 meses</td>
+                    <td>100g - 500g</td>
+                    <td>Medio</td>
+                    <td>Retail consumidor</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <h3>Proveedores de Equipos</h3>
+        <div class="card">
+            <p style="margin-bottom:8px;"><strong>En Colombia:</strong></p>
+            <ul style="padding-left:20px; margin-bottom:16px;">
+                <li><strong>Adipack (Adinox)</strong> &mdash; Pasteurizadores HTST placas y tubulares (adipack.com.co)</li>
+                <li><strong>COMEK</strong> (desde 1970) &mdash; Bogot&aacute; &mdash; Despulpadoras, marmitas &mdash; Tel: +57 311 5922532</li>
+                <li><strong>INOXPA Colombia</strong> &mdash; HTST, tratamiento t&eacute;rmico (inoxpa.co)</li>
+                <li><strong>FABERMAQ</strong> &mdash; Maquinaria industrial alimentaria</li>
+            </ul>
+            <p style="margin-bottom:8px;"><strong>Internacionales:</strong></p>
+            <ul style="padding-left:20px; margin-bottom:16px;">
+                <li><strong>Alfa Laval</strong> (Suecia) &mdash; L&iacute;neas completas fruta tropical + Pilot Aseptic Filler para operaciones menores</li>
+                <li><strong>GEA Group</strong> (Alemania) &mdash; Procesamiento de bebidas, pasteurizaci&oacute;n</li>
+                <li><strong>Tetra Pak</strong> (Suecia) &mdash; Empaque + procesamiento (equipo v&iacute;a acuerdo de suministro de packaging)</li>
+                <li><strong>SIG</strong> (Suiza) &mdash; Llenado as&eacute;ptico cart&oacute;n</li>
+                <li><strong>Sanchelima International</strong> (Miami) &mdash; HTST para mercado LatAm, soporte en espa&ntilde;ol</li>
+                <li><strong>Kreuzmayr</strong> (Austria) &mdash; KZE-A 1000: 1,000 L/hora</li>
+            </ul>
+            <p style="margin-bottom:8px;"><strong>Proveedores de empaque en Colombia:</strong></p>
+            <ul style="padding-left:20px;">
+                <li><strong>CAPACK SAS</strong> (Cali) &mdash; Doypack, v&aacute;lvulas, empaque flexible</li>
+                <li><strong>Pl&aacute;sticos Correa</strong> (30+ a&ntilde;os) &mdash; Doypack con zipper/v&aacute;lvula, bilaminado/trilaminado con barrera</li>
+                <li><strong>Supplies Colombia</strong> &mdash; Soluciones l&iacute;nea as&eacute;ptica, tecnolog&iacute;a doypack</li>
+                <li><strong>Alico Empaques</strong> &mdash; Empaque flexible</li>
+            </ul>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://adipack.com.co/pasteurizadores-htst/" target="_blank">Adipack &mdash; Pasteurizadores HTST</a>
+            <a href="https://www.inoxpa.co/productos/equipos/tratamiento-termico/pasteurizador-htst" target="_blank">INOXPA &mdash; Pasteurizador HTST</a>
+            <a href="https://www.alfalaval.us/industries/food-dairy-and-beverage/beverage-processing/fruit-and-vegetable-processing/tropical-fruit-processing/" target="_blank">Alfa Laval &mdash; Tropical fruit processing</a>
+            <a href="https://www.tech-long.com/a-how-much-does-an-aseptic-filling-lines-cost.html" target="_blank">TECH-LONG &mdash; Costo l&iacute;nea as&eacute;ptica</a>
+            <a href="https://plasticoscorrea.com/bolsas-doypack/" target="_blank">Pl&aacute;sticos Correa &mdash; Doypack</a>
+        </div>
+    </section>
+
+    <!-- 5. MATERIA PRIMA -->
+    <section id="materia-prima">
+        <h2><span class="num">5</span> Materia Prima (Frutas)</h2>
+
+        <h3>Principales Frutas para Pulpa en Colombia</h3>
+        <div class="bar-chart">
+            <div class="bar-row">
+                <span class="bar-label">Mango</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:100%;background:#ff9800;">65% de exportaciones de pulpa</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Maracuy&aacute;</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:60%;background:#ffa726;">Alta demanda local y export</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Guayaba</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:50%;background:#66bb6a;">Cl&aacute;sica colombiana</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Mora</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:45%;background:#ab47bc;">Precio estable (+0.5%)</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Lulo</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:40%;background:#42a5f5;">Ex&oacute;tica, alta demanda</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Guan&aacute;bana</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:38%;background:#26a69a;">Premium, alto precio retail</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Fresa</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:35%;background:#ef5350;">Estable (+2.6%)</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Uchuva</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:25%;background:#ffd54f;">Nicho premium export</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Variaci&oacute;n de Precios 2025</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Fruta</th><th>Variaci&oacute;n Anual</th><th>Observaci&oacute;n</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Mango com&uacute;n</td><td>+12%</td><td>Demanda creciente, mejor fruta para export</td></tr>
+                <tr><td>Lulo</td><td>+10%</td><td>Alta demanda, oferta limitada</td></tr>
+                <tr><td>Guan&aacute;bana</td><td>+4.2%</td><td>Estable, premium</td></tr>
+                <tr><td>Fresa</td><td>+2.6%</td><td>Estable</td></tr>
+                <tr><td>Mora</td><td>+0.5%</td><td>M&aacute;s estable (mejor para m&aacute;rgenes predecibles)</td></tr>
+                <tr><td>Maracuy&aacute;</td><td>Vol&aacute;til (+40% picos)</td><td>Comprar en cosecha para mitigar</td></tr>
+                <tr><td><strong>Promedio 11 frutas</strong></td><td><strong>+7.8%</strong></td><td>Inflaci&oacute;n de fruta baj&oacute; de 22.8% a 3.2% general</td></tr>
+            </tbody>
+        </table></div>
+
+        <h3>Cadena de Suministro</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li><strong>81%</strong> de proveedores de Nutrium son peque&ntilde;os productores y recolectores</li>
+                <li>Regiones clave: Atl&aacute;ntico, Antioquia, Eje Cafetero, Valle del Cauca, Huila, Santander</li>
+                <li><strong>Recomendaci&oacute;n:</strong> Trabajar directamente con agricultores para consistencia y menor costo</li>
+                <li><strong>Estrategia clave:</strong> Comprar fruta en cosecha pico (precios bajan 30-50%). Diversificar frutas para suavizar estacionalidad.</li>
+            </ul>
+        </div>
+
+        <div class="card highlight">
+            <strong>Fuentes de precios oficiales:</strong><br>
+            <strong>DANE SIPSA:</strong> Boletines semanales de precios mayoristas (dane.gov.co)<br>
+            <strong>Corabastos:</strong> Bolet&iacute;n diario de precios de la plaza mayorista de Bogot&aacute; (corabastos.com.co)
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.dane.gov.co/index.php/estadisticas-por-tema/agropecuario/sistema-de-informacion-de-precios-sipsa/mayoristas-boletin-semanal-1" target="_blank">DANE SIPSA &mdash; Precios mayoristas</a>
+            <a href="https://corabastos.com.co/boletin-de-precios/" target="_blank">Corabastos &mdash; Bolet&iacute;n de precios</a>
+        </div>
+    </section>
+
+    <!-- 6. DISTRIBUCION -->
+    <section id="distribucion">
+        <h2><span class="num">6</span> Canales de Distribuci&oacute;n</h2>
+
+        <p style="margin-bottom:20px;">La pulpa pasteurizada de larga vida desbloquea canales que la congelada <strong>no puede tocar</strong>. Esta es la ventaja de distribuci&oacute;n central del negocio.</p>
+
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Canal</th><th>Accesible para Congelada?</th><th>Accesible para Pasteurizada?</th><th>Notas</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Supermercados (congelados)</strong></td>
+                    <td>S&iacute;</td>
+                    <td>S&iacute;</td>
+                    <td>&Eacute;xito, Jumbo, Carulla. Espacio congelado limitado y caro.</td>
+                </tr>
+                <tr>
+                    <td><strong>Supermercados (estante seco)</strong></td>
+                    <td>No</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Espacio de estante abundante y m&aacute;s barato. Diferenciaci&oacute;n visual.</td>
+                </tr>
+                <tr>
+                    <td><strong>Tiendas de barrio (~500,000)</strong></td>
+                    <td>Casi imposible</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Sin congelador. Canal masivo desbloqueado.</td>
+                </tr>
+                <tr>
+                    <td><strong>Hard discount (D1, Ara)</strong></td>
+                    <td>Limitado</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Espacio congelado m&iacute;nimo en discounters.</td>
+                </tr>
+                <tr>
+                    <td><strong>E-commerce / Rappi</strong></td>
+                    <td>Dif&iacute;cil (cadena fr&iacute;o)</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Env&iacute;o est&aacute;ndar, sin complicaciones. 60%+ colombianos usan Rappi.</td>
+                </tr>
+                <tr>
+                    <td><strong>Colombia rural</strong></td>
+                    <td>No</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Pobre infraestructura de fr&iacute;o en zonas rurales.</td>
+                </tr>
+                <tr>
+                    <td><strong>HoReCa (hoteles, restaurantes)</strong></td>
+                    <td>S&iacute;</td>
+                    <td><strong>S&Iacute;</strong></td>
+                    <td>Sin necesidad de espacio en congelador. M&aacute;s f&aacute;cil adopci&oacute;n.</td>
+                </tr>
+                <tr>
+                    <td><strong>Exportaci&oacute;n</strong></td>
+                    <td>S&iacute; (contenedor reefer)</td>
+                    <td><strong>S&Iacute;</strong> (contenedor seco)</td>
+                    <td>~50% ahorro. Sin riesgo en tr&aacute;nsito 30-60 d&iacute;as.</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <h3>Precios Retail de Referencia (Pulpa Congelada &mdash; Competencia Indirecta)</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Producto</th><th>Marca</th><th>Peso</th><th>Precio</th><th>Precio/kg</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Pulpa Mora</td><td>Frutinal</td><td>500g</td><td>$8,450</td><td>$16,900/kg</td></tr>
+                <tr><td>Pulpa Mango</td><td>Freskifruta</td><td>500g</td><td>$10,220</td><td>$20,440/kg</td></tr>
+                <tr><td>Pulpa Maracuy&aacute;</td><td>Frutinal</td><td>500g</td><td>$12,990</td><td>$25,980/kg</td></tr>
+                <tr><td>Pulpa Guan&aacute;bana</td><td>Freskifruta</td><td>500g</td><td>$13,300</td><td>$26,600/kg</td></tr>
+                <tr><td>Pulpa Lulo</td><td>Freskifruta</td><td>500g</td><td>$11,100</td><td>$22,200/kg</td></tr>
+                <tr><td>Pulpa Mango (MDD)</td><td>Cencosud</td><td>500g</td><td>$6,980</td><td>$13,960/kg</td></tr>
+            </tbody>
+        </table></div>
+
+        <div class="card key-insight">
+            <strong>Referencia de pricing pasteurizado:</strong> Frutysabor vende su pulpa pasteurizada larga vida en presentaci&oacute;n de 1,000g. El producto pasteurizado puede tener un <strong>premium de precio</strong> vs. congelada por la conveniencia (lista para usar, sin descongelar, sin congelador).
+        </div>
+
+        <h3>Presentaciones Sugeridas</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li><strong>Doypack 250g:</strong> Porci&oacute;n individual. Ideal para tiendas de barrio y hard discount.</li>
+                <li><strong>Doypack 500g:</strong> Familiar. Supermercados y e-commerce.</li>
+                <li><strong>Doypack 1,000g:</strong> Familiar grande / HoReCa peque&ntilde;o.</li>
+                <li><strong>Bag-in-Box 5L-20L:</strong> Institucional / HoReCa.</li>
+                <li><strong>Bag-in-Box / Tambor as&eacute;ptico 200L:</strong> Industrial / exportaci&oacute;n.</li>
+            </ul>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.jumbocolombia.com/supermercado/frutas-y-verduras/pulpa-de-fruta" target="_blank">Jumbo Colombia &mdash; Pulpa de Fruta (precios referencia congelada)</a>
+            <a href="https://www.frutysabor.com/productos/pulpa-de-fruta-natural-larga-vida/16" target="_blank">Frutysabor &mdash; Pulpa larga vida</a>
+        </div>
+    </section>
+
+    <!-- 7. EXPORTACION -->
+    <section id="exportacion">
+        <h2><span class="num">7</span> Oportunidad de Exportaci&oacute;n</h2>
+
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="value">USD $1,822M</div>
+                <div class="desc">Exportaciones frutas Colombia 2024 (+34.9%)</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">+930%</div>
+                <div class="desc">Crecimiento acumulado mango a EE.UU.</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">~50%</div>
+                <div class="desc">Ahorro en env&iacute;o con contenedor seco vs. reefer</div>
+            </div>
+        </div>
+
+        <h3>Ventaja del Formato As&eacute;ptico para Exportar</h3>
+        <div class="card key-insight">
+            <ul style="padding-left:20px;">
+                <li><strong>No requiere contenedor refrigerado</strong> &mdash; contenedor seco est&aacute;ndar 20'/40'</li>
+                <li>Contenedores reefer cuestan <strong>~1.5-2x</strong> m&aacute;s que secos</li>
+                <li>Vida &uacute;til de 24 meses tolera <strong>tr&aacute;nsito oce&aacute;nico de 30-60 d&iacute;as</strong> sin riesgo</li>
+                <li>Aduanas m&aacute;s simples &mdash; sin almacenamiento refrigerado en puertos</li>
+                <li>Base de compradores m&aacute;s amplia &mdash; importadores sin cadena de fr&iacute;o pueden comprar</li>
+                <li>Nutrium ya exporta as&eacute;pticamente: 6,000 ton/a&ntilde;o en contenedores secos</li>
+            </ul>
+        </div>
+
+        <h3>Principales Destinos (2024)</h3>
+        <div class="bar-chart">
+            <div class="bar-row">
+                <span class="bar-label">EE.UU.</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:100%;background:#1565c0;">23% &mdash; USD $428.9M</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Pa&iacute;ses Bajos</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:66%;background:#1976d2;">16% &mdash; USD $281.1M</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">B&eacute;lgica</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:55%;background:#1e88e5;">13% &mdash; USD $236.2M (+233%)</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Reino Unido</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:30%;background:#42a5f5;">Significativo</div>
+                </div>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Espa&ntilde;a</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:25%;background:#64b5f6;">Significativo</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Datos Clave</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li>Pulpa procesada = <strong>1.8-2.2x</strong> el precio de fruta fresca (FOB)</li>
+                <li>Colombia tiene acceso <strong>libre de aranceles</strong> a Europa para pur&eacute; de mango</li>
+                <li>Colombia exporta ~90% de sus pur&eacute;s de mango</li>
+                <li>Mercado global de pur&eacute; de fruta: USD $5.9B (2025) &rarr; USD $10B (2034)</li>
+                <li>Segmento as&eacute;ptico crece a 5.6% CAGR</li>
+            </ul>
+        </div>
+
+        <h3>Certificaciones Necesarias para Exportar</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li>HACCP (obligatorio)</li>
+                <li>ISO 9001</li>
+                <li>Global GAP (para abastecimiento agr&iacute;cola)</li>
+                <li>Registro INVIMA</li>
+                <li>Certificados fitosanitarios (ICA)</li>
+                <li>Demostrar esterilidad comercial para claims de larga vida</li>
+            </ul>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.portafolio.co/economia/agro/buen-clima-para-las-frutas-exportaciones-repuntan-en-2024-y-abren-nuevos-mercados-632550" target="_blank">Portafolio &mdash; Exportaciones frutas 2024</a>
+            <a href="https://www.cbi.eu/market-information/processed-fruit-vegetables-edible-nuts/mango-puree/market-entry" target="_blank">CBI &mdash; Mango puree European market</a>
+            <a href="https://www.agronegocios.co/agricultura/fruta-procesada-colombiana-llega-a-estados-unidos-y-a-paises-de-europa-y-asia-2830888" target="_blank">Agronegocios &mdash; Fruta procesada colombiana</a>
+        </div>
+    </section>
+
+    <!-- 8. REGULACION -->
+    <section id="regulacion">
+        <h2><span class="num">8</span> Regulaci&oacute;n INVIMA</h2>
+
+        <h3>Marco Regulatorio</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Norma</th><th>Alcance</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Resoluci&oacute;n 3929 de 2013</strong><br><small>MinSalud</small></td>
+                    <td>Regulaci&oacute;n t&eacute;cnica principal para pulpa de fruta (incluye pasteurizada). Requisitos sanitarios, microbiol&oacute;gicos, empaque, etiquetado.</td>
+                </tr>
+                <tr>
+                    <td><strong>NTC 5468</strong><br><small>ICONTEC, 2012/2022</small></td>
+                    <td>Norma t&eacute;cnica para jugos, pulpas, n&eacute;ctares y concentrados.</td>
+                </tr>
+                <tr>
+                    <td><strong>Resoluci&oacute;n 2674 de 2013</strong></td>
+                    <td>Buenas Pr&aacute;cticas de Manufactura (BPM). Obligatoria.</td>
+                </tr>
+                <tr>
+                    <td><strong>Resoluci&oacute;n 719 de 2015</strong></td>
+                    <td>Clasificaci&oacute;n de riesgo. Pulpa pasteurizada: riesgo medio-alto.</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+        <h3>Registro Sanitario INVIMA</h3>
+        <div class="card">
+            <ul style="padding-left:20px;">
+                <li><strong>RSA (Registro Sanitario):</strong> Riesgo alto &mdash; Vigencia 5 a&ntilde;os</li>
+                <li><strong>PSA (Permiso Sanitario):</strong> Riesgo medio &mdash; Vigencia 7 a&ntilde;os</li>
+                <li>UVB 2025: COP $11,552</li>
+            </ul>
+        </div>
+
+        <h3>Requisitos Espec&iacute;ficos para Pasteurizada/As&eacute;ptica</h3>
+        <div class="card highlight">
+            <ul style="padding-left:20px;">
+                <li>Demostrar <strong>esterilidad comercial</strong> para claims de almacenamiento a temperatura ambiente</li>
+                <li><strong>Estudios de validaci&oacute;n de vida &uacute;til</strong> requeridos</li>
+                <li>Material de empaque debe cumplir est&aacute;ndares de seguridad para contacto con alimentos</li>
+                <li>Certificaci&oacute;n BPM obligatoria</li>
+                <li>HACCP recomendado (requerido para exportaci&oacute;n)</li>
+                <li>Etiquetado: ingredientes, fecha de vencimiento, fecha de fabricaci&oacute;n, condiciones de almacenamiento, peso neto</li>
+            </ul>
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-3929-de-2013.pdf" target="_blank">Resoluci&oacute;n 3929 de 2013 (MinSalud PDF)</a>
+            <a href="https://www.invima.gov.co/tramites-y-servicios/tarifas" target="_blank">INVIMA &mdash; Tarifas</a>
+        </div>
+    </section>
+
+    <!-- 9. FINANCIERO -->
+    <section id="financiero">
+        <h2><span class="num">9</span> An&aacute;lisis Financiero</h2>
+
+        <h3>Multiplicaci&oacute;n de Valor</h3>
+        <div class="card" style="text-align:center; padding:30px;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <div>
+                    <div style="font-size:2rem; font-weight:800; color:var(--text-light);">COP $2,000/kg</div>
+                    <div style="font-size:0.85rem; color:var(--text-light);">Mango fresco (agricultor)</div>
+                </div>
+                <div style="font-size:2rem; color:var(--accent);">&rarr;</div>
+                <div>
+                    <div style="font-size:2rem; font-weight:800; color:var(--green-dark);">COP $15,000-$20,000/kg</div>
+                    <div style="font-size:0.85rem; color:var(--text-light);">Pulpa de mango retail</div>
+                </div>
+            </div>
+            <div style="margin-top:16px; font-size:1.5rem; font-weight:800; color:var(--accent);">= 5-10x multiplicaci&oacute;n de valor</div>
+        </div>
+
+        <h3>Niveles de Inversi&oacute;n (Pasteurizada)</h3>
+        <div class="tier-grid">
+            <div class="tier-card">
+                <h4>Opci&oacute;n A: HTST + Doypack</h4>
+                <div class="price">USD $80-180K <small>(~COP $345-775M)</small></div>
+                <ul>
+                    <li>Pasteurizador HTST mediano</li>
+                    <li>Despulpadora industrial</li>
+                    <li>Selladora doypack</li>
+                    <li>Vida &uacute;til: 6-12 meses ambiente</li>
+                    <li>Ideal para mercado nacional retail</li>
+                </ul>
+            </div>
+            <div class="tier-card recommended">
+                <h4>Opci&oacute;n B: L&iacute;nea As&eacute;ptica Turnkey</h4>
+                <div class="price">USD $120-250K <small>(~COP $520M-1,080M)</small></div>
+                <ul>
+                    <li>L&iacute;nea completa pasteurizaci&oacute;n + llenado as&eacute;ptico</li>
+                    <li>3,000 BPH capacidad</li>
+                    <li>Vida &uacute;til: 18-24 meses ambiente</li>
+                    <li>Habilitado para exportaci&oacute;n</li>
+                    <li>ROI superior por acceso a export</li>
+                </ul>
+            </div>
+            <div class="tier-card">
+                <h4>Opci&oacute;n C: Industrial + Export</h4>
+                <div class="price">USD $500K+ <small>(~COP $2,150M+)</small></div>
+                <ul>
+                    <li>Sistema UHT/as&eacute;ptico industrial</li>
+                    <li>Alta capacidad (5,000+ L/h)</li>
+                    <li>M&uacute;ltiples formatos empaque</li>
+                    <li>Certificaciones internacionales</li>
+                    <li>Ref: Alfa Laval / GEA</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Estructura de Costos</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Componente</th><th>% Estimado</th><th>Detalle</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Materia prima (fruta)</strong></td><td>30-50%</td><td>Estacional. Comprar en cosecha pico reduce 30-50%.</td></tr>
+                <tr><td><strong>Empaque as&eacute;ptico</strong></td><td>15-20%</td><td>Mayor que congelada. Doypack, bag-in-box, etc.</td></tr>
+                <tr><td><strong>Energ&iacute;a / Servicios</strong></td><td>5-10%</td><td>SIN cadena de fr&iacute;o el costo energ&eacute;tico baja dr&aacute;sticamente.</td></tr>
+                <tr><td><strong>Mano de obra</strong></td><td>10-15%</td><td>Salario m&iacute;nimo ~COP $1,423,500/mes + 52% cargas.</td></tr>
+                <tr><td><strong>Transporte / Log&iacute;stica</strong></td><td>5-8%</td><td>Log&iacute;stica SECA. 30-50% menos que congelada.</td></tr>
+                <tr><td><strong>Bodegaje</strong></td><td>2-4%</td><td>Bodega convencional. 60-80% menos que congelado.</td></tr>
+                <tr><td><strong>INVIMA / Certificaciones</strong></td><td>Fijo</td><td>UVB $11,552. Estudios vida &uacute;til adicionales.</td></tr>
+            </tbody>
+        </table></div>
+
+        <h3>Palancas de Rentabilidad</h3>
+        <div class="card">
+            <ol style="padding-left:20px;">
+                <li><strong>Ahorro log&iacute;stico:</strong> Eliminar cadena de fr&iacute;o ahorra 25-35% de costos vs. competencia congelada.</li>
+                <li><strong>Canales exclusivos:</strong> Acceso a 500,000+ tiendas de barrio y zonas rurales que la congelada no puede alcanzar.</li>
+                <li><strong>Premium de conveniencia:</strong> Producto listo para usar, sin descongelar. Justifica precio superior.</li>
+                <li><strong>Exportaci&oacute;n en seco:</strong> ~50% ahorro en env&iacute;o. Mayor margen en mercados internacionales (1.8-2.2x FOB).</li>
+                <li><strong>Compra estrat&eacute;gica de fruta:</strong> En cosecha pico, precios bajan 30-50%. M&uacute;ltiples frutas suavizan estacionalidad.</li>
+                <li><strong>Menor merma:</strong> Sin riesgo de ruptura de cadena de fr&iacute;o. Menos producto perdido.</li>
+            </ol>
+        </div>
+
+        <div class="card highlight">
+            <strong>Benchmark:</strong> Margen neto &gt;10% es saludable en industria alimentaria colombiana. La pulpa pasteurizada, con menores costos log&iacute;sticos, menos competencia directa y acceso a canales exclusivos, tiene potencial de superar significativamente este benchmark.
+        </div>
+
+        <div class="sources">
+            <h4>Fuentes</h4>
+            <a href="https://www.tecnomack.com/como-emprender-con-pulpas-de-frutas-y-tener-tu-propio-negocio-de-pulpas/" target="_blank">Tecnomack &mdash; C&oacute;mo emprender con pulpas</a>
+            <a href="https://repository.unipiloto.edu.co/bitstream/handle/20.500.12277/12069/GPV%20GP%2056%20ARIAS,%20CALVO,%20LOPEZ,%20MEJIA%20.pdf" target="_blank">U. Piloto &mdash; Plan de negocio pulpa frutas</a>
+        </div>
+    </section>
+
+    <!-- 10. ROI -->
+    <section id="roi">
+        <h2><span class="num">10</span> Retorno de Inversi&oacute;n (ROI)</h2>
+
+        <p style="margin-bottom:20px;">Proyecci&oacute;n basada en la <strong>Opci&oacute;n B (L&iacute;nea As&eacute;ptica Turnkey)</strong>, la recomendada por habilitar mercado nacional y exportaci&oacute;n. Supuestos: 500 L/hora efectivos, 8 horas/d&iacute;a, 22 d&iacute;as/mes, mix de 5 frutas. TRM: USD 1 = COP $4,300.</p>
+
+        <h3>Supuestos Base</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Concepto</th><th>Valor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Inversi&oacute;n total (equipos + planta + capital trabajo + INVIMA + imprevistos)</td><td><strong>COP $1,100M (~USD $256K)</strong></td></tr>
+                <tr><td>Capacidad productiva m&aacute;xima</td><td>88,000 kg/mes (500 L/h &times; 8h &times; 22d)</td></tr>
+                <tr><td>Precio promedio venta mayorista (mix 5 frutas)</td><td>COP $12,000/kg</td></tr>
+                <tr><td>Costo promedio fruta (directo de agricultor)</td><td>COP $2,500/kg</td></tr>
+                <tr><td>Rendimiento fruta &rarr; pulpa</td><td>~60% (1 kg fruta = 0.6 kg pulpa)</td></tr>
+                <tr><td>Costo fruta por kg de pulpa</td><td>COP $4,167/kg</td></tr>
+                <tr><td>Empaque doypack 500g (unidad)</td><td>COP $800 - $1,200</td></tr>
+                <tr><td>Gastos fijos mensuales (arriendo, n&oacute;mina 8 personas, servicios, admin)</td><td>COP $45M/mes</td></tr>
+            </tbody>
+        </table></div>
+
+        <h3>Tres Escenarios &mdash; A&ntilde;o 1</h3>
+        <div class="roi-scenarios">
+            <div class="roi-card">
+                <h4>Conservador</h4>
+                <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">30% utilizaci&oacute;n. Solo mercado nacional. Arranque lento.</p>
+                <table>
+                    <tbody>
+                        <tr><td>Producci&oacute;n/mes</td><td>26,400 kg</td></tr>
+                        <tr><td>Ventas anuales</td><td>316,800 kg</td></tr>
+                        <tr><td>Ingresos anuales</td><td>COP $3,802M</td></tr>
+                        <tr><td>Costo fruta (35%)</td><td>COP $1,320M</td></tr>
+                        <tr><td>Empaque (15%)</td><td>COP $570M</td></tr>
+                        <tr><td>Gastos fijos</td><td>COP $540M</td></tr>
+                        <tr><td>Log&iacute;stica + otros (10%)</td><td>COP $380M</td></tr>
+                        <tr><td><strong>Utilidad neta</strong></td><td><strong>COP $992M</strong></td></tr>
+                        <tr><td>Margen neto</td><td>26%</td></tr>
+                    </tbody>
+                </table>
+                <div class="payback">~13 meses <small>para recuperar inversi&oacute;n</small></div>
+            </div>
+
+            <div class="roi-card base">
+                <h4>Base (Esperado)</h4>
+                <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">50% utilizaci&oacute;n. Nacional + primeras ventas HoReCa.</p>
+                <table>
+                    <tbody>
+                        <tr><td>Producci&oacute;n/mes</td><td>44,000 kg</td></tr>
+                        <tr><td>Ventas anuales</td><td>528,000 kg</td></tr>
+                        <tr><td>Ingresos anuales</td><td>COP $6,336M</td></tr>
+                        <tr><td>Costo fruta (33%)</td><td>COP $2,091M</td></tr>
+                        <tr><td>Empaque (14%)</td><td>COP $887M</td></tr>
+                        <tr><td>Gastos fijos</td><td>COP $540M</td></tr>
+                        <tr><td>Log&iacute;stica + otros (10%)</td><td>COP $634M</td></tr>
+                        <tr><td><strong>Utilidad neta</strong></td><td><strong>COP $2,184M</strong></td></tr>
+                        <tr><td>Margen neto</td><td>34%</td></tr>
+                    </tbody>
+                </table>
+                <div class="payback">~6 meses <small>para recuperar inversi&oacute;n</small></div>
+            </div>
+
+            <div class="roi-card">
+                <h4>Optimista</h4>
+                <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">70% utilizaci&oacute;n. Nacional + export (precio FOB superior).</p>
+                <table>
+                    <tbody>
+                        <tr><td>Producci&oacute;n/mes</td><td>61,600 kg</td></tr>
+                        <tr><td>Ventas anuales</td><td>739,200 kg</td></tr>
+                        <tr><td>Ingresos anuales (mix)</td><td>COP $9,587M</td></tr>
+                        <tr><td>Costo fruta (30%)</td><td>COP $2,876M</td></tr>
+                        <tr><td>Empaque (13%)</td><td>COP $1,246M</td></tr>
+                        <tr><td>Gastos fijos</td><td>COP $600M</td></tr>
+                        <tr><td>Log&iacute;stica + otros (12%)</td><td>COP $1,150M</td></tr>
+                        <tr><td><strong>Utilidad neta</strong></td><td><strong>COP $3,715M</strong></td></tr>
+                        <tr><td>Margen neto</td><td>39%</td></tr>
+                    </tbody>
+                </table>
+                <div class="payback">~4 meses <small>para recuperar inversi&oacute;n</small></div>
+            </div>
+        </div>
+
+        <div class="card highlight">
+            <strong>Conclusi&oacute;n ROI:</strong> En el escenario <strong>conservador</strong>, la inversi&oacute;n se recupera en ~13 meses. En el escenario <strong>base</strong> (el m&aacute;s probable), en ~6 meses. Los m&aacute;rgenes son altos (26-39%) porque la pasteurizaci&oacute;n elimina el mayor costo operativo de la industria: la cadena de fr&iacute;o. El factor cr&iacute;tico es alcanzar volumen de ventas suficiente &mdash; la capacidad de la planta no es el cuello de botella, sino la <strong>construcci&oacute;n de canales de distribuci&oacute;n</strong>.
+        </div>
+
+        <h3>Sensibilidad: &iquest;Qu&eacute; pasa si...?</h3>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Variable</th><th>Cambio</th><th>Impacto en Payback</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Precio fruta sube 30%</td><td>Costo fruta: $5,417/kg pulpa</td><td>Payback base sube a ~8 meses</td></tr>
+                <tr><td>Precio venta baja 20%</td><td>Venta mayorista: $9,600/kg</td><td>Payback base sube a ~10 meses</td></tr>
+                <tr><td>Utilizaci&oacute;n cae a 20%</td><td>Producci&oacute;n: 17,600 kg/mes</td><td>Payback sube a ~22 meses</td></tr>
+                <tr><td>30% ventas son export (FOB +40%)</td><td>Precio promedio: $13,680/kg</td><td>Payback base baja a ~5 meses</td></tr>
+                <tr><td>Fruta en cosecha pico (-40%)</td><td>Costo fruta: $2,500/kg pulpa</td><td>Payback base baja a ~5 meses</td></tr>
+            </tbody>
+        </table></div>
+
+        <div class="card key-insight">
+            <strong>Riesgo principal:</strong> La variable m&aacute;s cr&iacute;tica es la <strong>utilizaci&oacute;n de planta</strong> (= velocidad de construcci&oacute;n de demanda). Si cae por debajo del 20%, el payback se extiende a ~2 a&ntilde;os. La estrategia debe priorizar asegurar canales de venta <strong>antes</strong> de invertir en la planta completa.
+        </div>
+    </section>
+
+    <!-- 11. SWOT -->
+    <section id="swot">
+        <h2><span class="num">11</span> An&aacute;lisis DOFA &mdash; Pulpa Pasteurizada</h2>
+
+        <div class="swot-grid">
+            <div class="swot-cell swot-s">
+                <h4>Fortalezas</h4>
+                <ul>
+                    <li><strong>Sin cadena de fr&iacute;o:</strong> costos log&iacute;sticos 25-35% menores</li>
+                    <li>Acceso a 500,000+ tiendas de barrio sin congelador</li>
+                    <li>Vida &uacute;til 6-24 meses a temperatura ambiente</li>
+                    <li>Producto listo para usar (sin descongelar)</li>
+                    <li>Exportaci&oacute;n en contenedor seco (~50% ahorro)</li>
+                    <li>Colombia: biodiversidad frutal &uacute;nica</li>
+                    <li>Multiplicaci&oacute;n de valor 5-10x</li>
+                </ul>
+            </div>
+            <div class="swot-cell swot-w">
+                <h4>Debilidades</h4>
+                <ul>
+                    <li><strong>Inversi&oacute;n inicial mayor</strong> que congelada (llenadora as&eacute;ptica USD $150K+)</li>
+                    <li>Costo de empaque as&eacute;ptico superior a bolsa polietileno</li>
+                    <li>Requiere operadores capacitados en protocolos de esterilidad</li>
+                    <li>Posible leve nota "cocida" si proceso no se optimiza</li>
+                    <li>P&eacute;rdida parcial de vitamina C</li>
+                    <li>Estudios de validaci&oacute;n de vida &uacute;til requeridos</li>
+                </ul>
+            </div>
+            <div class="swot-cell swot-o">
+                <h4>Oportunidades</h4>
+                <ul>
+                    <li><strong>&lt;10 competidores directos</strong> en Colombia (vs. 34,000+ en congelada)</li>
+                    <li>Categor&iacute;a joven (desde 2012): espacio para posicionarse</li>
+                    <li>Exportaci&oacute;n: EE.UU. y Europa con crecimiento explosivo</li>
+                    <li>Arancel 0% a Europa para pur&eacute; de mango</li>
+                    <li>Tendencia global clean label y natural</li>
+                    <li>Hard discount (D1, Ara): sin espacio congelado</li>
+                    <li>E-commerce: env&iacute;o est&aacute;ndar sin complicaci&oacute;n</li>
+                    <li>Colombia rural: mercado sin acceso a congelada</li>
+                </ul>
+            </div>
+            <div class="swot-cell swot-t">
+                <h4>Amenazas</h4>
+                <ul>
+                    <li>Nutrium (Ardila L&uuml;lle) podr&iacute;a entrar a retail con su l&iacute;nea as&eacute;ptica</li>
+                    <li>Alimentos SAS ya tiene la tecnolog&iacute;a y experiencia</li>
+                    <li>Volatilidad de precios de fruta (maracuy&aacute; +40% picos)</li>
+                    <li>Cambio clim&aacute;tico afecta cosechas</li>
+                    <li>Consumidor colombiano habituado a congelada (educaci&oacute;n de mercado necesaria)</li>
+                    <li>Posible barrera de precio si consumidor no percibe valor diferencial</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. ROADMAP -->
+    <section id="roadmap">
+        <h2><span class="num">12</span> Hoja de Ruta Sugerida</h2>
+
+        <div class="roadmap">
+            <div class="roadmap-item">
+                <div class="phase">Fase 0 &mdash; Validaci&oacute;n (Meses 1-2)</div>
+                <h4>Investigaci&oacute;n de campo</h4>
+                <p>Visitar Alimentos SAS, Frutysabor y plantas de congelada para comparar. Hablar con agricultores en regiones clave. Cotizar equipos: Adipack (HTST), COMEK (despulpadoras), proveedores as&eacute;pticos internacionales. Definir frutas objetivo y regi&oacute;n. Consultar INVIMA sobre requisitos espec&iacute;ficos para pasteurizada larga vida.</p>
+            </div>
+            <div class="roadmap-item">
+                <div class="phase">Fase 1 &mdash; Constituci&oacute;n (Meses 3-4)</div>
+                <h4>Registro legal y definici&oacute;n t&eacute;cnica</h4>
+                <p>Crear SAS. Elegir m&eacute;todo (HTST vs. UHT vs. as&eacute;ptico) y empaque (doypack vs. Tetra Pak). Iniciar tr&aacute;mite INVIMA. Asegurar proveedores de fruta. Definir ubicaci&oacute;n de planta. Plan financiero detallado.</p>
+            </div>
+            <div class="roadmap-item">
+                <div class="phase">Fase 2 &mdash; Montaje (Meses 5-8)</div>
+                <h4>Planta, equipos y validaci&oacute;n</h4>
+                <p>Adecuaci&oacute;n de planta BPM. Importaci&oacute;n/compra de pasteurizador y llenadora. Instalaci&oacute;n y pruebas. Capacitaci&oacute;n de personal en protocolos de esterilidad. <strong>Estudios de validaci&oacute;n de vida &uacute;til</strong> (cr&iacute;tico para INVIMA y claims comerciales).</p>
+            </div>
+            <div class="roadmap-item">
+                <div class="phase">Fase 3 &mdash; Lanzamiento (Meses 9-12)</div>
+                <h4>Primeras ventas dom&eacute;sticas</h4>
+                <p>Producci&oacute;n piloto con 3-5 frutas. Posicionamiento: "pulpa natural de larga vida, sin congelador". Ventas iniciales a tiendas de barrio, HoReCa local, Rappi. Feedback y ajuste de proceso/empaque.</p>
+            </div>
+            <div class="roadmap-item">
+                <div class="phase">Fase 4 &mdash; Escalamiento (Meses 13-18)</div>
+                <h4>Crecimiento nacional</h4>
+                <p>Entrada a hard discount (D1, Ara) y supermercados regionales (estante seco, no congelados). Expansi&oacute;n de portafolio. Evaluar marca blanca. Presencia e-commerce.</p>
+            </div>
+            <div class="roadmap-item">
+                <div class="phase">Fase 5 &mdash; Exportaci&oacute;n (Mes 18+)</div>
+                <h4>Mercados internacionales</h4>
+                <p>Certificaci&oacute;n HACCP + ISO 9001. Formato bag-in-box/tambor as&eacute;ptico para B2B. Primeros env&iacute;os a EE.UU. (mango, maracuy&aacute;) en contenedor seco. Exploraci&oacute;n de mercado europeo (arancel 0% para mango).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. EQUIPOS E INVERSIÓN -->
+    <section id="equipos-minimos">
+        <h2><span class="num">13</span> Equipos e Inversi&oacute;n Inicial &mdash; Dos Escenarios</h2>
+
+        <div class="card highlight">
+            <p><strong>Dato clave:</strong> El registro sanitario INVIMA es <strong>GRATIS para microempresas</strong> (exenci&oacute;n vigente por ley), lo cual elimina una barrera importante de entrada.</p>
+        </div>
+
+        <div class="verdict-grid" style="margin-bottom:32px;">
+            <div class="verdict-card">
+                <div class="number" style="font-size:1.4rem;">Escenario A</div>
+                <div class="label" style="font-size:1rem; font-weight:600; color:var(--green-dark);">MICRO (Artesanal)</div>
+                <div class="label">100&ndash;200 kg fruta/d&iacute;a</div>
+                <div class="number" style="font-size:1.6rem; color:var(--accent); margin-top:8px;">$35&ndash;58M</div>
+                <div class="label">Inversi&oacute;n total</div>
+            </div>
+            <div class="verdict-card">
+                <div class="number" style="font-size:1.4rem;">Escenario B</div>
+                <div class="label" style="font-size:1rem; font-weight:600; color:var(--green-dark);">PEQUE&Ntilde;A INDUSTRIAL</div>
+                <div class="label">500&ndash;1,000 kg fruta/d&iacute;a</div>
+                <div class="number" style="font-size:1.6rem; color:var(--accent); margin-top:8px;">$78&ndash;128M</div>
+                <div class="label">Inversi&oacute;n total</div>
+            </div>
+        </div>
+
+        <h3>Flujo del Proceso (ambos escenarios)</h3>
+        <div class="card" style="text-align:center; font-size:1.05rem; padding:20px;">
+            <strong>Recepci&oacute;n de fruta</strong> &rarr; <strong>Lavado y selecci&oacute;n</strong> &rarr; <strong>Pelado/corte</strong> &rarr; <strong>Despulpado</strong> &rarr; <strong>Pasteurizaci&oacute;n</strong> &rarr; <strong>Enfriamiento</strong> &rarr; <strong>Empaque y sellado</strong> &rarr; <strong>Almacenamiento</strong>
+        </div>
+
+        <!-- ==================== ESCENARIO A: MICRO ==================== -->
+        <h3 style="font-size:1.3rem; color:var(--green-dark); border-bottom:2px solid var(--accent); padding-bottom:8px;">Escenario A &mdash; MICRO (Artesanal) &mdash; 100&ndash;200 kg fruta/d&iacute;a</h3>
+
+        <div class="card">
+            <p>Operaci&oacute;n artesanal con m&iacute;nima automatizaci&oacute;n. Ideal para validar el producto, construir una base de clientes iniciales (restaurantes, juguer&iacute;as, tiendas) y aprender el proceso antes de escalar. Una sola persona puede operar toda la l&iacute;nea.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:16px; margin-bottom:24px;">
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/H06e03917fb694ca6b18501832b4fa2766.jpg_300x300.jpg" alt="Despulpadora de frutas" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Despulpadora</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">200&ndash;300 kg/h, 2HP</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/Hd734022b877440cf931b26e199a46a03U.jpg_300x300.jpg" alt="Marmita pasteurizadora" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Marmita Pasteurizadora</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">100L, enchaquetada</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/H90f60396119b46f2bd0f7220f3e4c9bc9.jpg_300x300.jpg" alt="Selladora de impulso pedal" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Selladora de Impulso</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">Pedal, 30&ndash;40 cm</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/H98e1d72d1b934350b46c7c3c12e42b1cj.jpg_300x300.jpg" alt="Mesa acero inoxidable" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Mesa Acero Inox</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">1.5m x 0.6m</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/HTB1YyicpXkoBKNjSZFEq6zrEVXaO.jpg_300x300.jpg" alt="Báscula digital plataforma" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">B&aacute;scula Digital</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">150 kg, plataforma</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/H955d0071d7b2495e919d012cfef7f5e2o.jpg_300x300.jpg" alt="Tanque acero inoxidable" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Tanque Enfriamiento</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">100L, acero inox</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/H84e35b3e08a74c1faf116a1cd88d3f41Z.jpg_300x300.jpg" alt="Refractómetro Brix" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Refract&oacute;metro Brix</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">Manual, 0&ndash;80&deg;Bx</p>
+            </div>
+            <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center;">
+                <img src="https://s.alicdn.com/@sc04/kf/Hdca2cb0ce6f04c73bf1d60a6ecd058d3K.jpg_300x300.jpg" alt="Congelador horizontal" style="width:100%; height:140px; object-fit:contain; border-radius:6px;">
+                <p style="margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--green-dark);">Congelador Horizontal</p>
+                <p style="font-size:0.75rem; color:var(--text-light);">400L, -18&deg;C</p>
+            </div>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <thead>
+                    <tr style="background:var(--green-dark); color:white;">
+                        <th style="padding:12px; text-align:left;">#</th>
+                        <th style="padding:12px; text-align:left;">Equipo</th>
+                        <th style="padding:12px; text-align:left;">Especificaci&oacute;n</th>
+                        <th style="padding:12px; text-align:right;">Precio M&iacute;n</th>
+                        <th style="padding:12px; text-align:right;">Precio M&aacute;x</th>
+                        <th style="padding:12px; text-align:left;">D&oacute;nde comprar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">1</td>
+                        <td style="padding:10px;"><strong>Despulpadora de frutas</strong></td>
+                        <td style="padding:10px;">200&ndash;300 kg/h, acero inox 304, motor 2HP, 3 tamices</td>
+                        <td style="padding:10px; text-align:right;">$4,500,000</td>
+                        <td style="padding:10px; text-align:right;">$4,600,000</td>
+                        <td style="padding:10px;"><a href="https://casadelalicuadoraindustrial.com/tienda/linea-procesamiento/despulpadora/despulpadora-de-frutas/" target="_blank">Casa Licuadora</a> / <a href="https://www.comek.com.co/equipos_para_alimentos/18/1/frutas/despulpadora-de-frutas-detail" target="_blank">COMEK</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">2</td>
+                        <td style="padding:10px;"><strong>Marmita pasteurizadora</strong></td>
+                        <td style="padding:10px;">100L, volcable, acero inox 304, a gas, term&oacute;metro integrado</td>
+                        <td style="padding:10px; text-align:right;">$12,000,000</td>
+                        <td style="padding:10px; text-align:right;">$14,900,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/marmita-industrial-alimentos" target="_blank">MercadoLibre</a> / <a href="https://termoprocesos.net/marmita-pasteurizadora/" target="_blank">Termoprocesos</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">3</td>
+                        <td style="padding:10px;">Selladora de impulso (pedal)</td>
+                        <td style="padding:10px;">30&ndash;40 cm, resistencia reemplazable</td>
+                        <td style="padding:10px; text-align:right;">$150,000</td>
+                        <td style="padding:10px; text-align:right;">$300,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/selladora-de-impulso-pedal" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">4</td>
+                        <td style="padding:10px;">Mesa acero inoxidable</td>
+                        <td style="padding:10px;">1.5m x 0.6m, calibre 18, con entrepa&ntilde;o</td>
+                        <td style="padding:10px; text-align:right;">$800,000</td>
+                        <td style="padding:10px; text-align:right;">$1,500,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/mesas-en-acero-inoxidable-industriales" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">5</td>
+                        <td style="padding:10px;">B&aacute;scula digital plataforma</td>
+                        <td style="padding:10px;">150 kg, &plusmn;50g, display LED</td>
+                        <td style="padding:10px; text-align:right;">$200,000</td>
+                        <td style="padding:10px; text-align:right;">$400,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/bascula-digital-plataforma-150kg" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">6</td>
+                        <td style="padding:10px;">Tanque de enfriamiento</td>
+                        <td style="padding:10px;">100L, acero inox, con drenaje (o fabricaci&oacute;n local)</td>
+                        <td style="padding:10px; text-align:right;">$2,000,000</td>
+                        <td style="padding:10px; text-align:right;">$3,000,000</td>
+                        <td style="padding:10px;">Fabricaci&oacute;n local / <a href="https://listado.mercadolibre.com.co/tanque-acero-inoxidable" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">7</td>
+                        <td style="padding:10px;">Kit control calidad</td>
+                        <td style="padding:10px;">Refract&oacute;metro Brix + pH-metro digital + term&oacute;metro sonda</td>
+                        <td style="padding:10px; text-align:right;">$230,000</td>
+                        <td style="padding:10px; text-align:right;">$600,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/refractometro-brix" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">8</td>
+                        <td style="padding:10px;">Utensilios varios</td>
+                        <td style="padding:10px;">Cuchillos, canastas, baldes inox, tablas HACCP, guantes, botas</td>
+                        <td style="padding:10px; text-align:right;">$500,000</td>
+                        <td style="padding:10px; text-align:right;">$1,000,000</td>
+                        <td style="padding:10px;">Proveedores locales</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">9</td>
+                        <td style="padding:10px;">Congelador horizontal</td>
+                        <td style="padding:10px;">400L, -18&deg;C a -25&deg;C, tapa tipo cofre</td>
+                        <td style="padding:10px; text-align:right;">$2,500,000</td>
+                        <td style="padding:10px; text-align:right;">$4,000,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/congelador-horizontal-400-litros" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background:var(--green-mid); color:white; font-weight:bold;">
+                        <td colspan="3" style="padding:12px;">SUBTOTAL MAQUINARIA</td>
+                        <td style="padding:12px; text-align:right;">$22,880,000</td>
+                        <td style="padding:12px; text-align:right;">$30,300,000</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+            <p style="font-weight:700; margin-bottom:12px;">Costos adicionales &mdash; Escenario A</p>
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px;">Registro INVIMA</td>
+                    <td style="padding:10px; text-align:right; color:var(--green-mid); font-weight:bold;">GRATIS (microempresa)</td>
+                    <td style="padding:10px; text-align:right; color:var(--green-mid); font-weight:bold;">GRATIS</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                    <td style="padding:10px;">Adecuaci&oacute;n de planta (pisos, muros, drenajes)</td>
+                    <td style="padding:10px; text-align:right;">$5,000,000</td>
+                    <td style="padding:10px; text-align:right;">$15,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px;">Arriendo local industrial (3 meses dep&oacute;sito + 1er mes)</td>
+                    <td style="padding:10px; text-align:right;">$6,000,000</td>
+                    <td style="padding:10px; text-align:right;">$8,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                    <td style="padding:10px;">Capital de trabajo inicial (fruta, bolsas, insumos, 2 meses)</td>
+                    <td style="padding:10px; text-align:right;">$3,000,000</td>
+                    <td style="padding:10px; text-align:right;">$5,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px; font-weight:700;">SUBTOTAL COSTOS ADICIONALES</td>
+                    <td style="padding:10px; text-align:right; font-weight:700;">$14,000,000</td>
+                    <td style="padding:10px; text-align:right; font-weight:700;">$28,000,000</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card" style="background:var(--green-bg); border:2px solid var(--green-mid);">
+            <table style="width:100%; border-collapse:collapse; font-size:1.1rem; font-weight:700;">
+                <tr>
+                    <td style="padding:14px;">INVERSI&Oacute;N TOTAL ESCENARIO A (MICRO)</td>
+                    <td style="padding:14px; text-align:right; color:var(--green-dark);">$36,880,000</td>
+                    <td style="padding:14px; text-align:right; color:var(--green-dark);">$58,300,000</td>
+                </tr>
+                <tr>
+                    <td style="padding:4px 14px; font-size:0.85rem; font-weight:400; color:var(--text-light);">Equivalente en USD (TRM ~$4,400)</td>
+                    <td style="padding:4px 14px; text-align:right; font-size:0.85rem; font-weight:400; color:var(--text-light);">~USD $8,400</td>
+                    <td style="padding:4px 14px; text-align:right; font-size:0.85rem; font-weight:400; color:var(--text-light);">~USD $13,250</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ==================== ESCENARIO B: INDUSTRIAL PEQUEÑO ==================== -->
+        <h3 style="font-size:1.3rem; color:var(--green-dark); border-bottom:2px solid var(--accent); padding-bottom:8px; margin-top:48px;">Escenario B &mdash; PEQUE&Ntilde;A INDUSTRIAL &mdash; 500&ndash;1,000 kg fruta/d&iacute;a</h3>
+
+        <div class="card">
+            <p>Operaci&oacute;n semi-automatizada con mayor capacidad, empacadora neum&aacute;tica y cuarto fr&iacute;o. Requiere 2&ndash;3 operarios. Permite atender clientes institucionales (hoteles, cadenas de restaurantes, supermercados regionales) y empezar a preparar la marca para exportaci&oacute;n.</p>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <thead>
+                    <tr style="background:var(--green-dark); color:white;">
+                        <th style="padding:12px; text-align:left;">#</th>
+                        <th style="padding:12px; text-align:left;">Equipo</th>
+                        <th style="padding:12px; text-align:left;">Especificaci&oacute;n</th>
+                        <th style="padding:12px; text-align:right;">Precio M&iacute;n</th>
+                        <th style="padding:12px; text-align:right;">Precio M&aacute;x</th>
+                        <th style="padding:12px; text-align:left;">D&oacute;nde comprar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">1</td>
+                        <td style="padding:10px;"><strong>Despulpadora de frutas</strong></td>
+                        <td style="padding:10px;">500 kg/h, acero inox 304, motor 3HP, 3 tamices</td>
+                        <td style="padding:10px; text-align:right;">$8,000,000</td>
+                        <td style="padding:10px; text-align:right;">$8,500,000</td>
+                        <td style="padding:10px;"><a href="https://casadelalicuadoraindustrial.com/tienda/linea-procesamiento/despulpadora/despulpadora-de-frutas/" target="_blank">Casa Licuadora</a> / <a href="https://www.comek.com.co/" target="_blank">COMEK</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">2</td>
+                        <td style="padding:10px;"><strong>Marmita pasteurizadora con agitador</strong></td>
+                        <td style="padding:10px;">200&ndash;300L, acero inox, motor agitador, enchaquetada</td>
+                        <td style="padding:10px; text-align:right;">$25,000,000</td>
+                        <td style="padding:10px; text-align:right;">$35,000,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/marmita-industrial-alimentos" target="_blank">MercadoLibre</a> / <a href="https://www.comek.com.co/" target="_blank">COMEK</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">3</td>
+                        <td style="padding:10px;"><strong>Empacadora semiautom&aacute;tica de pulpas</strong></td>
+                        <td style="padding:10px;">Dosificadora neum&aacute;tica, acero inox, volumen ajustable 100&ndash;1000ml</td>
+                        <td style="padding:10px; text-align:right;">$8,000,000</td>
+                        <td style="padding:10px; text-align:right;">$15,000,000</td>
+                        <td style="padding:10px;"><a href="https://www.comek.com.co/equipos_para_alimentos/60/1/frutas/empacadora-para-pulpas-semiautomatica-detail" target="_blank">COMEK</a> / <a href="https://www.tecnomack.com/producto/maquinas-empacadora-de-pulpa-de-frutas/" target="_blank">Tecnomack</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">4</td>
+                        <td style="padding:10px;">Selladora continua de banda</td>
+                        <td style="padding:10px;">Para bolsas de polietileno, sellado continuo</td>
+                        <td style="padding:10px; text-align:right;">$800,000</td>
+                        <td style="padding:10px; text-align:right;">$2,000,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/selladora-continua-banda" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">5</td>
+                        <td style="padding:10px;">Mesas acero inoxidable (x2)</td>
+                        <td style="padding:10px;">2m x 0.7m, calibre 16, con entrepa&ntilde;o</td>
+                        <td style="padding:10px; text-align:right;">$2,000,000</td>
+                        <td style="padding:10px; text-align:right;">$3,000,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/mesas-en-acero-inoxidable-industriales" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">6</td>
+                        <td style="padding:10px;">B&aacute;scula digital plataforma</td>
+                        <td style="padding:10px;">300 kg, plataforma acero inox</td>
+                        <td style="padding:10px; text-align:right;">$400,000</td>
+                        <td style="padding:10px; text-align:right;">$700,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/bascula-digital-plataforma" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">7</td>
+                        <td style="padding:10px;">Tanque de lavado/recepci&oacute;n</td>
+                        <td style="padding:10px;">200L, acero inox 304, con desag&uuml;e</td>
+                        <td style="padding:10px; text-align:right;">$3,000,000</td>
+                        <td style="padding:10px; text-align:right;">$5,000,000</td>
+                        <td style="padding:10px;">Fabricaci&oacute;n local</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">8</td>
+                        <td style="padding:10px;">Tanque de enfriamiento</td>
+                        <td style="padding:10px;">200L, con serpent&iacute;n de agua fr&iacute;a</td>
+                        <td style="padding:10px; text-align:right;">$4,000,000</td>
+                        <td style="padding:10px; text-align:right;">$6,000,000</td>
+                        <td style="padding:10px;">Fabricaci&oacute;n local</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">9</td>
+                        <td style="padding:10px;">Kit control calidad</td>
+                        <td style="padding:10px;">Refract&oacute;metro + pH-metro + term&oacute;metro + kit an&aacute;lisis</td>
+                        <td style="padding:10px; text-align:right;">$500,000</td>
+                        <td style="padding:10px; text-align:right;">$1,000,000</td>
+                        <td style="padding:10px;"><a href="https://listado.mercadolibre.com.co/refractometro-brix" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">10</td>
+                        <td style="padding:10px;">Utensilios varios</td>
+                        <td style="padding:10px;">Cuchillos, canastas, baldes inox, mangueras, EPP</td>
+                        <td style="padding:10px; text-align:right;">$1,000,000</td>
+                        <td style="padding:10px; text-align:right;">$2,000,000</td>
+                        <td style="padding:10px;">Proveedores locales</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">11</td>
+                        <td style="padding:10px;"><strong>Cuarto fr&iacute;o o congeladores industriales</strong></td>
+                        <td style="padding:10px;">2x2m prefabricado o 3 congeladores horizontales</td>
+                        <td style="padding:10px; text-align:right;">$8,000,000</td>
+                        <td style="padding:10px; text-align:right;">$15,000,000</td>
+                        <td style="padding:10px;">Cotizaci&oacute;n local / <a href="https://listado.mercadolibre.com.co/cuarto-frio" target="_blank">MercadoLibre</a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background:var(--green-mid); color:white; font-weight:bold;">
+                        <td colspan="3" style="padding:12px;">SUBTOTAL MAQUINARIA</td>
+                        <td style="padding:12px; text-align:right;">$60,700,000</td>
+                        <td style="padding:12px; text-align:right;">$93,200,000</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+            <p style="font-weight:700; margin-bottom:12px;">Costos adicionales &mdash; Escenario B</p>
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px;">Registro INVIMA</td>
+                    <td style="padding:10px; text-align:right;">$0</td>
+                    <td style="padding:10px; text-align:right;">$2,500,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                    <td style="padding:10px;">Adecuaci&oacute;n de planta (pisos ep&oacute;xicos, muros, drenajes, ventilaci&oacute;n)</td>
+                    <td style="padding:10px; text-align:right;">$10,000,000</td>
+                    <td style="padding:10px; text-align:right;">$20,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px;">Arriendo local industrial (3 meses dep&oacute;sito + 1er mes)</td>
+                    <td style="padding:10px; text-align:right;">$8,000,000</td>
+                    <td style="padding:10px; text-align:right;">$12,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                    <td style="padding:10px;">Capital de trabajo inicial (fruta, empaques, insumos, n&oacute;mina 2 meses)</td>
+                    <td style="padding:10px; text-align:right;">$8,000,000</td>
+                    <td style="padding:10px; text-align:right;">$12,000,000</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px; font-weight:700;">SUBTOTAL COSTOS ADICIONALES</td>
+                    <td style="padding:10px; text-align:right; font-weight:700;">$26,000,000</td>
+                    <td style="padding:10px; text-align:right; font-weight:700;">$46,500,000</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card" style="background:var(--green-bg); border:2px solid var(--green-mid);">
+            <table style="width:100%; border-collapse:collapse; font-size:1.1rem; font-weight:700;">
+                <tr>
+                    <td style="padding:14px;">INVERSI&Oacute;N TOTAL ESCENARIO B (INDUSTRIAL PEQUE&Ntilde;A)</td>
+                    <td style="padding:14px; text-align:right; color:var(--green-dark);">$86,700,000</td>
+                    <td style="padding:14px; text-align:right; color:var(--green-dark);">$139,700,000</td>
+                </tr>
+                <tr>
+                    <td style="padding:4px 14px; font-size:0.85rem; font-weight:400; color:var(--text-light);">Equivalente en USD (TRM ~$4,400)</td>
+                    <td style="padding:4px 14px; text-align:right; font-size:0.85rem; font-weight:400; color:var(--text-light);">~USD $19,700</td>
+                    <td style="padding:4px 14px; text-align:right; font-size:0.85rem; font-weight:400; color:var(--text-light);">~USD $31,750</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ==================== COMPARATIVA ==================== -->
+        <h3 style="margin-top:48px;">Comparativa de Escenarios</h3>
+        <div class="card" style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <thead>
+                    <tr style="background:var(--green-dark); color:white;">
+                        <th style="padding:12px; text-align:left;">Concepto</th>
+                        <th style="padding:12px; text-align:center;">A &mdash; Micro</th>
+                        <th style="padding:12px; text-align:center;">B &mdash; Industrial Peque&ntilde;a</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">Capacidad</td>
+                        <td style="padding:10px; text-align:center;">100&ndash;200 kg/d&iacute;a</td>
+                        <td style="padding:10px; text-align:center;">500&ndash;1,000 kg/d&iacute;a</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">Operarios</td>
+                        <td style="padding:10px; text-align:center;">1 persona</td>
+                        <td style="padding:10px; text-align:center;">2&ndash;3 personas</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">Empaque</td>
+                        <td style="padding:10px; text-align:center;">Bolsa polietileno sellada manualmente</td>
+                        <td style="padding:10px; text-align:center;">Empacadora semiautom&aacute;tica / doypack</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">Pasteurizaci&oacute;n</td>
+                        <td style="padding:10px; text-align:center;">Marmita batch 100L</td>
+                        <td style="padding:10px; text-align:center;">Marmita 200&ndash;300L con agitador</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">Almacenamiento</td>
+                        <td style="padding:10px; text-align:center;">Congelador horizontal</td>
+                        <td style="padding:10px; text-align:center;">Cuarto fr&iacute;o</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">INVIMA</td>
+                        <td style="padding:10px; text-align:center; color:var(--green-mid); font-weight:700;">GRATIS</td>
+                        <td style="padding:10px; text-align:center;">$0&ndash;$2.5M (seg&uacute;n tama&ntilde;o)</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;">Espacio m&iacute;nimo</td>
+                        <td style="padding:10px; text-align:center;">30&ndash;50 m&sup2;</td>
+                        <td style="padding:10px; text-align:center;">80&ndash;150 m&sup2;</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;">Clientes objetivo</td>
+                        <td style="padding:10px; text-align:center;">Restaurantes, juguer&iacute;as, tiendas locales</td>
+                        <td style="padding:10px; text-align:center;">HoReCa, supermercados, marca blanca, exportaci&oacute;n</td>
+                    </tr>
+                    <tr style="background:var(--accent-light); font-weight:700;">
+                        <td style="padding:12px;">INVERSI&Oacute;N TOTAL</td>
+                        <td style="padding:12px; text-align:center; color:var(--green-dark);">$37&ndash;58M COP<br><small style="font-weight:400;">(~USD $8.4K&ndash;$13.3K)</small></td>
+                        <td style="padding:12px; text-align:center; color:var(--green-dark);">$87&ndash;140M COP<br><small style="font-weight:400;">(~USD $19.7K&ndash;$31.8K)</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ==================== PROVEEDORES ==================== -->
+        <h3>Proveedores Clave en Colombia</h3>
+        <div class="card" style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                <thead>
+                    <tr style="background:var(--green-dark); color:white;">
+                        <th style="padding:10px; text-align:left;">Proveedor</th>
+                        <th style="padding:10px; text-align:left;">Producto</th>
+                        <th style="padding:10px; text-align:left;">Ubicaci&oacute;n</th>
+                        <th style="padding:10px; text-align:left;">Contacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;"><a href="https://www.comek.com.co/" target="_blank"><strong>COMEK</strong></a></td>
+                        <td style="padding:10px;">Despulpadoras, marmitas, empacadoras</td>
+                        <td style="padding:10px;">Bogot&aacute;</td>
+                        <td style="padding:10px;">ventas@comek.com.co / +57 302 866 7177</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;"><a href="https://www.tecnomack.com/" target="_blank"><strong>Tecnomack</strong></a></td>
+                        <td style="padding:10px;">Despulpadoras, empacadoras de pulpa, cursos</td>
+                        <td style="padding:10px;">Cali</td>
+                        <td style="padding:10px;">+57 300 237 6031</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;"><a href="https://tecnilacwillgo.com/product/pasteurizador-tubular/" target="_blank"><strong>Tecnilac Willgo</strong></a></td>
+                        <td style="padding:10px;">Pasteurizador tubular HTST (para escalar)</td>
+                        <td style="padding:10px;">Girardota, Antioquia</td>
+                        <td style="padding:10px;">+57 350 580 6654</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;"><a href="https://tedmaq.com/categoria/linea-empaques/empacadoras/empacadora-tipo-doypack/" target="_blank"><strong>Tedmaq</strong></a></td>
+                        <td style="padding:10px;">Empacadora doypack autom&aacute;tica (leasing disponible)</td>
+                        <td style="padding:10px;">Bogot&aacute;</td>
+                        <td style="padding:10px;">tedmaq.com</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px;"><a href="https://casadelalicuadoraindustrial.com/tienda/linea-procesamiento/despulpadora/despulpadora-de-frutas/" target="_blank"><strong>Casa de la Licuadora Industrial</strong></a></td>
+                        <td style="padding:10px;">Despulpadoras 2HP&ndash;7HP</td>
+                        <td style="padding:10px;">Nacional</td>
+                        <td style="padding:10px;">Web</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:#f8fdf8;">
+                        <td style="padding:10px;"><a href="https://maplascali.com/producto/empacadora-de-pulpas-de-frutas/" target="_blank"><strong>Maplas Cali</strong></a></td>
+                        <td style="padding:10px;">Empacadora de pulpas C26L</td>
+                        <td style="padding:10px;">Cali</td>
+                        <td style="padding:10px;">Web</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;"><a href="https://www.capack.com.co/" target="_blank"><strong>CAPACK SAS</strong></a></td>
+                        <td style="padding:10px;">Bolsas doypack impresas, empaques flexibles</td>
+                        <td style="padding:10px;">Cali</td>
+                        <td style="padding:10px;">capack.com.co</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card highlight">
+            <p><strong>Recomendaci&oacute;n estrat&eacute;gica:</strong> Empezar con el <strong>Escenario A</strong> (~COP $37&ndash;58M) usando empaque b&aacute;sico en bolsa de polietileno. Validar producto y clientes durante 6&ndash;12 meses. Con flujo de caja positivo, migrar al <strong>Escenario B</strong> invirtiendo en empacadora semiautom&aacute;tica y doypack con marca FRUTT&Eacute; para posicionamiento premium y exportaci&oacute;n. La marmita pasteurizadora del Escenario A se puede reutilizar como equipo secundario.</p>
+        </div>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <strong>Estudio de Mercado &mdash; Pulpa de Fruta Pasteurizada en Colombia</strong><br>
+    Luigy Roso &amp; Fabi&aacute;n &mdash; Marzo 2026<br>
+    <small>Documento de investigaci&oacute;n. Datos sujetos a verificaci&oacute;n de campo. Precios consultados en marzo 2026.</small>
+</footer>
+
+</body>
+</html>

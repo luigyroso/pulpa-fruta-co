@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUTTÉ — Plan MVP → Escenario B → Exportación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0c1f13;--c2:#163d24;--c3:#1e6b3a;--c4:#27ae60;--c5:#6edd97;--bg:#f6faf4;--surface:#fff;--accent:#f0812d;--accent2:#ff6b1a;--red:#e74c3c;--text:#1a2e1a;--muted:#6b7f6b;--border:rgba(30,107,58,.12);--glass:rgba(255,255,255,.7);--blue:#2980b9}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.hero{position:relative;padding:72px 24px 56px;text-align:center;overflow:hidden;background:var(--c1)}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(39,174,96,.3) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(240,129,45,.2) 0%,transparent 50%)}.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='1' fill='%2327ae60' fill-opacity='.12'/%3E%3C/svg%3E")}.hero *{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(39,174,96,.2);border:1px solid rgba(39,174,96,.3);border-radius:100px;padding:8px 20px;font-size:.78rem;color:var(--c5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px}.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c4);animation:pulse 2s infinite}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:14px}.hero h1 span{background:linear-gradient(135deg,var(--c5),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(.9rem,1.8vw,1.1rem);color:rgba(255,255,255,.5);font-weight:300;max-width:650px;margin:0 auto}
+nav{position:sticky;top:0;z-index:100;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}nav .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}nav .inner::-webkit-scrollbar{display:none}nav a{padding:14px 16px;font-size:.8rem;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}nav a:hover,nav a.active{color:var(--c3);border-color:var(--c4)}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}section{padding:64px 0}section:not(.hero){opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}section:not(.hero).visible{opacity:1;transform:none}
+.section-label{display:inline-block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--c4);margin-bottom:8px}.section-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:var(--c1);margin-bottom:8px}.section-desc{font-size:.9rem;color:var(--muted);max-width:650px;margin-bottom:28px;line-height:1.6}
+.grid{display:grid;gap:14px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;transition:all .25s}.card:hover{box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-2px)}.card-label{font-size:.66rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px}.card-val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--c2)}.card-val.accent{color:var(--accent)}.card-val.green{color:var(--c3)}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:var(--surface)}table{width:100%;border-collapse:collapse;font-size:.8rem}thead{background:var(--c1)}th{padding:10px 14px;text-align:left;font-weight:600;color:#fff;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px}td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.04)}.r{text-align:right}.b{font-weight:700}.pos{color:var(--c3)}.neg{color:var(--red)}tr.total{background:var(--c2)!important;color:#fff;font-weight:700}tr.total td{border:none;color:#fff}tr.subtotal{background:rgba(39,174,96,.06)!important;font-weight:600}
+.callout{border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start;margin:20px 0}.callout.green{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2)}.callout.orange{background:rgba(240,129,45,.08);border:1px solid rgba(240,129,45,.2)}.callout.red{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)}.callout.blue{background:rgba(41,128,185,.08);border:1px solid rgba(41,128,185,.2)}.callout-icon{font-size:1.3rem;flex-shrink:0;line-height:1}.callout h4{font-size:.88rem;font-weight:700;margin-bottom:3px}.callout p{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* PHASES */
+.phase{border-radius:20px;border:2px solid var(--border);background:var(--surface);overflow:hidden;margin-bottom:24px}
+.phase-header{padding:24px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)}
+.phase-number{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0}
+.phase-meta{flex:1}
+.phase-meta h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:800;color:var(--c1);margin-bottom:2px}
+.phase-meta p{font-size:.82rem;color:var(--muted)}
+.phase-tags{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 10px;border-radius:6px}
+.tag-green{background:rgba(39,174,96,.15);color:var(--c3)}.tag-orange{background:rgba(240,129,45,.15);color:var(--accent)}.tag-red{background:rgba(231,76,60,.15);color:var(--red)}.tag-blue{background:rgba(41,128,185,.15);color:var(--blue)}
+.phase-body{padding:24px}
+.step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:.86rem}
+.step:last-child{border:none}
+.step-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);flex-shrink:0;margin-top:1px}
+.step-content{flex:1}
+.step-content strong{color:var(--c1)}
+.step-cost{font-family:'Fraunces',serif;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;font-size:.85rem}
+.step-cost.free{color:var(--c3)}
+.step-detail{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.5}
+.go-nogo{border-radius:12px;padding:16px 20px;margin-top:16px;display:flex;gap:12px;align-items:flex-start}
+.go-nogo.go{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2)}
+.go-nogo.nogo{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)}
+.go-nogo-icon{font-size:1.2rem;flex-shrink:0}
+.go-nogo p{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:.78rem}footer a{color:var(--accent);text-decoration:none;font-weight:600}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.phase-header{flex-direction:column;text-align:center}.phase-tags{justify-content:center}section{padding:40px 0}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-badge"><span></span> Roadmap completo &middot; 2026-2028</div>
+    <h1>Del MVP a la <span>exportaci&oacute;n</span></h1>
+    <p class="hero-sub">5 fases. De una prueba en cocina a una planta exportadora. Cada fase tiene gate de validaci&oacute;n — no se avanza sin confirmar.</p>
+</section>
+
+<nav><div class="inner">
+    <a href="#resumen">Resumen</a><a href="#f0">Fase 0</a><a href="#f1">Fase 1</a><a href="#f2">Fase 2</a><a href="#f3">Fase 3</a><a href="#f4">Fase 4</a><a href="#timeline">Timeline</a>
+</div></nav>
+
+<div class="container">
+
+<!-- RESUMEN -->
+<section id="resumen">
+    <span class="section-label">Vista general</span>
+    <div class="section-title">5 fases, de $3M a $120M</div>
+    <p class="section-desc">Cada fase valida hip&oacute;tesis antes de escalar. Si una fase falla, se pivotea sin haber quemado capital grande.</p>
+
+    <div class="table-wrap" style="margin-bottom:24px">
+        <table>
+            <thead><tr><th>Fase</th><th>Nombre</th><th class="r">Duraci&oacute;n</th><th class="r">Inversi&oacute;n</th><th class="r">Acumulada</th><th>Objetivo</th><th>Gate</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(231,76,60,.04)"><td><strong>0</strong></td><td>Legal + Investigaci&oacute;n</td><td class="r">4 sem</td><td class="r b">$3M</td><td class="r">$3M</td><td>PN + contrato Fabi&aacute;n, IVA, fincas, cotizaciones</td><td>IVA confirmado + finca &le;$3,650/kg</td></tr>
+                <tr style="background:rgba(240,129,45,.04)"><td><strong>1</strong></td><td>Piloto + Laboratorio</td><td class="r">8 sem</td><td class="r b">$10M</td><td class="r">$13M</td><td>Producto validado, vida &uacute;til, clientes</td><td>Lab OK + 5 clientes quieren comprar</td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td><strong>2</strong></td><td>MVP — Primeras ventas</td><td class="r">3 meses</td><td class="r b">$15M</td><td class="r">$28M</td><td>Vender a 15+ clientes B2B, validar operaci&oacute;n</td><td>$10M+ en ventas mensuales</td></tr>
+                <tr style="background:rgba(39,174,96,.06)"><td><strong>3</strong></td><td>Escenario B completo</td><td class="r">3-6 meses</td><td class="r b">$92M</td><td class="r">$120M</td><td>Planta propia, 6 sabores, equipo full</td><td>Producci&oacute;n &gt;5,000 kg/mes estable</td></tr>
+                <tr style="background:rgba(41,128,185,.04)"><td><strong>4</strong></td><td>Escala + Exportaci&oacute;n</td><td class="r">A&ntilde;o 2+</td><td class="r b">$50-100M</td><td class="r">$170-220M</td><td>HTST, doypack, tiendas, exportar</td><td>HACCP + 3 pa&iacute;ses destino</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid grid-4">
+        <div class="card" style="text-align:center"><div class="card-label">Riesgo m&aacute;x antes de validar</div><div class="card-val accent">$13M</div><div class="card-sub">$6.5M por socio antes de validar</div></div>
+        <div class="card" style="text-align:center"><div class="card-label">Tiempo a primera venta</div><div class="card-val green">~3 meses</div><div class="card-sub">Desde d&iacute;a 0</div></div>
+        <div class="card" style="text-align:center"><div class="card-label">Tiempo a Esc. B full</div><div class="card-val">~9-12 meses</div><div class="card-sub">Si todo valida</div></div>
+        <div class="card" style="text-align:center"><div class="card-label">Tiempo a exportaci&oacute;n</div><div class="card-val">~18-24 meses</div><div class="card-sub">Con HTST + HACCP</div></div>
+    </div>
+</section>
+
+<!-- FASE 0 -->
+<section id="f0">
+    <div class="phase">
+        <div class="phase-header">
+            <div class="phase-number" style="background:var(--red)">0</div>
+            <div class="phase-meta"><h3>Legal + Investigaci&oacute;n de campo</h3><p>Semanas 1-4 &middot; No se produce nada. Solo se investiga, se legaliza y se validan supuestos cr&iacute;ticos.</p></div>
+            <div class="phase-tags"><span class="tag tag-red">~$3M</span><span class="tag tag-orange">4 semanas</span></div>
+        </div>
+        <div class="phase-body">
+            <div style="font-weight:700;color:var(--c2);margin-bottom:8px;font-size:.9rem">&#9878; Legalizaci&oacute;n</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Registrarse como Persona Natural Comerciante</strong> (a nombre de Luigy)<div class="step-detail">C&aacute;mara de Comercio Bogot&aacute;. Matr&iacute;cula mercantil + registro establecimiento. M&aacute;s r&aacute;pido y barato que SAS. Fabi&aacute;n es socio de hecho — formalizar con contrato de cuentas en participaci&oacute;n (Art. 507-514 C&oacute;d. Comercio): establece aportes, % utilidades, roles. Migrar a SAS cuando se escale.</div></div><div class="step-cost">$150K</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Obtener RUT</strong> en DIAN<div class="step-detail">Virtual o presencial. 1-3 d&iacute;as h&aacute;biles. Gratis.</div></div><div class="step-cost free">GRATIS</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Inscribir en RST</strong> (R&eacute;gimen Simple)<div class="step-detail">Tasa 1.8% sobre ingresos (vs 35% ordinario). Deadline: 27 febrero cada a&ntilde;o.</div></div><div class="step-cost free">GRATIS</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Contratar contador externo</strong><div class="step-detail">No obligatorio para PN micro, pero altamente recomendado: RST, facturaci&oacute;n electr&oacute;nica, DIAN. Obligatorio cuando contrates empleados (PILA, n&oacute;mina).</div></div><div class="step-cost">$500K-$800K/mes</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Abrir cuenta bancaria empresa</strong><div class="step-detail">Cuenta de ahorros o corriente a nombre de Luigy con actividad comercial. Designar como cuenta GMF exenta (&le;$18.3M/mes sin 4&times;1000).</div></div><div class="step-cost">$0</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128270; Validaci&oacute;n cr&iacute;tica</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>&#9888; Confirmar IVA con DIAN</strong> — &iquest;5% o 19%?<div class="step-detail">CONFIRMADO: 19%. Pulpa pasteurizada es procesamiento industrial. Esto ya se sabe. Afecta precio final al consumidor (+19%).</div></div><div class="step-cost neg" style="color:var(--red)">CR&Iacute;TICO &#10004;</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Cotizar fruta con 5+ fincas</strong><div class="step-detail">Contactar cooperativas en Tolima (mango, guayaba), Valle (maracuy&aacute;, guanábana), Cundinamarca (mora, lulo). Pedir precio por bulto/tonelada con contrato mensual. <strong>Target: &le;$3,650/kg promedio.</strong></div></div><div class="step-cost">$200K viáticos</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Validar precios B2B con 15 restaurantes</strong><div class="step-detail">Visitar: Helado San Ferm&iacute;n (320 613 6119), Cervecer&iacute;a Gigante (323 698 3597), Casa de Banquetes Ismael (301 765 1306). Preguntar: &iquest;cu&aacute;nto pagan hoy por kg de pulpa? &iquest;Comprar&iacute;an pulpa pasteurizada sin fr&iacute;o?</div></div><div class="step-cost">$300K viáticos</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Cotizar 2+ maquilas / copackers</strong><div class="step-detail">Buscar plantas procesadoras que hagan maquila de pulpa. Plan B si planta propia no cuadra. Pedir costo por kg procesado.</div></div><div class="step-cost">$100K viáticos</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Cotizar equipos con proveedores</strong><div class="step-detail">COMEK: ventas@comek.com.co / 311 592 2532. Tecnomack: 300 237 6031. Pedir cotizaci&oacute;n paquete: despulpadora + marmita + empacadora.</div></div><div class="step-cost">$0</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Firmar contrato de cuentas en participaci&oacute;n con Fabi&aacute;n</strong><div class="step-detail">Contrato privado (no requiere registro p&uacute;blico). Define: aportes 50/50 por fase, salario Luigy como gasto operativo, rol de Fabi&aacute;n (operativo vs pasivo), reparto de utilidades 50/50 despu&eacute;s del salario, cl&aacute;usula de salida, migraci&oacute;n a SAS en Fase 2-3. <strong>Firmar con abogado.</strong></div></div><div class="step-cost">$0</div></div>
+
+            <div class="callout blue" style="margin-top:16px"><span class="callout-icon">&#129309;</span><div>
+                <h4>Persona Natural + Contrato de Cuentas en Participaci&oacute;n</h4>
+                <p><strong>El negocio opera a nombre de Luigy (PN)</strong> pero Fabi&aacute;n es socio v&iacute;a contrato privado (Art. 507-514 C&oacute;d. Comercio). Este contrato es 100% legal, no requiere registro p&uacute;blico, y define aportes + utilidades.<br>
+                <strong>&#9888; Riesgo PN:</strong> Luigy responde con patrimonio personal. Fabi&aacute;n solo pierde su aporte (el part&iacute;cipe oculto no responde ante terceros).<br>
+                <strong>Aportes por fase:</strong> Fase 0+1: $6.5M c/u. Fase 2: $7.5M c/u. Fase 3: hasta $60M c/u.<br>
+                <strong>Migrar a SAS cuando:</strong> ingresos &gt;$100M/a&ntilde;o o al entrar a Fase 3. Costo: ~$500K. Protege a ambos.</p>
+            </div></div>
+
+            <div class="go-nogo go"><div class="go-nogo-icon">&#9989;</div><div><strong>GO si:</strong><p>Finca &le;$3,650/kg promedio + al menos 5 restaurantes interesados + IVA confirmado (19%) + acuerdo con Fabi&aacute;n firmado.</p></div></div>
+            <div class="go-nogo nogo"><div class="go-nogo-icon">&#9940;</div><div><strong>NO-GO si:</strong><p>Fincas no bajan de $4,000/kg y no hay maquila viable, o ning&uacute;n restaurante quiere el producto.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FASE 1 -->
+<section id="f1">
+    <div class="phase">
+        <div class="phase-header">
+            <div class="phase-number" style="background:var(--accent)">1</div>
+            <div class="phase-meta"><h3>Piloto + Laboratorio + Validaci&oacute;n</h3><p>Semanas 5-12 &middot; Producir lote piloto peque&ntilde;o, enviar a lab, probar con clientes reales.</p></div>
+            <div class="phase-tags"><span class="tag tag-orange">~$10M</span><span class="tag tag-orange">8 semanas</span></div>
+        </div>
+        <div class="phase-body">
+            <div style="font-weight:700;color:var(--c2);margin-bottom:8px;font-size:.9rem">&#129514; Producci&oacute;n piloto</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Alquilar cocina industrial / planta piloto</strong><div class="step-detail">Por d&iacute;as. Bogot&aacute; tiene cocinas industriales en alquiler ($200K-$500K/d&iacute;a). O usar maquila para el lote.</div></div><div class="step-cost">$1M-$2M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Comprar fruta para piloto</strong> — 3 sabores: guayaba, guan&aacute;bana, maracuy&aacute;<div class="step-detail">~100 kg de cada fruta. Comprar en Corabastos est&aacute; bien para piloto (despu&eacute;s finca).</div></div><div class="step-cost">$1.5M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Producir 50-100 kg de pulpa pasteurizada</strong><div class="step-detail">Despulpar, pasteurizar (63&deg;C &times; 30 min), enfriar, empacar en bolsas polietileno selladas. Registrar tiempos, temperaturas, rendimientos.</div></div><div class="step-cost">$500K insumos</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128300; Laboratorio y validaci&oacute;n</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>An&aacute;lisis microbiol&oacute;gico</strong><div class="step-detail">Enviar muestras a laboratorio certificado (ej: SGS Colombia, Bureau Veritas, Biotr&oacute;pico). Test: E. coli, Salmonella, mohos, levaduras, mes&oacute;filos aer&oacute;bicos. Resultado en 5-10 d&iacute;as.</div></div><div class="step-cost">$1.5M-$3M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>An&aacute;lisis fisicoqu&iacute;mico</strong><div class="step-detail">pH, &deg;Brix (az&uacute;cares), acidez titulable, s&oacute;lidos totales, color, viscosidad. Necesario para ficha t&eacute;cnica INVIMA.</div></div><div class="step-cost">$800K-$1.5M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Estudio de vida &uacute;til (shelf-life)</strong><div class="step-detail">Almacenar muestras a temperatura ambiente (25-30&deg;C). Analizar a los 30, 60, 90, 120, 180 d&iacute;as. Es la prueba m&aacute;s larga — <strong>empieza lo antes posible</strong>. Metodolog&iacute;a acelerada (Arrhenius) reduce a 4-6 semanas.</div></div><div class="step-cost">$1M-$2M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>An&aacute;lisis nutricional</strong> (para tabla nutricional del empaque)<div class="step-detail">Calor&iacute;as, prote&iacute;na, grasa, carbohidratos, fibra, sodio. Obligatorio seg&uacute;n Resoluci&oacute;n 810/2021.</div></div><div class="step-cost">$500K-$1M</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#127869; Validaci&oacute;n con clientes</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Prueba de sabor con 20+ personas</strong><div class="step-detail">Panel ciego: comparar FRUTT&Eacute; vs competencia (congelada y pasteurizada). Evaluar sabor, color, textura, aroma. Escala 1-10.</div></div><div class="step-cost">$200K</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Entregar muestras gratis a 10 clientes B2B</strong><div class="step-detail">500g por sabor a cada uno. Pedir feedback a la semana. Priorizar: Helado San Ferm&iacute;n, Cervecer&iacute;a Gigante, 3 Cordilleras, Casa de Banquetes Ismael, 5 restaurantes de Chapinero/Usaqu&eacute;n.</div></div><div class="step-cost">$500K</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Obtener cartas de intenci&oacute;n de compra</strong><div class="step-detail">No es contrato — es un email o WhatsApp diciendo "s&iacute;, comprar&iacute;a X kg/mes a $Y precio". Necesitas m&iacute;nimo 5.</div></div><div class="step-cost">$0</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128221; Regulatorio paralelo</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Iniciar tr&aacute;mite INVIMA</strong> (Registro Sanitario)<div class="step-detail">Gratis para microempresas (Ley 2069/2020). Necesita: ficha t&eacute;cnica del producto, resultados de lab, descripci&oacute;n del proceso, rotulado propuesto. Proceso: 3-6 meses, pero puedes producir con solicitud en tr&aacute;mite.</div></div><div class="step-cost free">GRATIS</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Dise&ntilde;o de empaque y rotulado</strong><div class="step-detail">Tabla nutricional, lista ingredientes, lote, fecha vencimiento, registro INVIMA (en tr&aacute;mite), logo FRUTT&Eacute;. Cumplir Resoluci&oacute;n 5109/2005 y 810/2021.</div></div><div class="step-cost">$1.5M-$2M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Curso manipulaci&oacute;n de alimentos</strong><div class="step-detail">Obligatorio para cualquier persona que toque alimento. SENA o entidad certificada. 10-16 horas.</div></div><div class="step-cost">$80K/persona</div></div>
+
+            <div class="go-nogo go"><div class="go-nogo-icon">&#9989;</div><div><strong>GO a Fase 2 si:</strong><p>Lab microbiol&oacute;gico OK (0 pat&oacute;genos) + vida &uacute;til &ge;90 d&iacute;as sin fr&iacute;o + al menos 5 clientes con intenci&oacute;n de compra + sabor validado (&ge;7/10 promedio) + INVIMA en tr&aacute;mite.</p></div></div>
+            <div class="go-nogo nogo"><div class="go-nogo-icon">&#9940;</div><div><strong>NO-GO si:</strong><p>Pat&oacute;genos en lab (revisar proceso de pasteurizaci&oacute;n), vida &uacute;til &lt;60 d&iacute;as (necesita reformular), o 0 clientes interesados (revisar producto/precio).</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FASE 2 -->
+<section id="f2">
+    <div class="phase">
+        <div class="phase-header">
+            <div class="phase-number" style="background:var(--c4)">2</div>
+            <div class="phase-meta"><h3>MVP — Primeras ventas reales</h3><p>Meses 3-6 &middot; Producci&oacute;n peque&ntilde;a en maquila o local b&aacute;sico. 3 sabores. Primeros ingresos.</p></div>
+            <div class="phase-tags"><span class="tag tag-green">~$15M</span><span class="tag tag-green">3 meses</span></div>
+        </div>
+        <div class="phase-body">
+            <div style="font-weight:700;color:var(--c2);margin-bottom:8px;font-size:.9rem">&#127981; Operaci&oacute;n b&aacute;sica</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Decidir: maquila vs local propio peque&ntilde;o</strong><div class="step-detail"><strong>Maquila:</strong> menor riesgo, $1,500-$2,000/kg fee, no arriendo. <strong>Local:</strong> m&aacute;s control, necesita equipos b&aacute;sicos (~$20M), arriendo $2.5M/mes. Recomendaci&oacute;n: arrancar maquila mientras se busca local para Fase 3.</div></div><div class="step-cost">Depende</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Establecer cadena de suministro de fruta</strong><div class="step-detail">Primer pedido a fincas: 500-1,000 kg/semana de los 3 sabores top (guayaba, guan&aacute;bana, maracuy&aacute;). Contratos informales al inicio, formalizar con volumen.</div></div><div class="step-cost">~$3M-$5M/mes fruta</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Producir 500-1,500 kg pulpa/mes</strong><div class="step-detail">Escala peque&ntilde;a. Objetivo: ganar experiencia operativa, ajustar recetas, optimizar rendimientos antes de invertir en planta grande.</div></div><div class="step-cost">Variables</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128176; Ventas</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Activar los 5-10 clientes de Fase 1</strong><div class="step-detail">Primer pedido real. Entrega directa (tu carro o moto). Facturar electr&oacute;nicamente desde d&iacute;a 1.</div></div><div class="step-cost">$0</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Prospectar 10-15 clientes nuevos por semana</strong><div class="step-detail">Visitar juguer&iacute;as, restaurantes, helader&iacute;as en Chapinero, Usaqu&eacute;n, Zona T, La Candelaria. Llevar muestras. Target: 15 clientes activos al final de Fase 2.</div></div><div class="step-cost">$500K/mes vi&aacute;ticos</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>WhatsApp Business como canal de pedidos</strong><div class="step-detail">Cat&aacute;logo de productos, mensajes autom&aacute;ticos, etiquetas por cliente. Suficiente para 20-30 clientes.</div></div><div class="step-cost free">GRATIS</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Contratar freelancer RRSS</strong><div class="step-detail">Instagram + TikTok. Contenido: proceso de producci&oacute;n, recetas, testimonios clientes. No es para vender directo a&uacute;n — es para construir marca.</div></div><div class="step-cost">$1.3M/mes</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128203; Regulatorio</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Obtener concepto sanitario</strong> (Secretar&iacute;a de Salud)<div class="step-detail">Inspecci&oacute;n gratuita. Verifican BPM, higiene, instalaciones. Si usas maquila, el copacker ya lo tiene.</div></div><div class="step-cost free">GRATIS</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Verificar uso de suelos</strong> para futuro local Fase 3<div class="step-detail">Secretar&iacute;a Distrital de Planeaci&oacute;n. Verificar que zona permite actividad agroindustrial. Hacer ANTES de firmar arriendo.</div></div><div class="step-cost">$100K</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Ex&aacute;menes m&eacute;dicos manipuladores</strong><div class="step-detail">Obligatorio para todos los que tocan alimento. Incluye: coprológico, frotis de uñas, KOH.</div></div><div class="step-cost">$60K/persona</div></div>
+
+            <div class="go-nogo go"><div class="go-nogo-icon">&#9989;</div><div><strong>GO a Fase 3 si:</strong><p>15+ clientes recurrentes + ingresos &ge;$10M/mes + margen bruto &ge;25% confirmado en operaci&oacute;n real + INVIMA aprobado o en tr&aacute;mite avanzado + cadena de fruta estable.</p></div></div>
+            <div class="go-nogo nogo"><div class="go-nogo-icon">&#9940;</div><div><strong>PIVOTAR si:</strong><p>&lt;5 clientes despu&eacute;s de 3 meses (revisar producto/precio), margen &lt;15% (renegociar fruta o subir precio), problemas de calidad recurrentes (mejorar proceso antes de escalar).</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FASE 3 -->
+<section id="f3">
+    <div class="phase">
+        <div class="phase-header">
+            <div class="phase-number" style="background:var(--c2)">3</div>
+            <div class="phase-meta"><h3>Escenario B — Planta propia</h3><p>Meses 6-12 &middot; Inversi&oacute;n grande. Local industrial, equipos completos, 6 sabores, equipo comercial.</p></div>
+            <div class="phase-tags"><span class="tag tag-green">~$92M</span><span class="tag tag-blue">3-6 meses</span></div>
+        </div>
+        <div class="phase-body">
+            <div style="font-weight:700;color:var(--c2);margin-bottom:8px;font-size:.9rem">&#127981; Infraestructura</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Firmar arriendo local industrial</strong> 150-200 m&sup2;<div class="step-detail">Zonas: Fontib&oacute;n, Puente Aranda, Montevideo. Verificar uso de suelos previamente. Dep&oacute;sito: 3 meses + primer mes.</div></div><div class="step-cost">$10M dep&oacute;sito</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Adecuaci&oacute;n de planta</strong><div class="step-detail">Pisos ep&oacute;xicos, muros sanitarios, drenajes, ventilaci&oacute;n, instalaci&oacute;n el&eacute;ctrica trif&aacute;sica, iluminaci&oacute;n LED, trampa de grasas. 3-4 semanas.</div></div><div class="step-cost">$15M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Comprar e instalar equipos</strong><div class="step-detail">Despulpadora ($8.5M) + marmita 300L ($30M) + empacadora ($12M) + selladora ($1.5M) + tanques ($9M) + mesas ($2.5M) + cuarto fr&iacute;o ($12M) + b&aacute;scula + kit QC + utensilios ($4.9M). Lead time: 4-8 semanas.</div></div><div class="step-cost">$78.4M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Concepto t&eacute;cnico de Bomberos</strong><div class="step-detail">Gratis (Acuerdo 927/2024). Bajo riesgo = autogesti&oacute;n online + capacitaci&oacute;n.</div></div><div class="step-cost free">GRATIS</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128101; Equipo humano</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Contratar operario de producci&oacute;n</strong><div class="step-detail">SMMLV + prestaciones. Costo real: ~$2,740,000/mes. Curso manipulaci&oacute;n alimentos + ex&aacute;menes m&eacute;dicos.</div></div><div class="step-cost">$2.74M/mes</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Contratar ejecutivo comercial Jr</strong> (mes 3-4 de esta fase)<div class="step-detail">Costo real: $3,300,000/mes con prestaciones. Enfoque: prospecci&oacute;n B2B, visitas, entregas.</div></div><div class="step-cost">$3.3M/mes</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128640; Escalamiento</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Ramp-up de producci&oacute;n: 15% &rarr; 90% capacidad</strong><div class="step-detail">Mes 1: 1,600 kg. Mes 6: 6,650 kg. Mes 12: 9,650 kg. Capacidad m&aacute;x: 10,725 kg/mes.</div></div><div class="step-cost">Capital de trabajo</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Expandir a 6 sabores</strong> (agregar mango, mora, lulo)<div class="step-detail">Solo si fruta disponible a buen precio. Si mango sigue a $5,000/kg en finca &rarr; dejarlo fuera o solo bajo pedido.</div></div><div class="step-cost">Variables</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Alcanzar 50+ clientes B2B activos</strong><div class="step-detail">Targets: Tosta&oacute; (ventas@bbi.com.co), Cosechas (313-801-8562), Compass Group (centralpropuestas@compass-group.com.co), Crepes &amp; Waffles (PBX 676-7600).</div></div><div class="step-cost">$3-4M/mes mkt</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Lanzar canal B2C</strong> (Instagram + WhatsApp + Rappi)<div class="step-detail">Presentaciones 250g y 500g para consumidor final. Precio premium (+25-50% sobre B2B).</div></div><div class="step-cost">$1M setup</div></div>
+
+            <div class="go-nogo go"><div class="go-nogo-icon">&#9989;</div><div><strong>GO a Fase 4 si:</strong><p>Producci&oacute;n estable &gt;5,000 kg/mes + 50+ clientes + margen bruto &gt;35% + operaci&oacute;n fluida &ge;6 meses + INVIMA aprobado.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FASE 4 -->
+<section id="f4">
+    <div class="phase">
+        <div class="phase-header">
+            <div class="phase-number" style="background:var(--blue)">4</div>
+            <div class="phase-meta"><h3>Escala + Exportaci&oacute;n</h3><p>A&ntilde;o 2+ &middot; HTST, doypack, tiendas de barrio, certificaciones internacionales, primer contenedor.</p></div>
+            <div class="phase-tags"><span class="tag tag-blue">$50-100M</span><span class="tag tag-blue">A&ntilde;o 2-3</span></div>
+        </div>
+        <div class="phase-body">
+            <div style="font-weight:700;color:var(--c2);margin-bottom:8px;font-size:.9rem">&#128736; Upgrade tecnol&oacute;gico</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Instalar pasteurizador HTST tubular</strong><div class="step-detail">72-85&deg;C &times; 15-30 segundos. Proveedor: Tecnilac Willgo (350 580 6654). Permite vida &uacute;til 6+ meses SIN fr&iacute;o. Abre tiendas de barrio + exportaci&oacute;n.</div></div><div class="step-cost">$15M-$50M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Migrar a empaque doypack con marca</strong><div class="step-detail">Proveedor: CAPACK SAS (Cali, capack.com.co). Empacadora autom&aacute;tica: Tedmaq (leasing disponible). Mejor presentaci&oacute;n = mejor precio.</div></div><div class="step-cost">$10M-$20M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Duplicar capacidad de producci&oacute;n</strong><div class="step-detail">Segunda despulpadora, segunda marmita (o reemplazar por HTST continuo). Target: 20,000+ kg/mes.</div></div><div class="step-cost">$20M-$40M</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#127758; Certificaciones para exportaci&oacute;n</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Implementar HACCP</strong> (Hazard Analysis Critical Control Points)<div class="step-detail">Est&aacute;ndar internacional de seguridad alimentaria. Requerido por la mayor&iacute;a de importadores. Proceso: 3-6 meses con consultor. Costo: $5M-$15M consultor&iacute;a.</div></div><div class="step-cost">$5M-$15M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Obtener certificado fitosanitario ICA</strong><div class="step-detail">Instituto Colombiano Agropecuario. Necesario para exportaci&oacute;n de productos de origen vegetal.</div></div><div class="step-cost">$500K-$2M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Certificado de Origen</strong><div class="step-detail">C&aacute;mara de Comercio. Para beneficios arancelarios con pa&iacute;ses con TLC (EEUU, UE, M&eacute;xico, etc.).</div></div><div class="step-cost">$200K-$500K</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Registrar marca internacional</strong> (Madrid Protocol)<div class="step-detail">Si se va a exportar con marca FRUTT&Eacute;, proteger en mercados destino.</div></div><div class="step-cost">$3M-$8M</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Evaluar: FDA (EEUU), EFSA (Europa), SENASA (Arg.)</strong><div class="step-detail">Cada mercado tiene requisitos espec&iacute;ficos. Consultar con ProColombia (agencia de exportaci&oacute;n gratuita del gobierno).</div></div><div class="step-cost">$2M-$5M/mercado</div></div>
+
+            <div style="font-weight:700;color:var(--c2);margin:16px 0 8px;font-size:.9rem">&#128666; Canales nuevos</div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Entrar a tiendas de barrio</strong> (450,000+ en Colombia)<div class="step-detail">Requiere HTST (vida &uacute;til sin fr&iacute;o). Presentaci&oacute;n 250g doypack. Distribuci&oacute;n v&iacute;a TAT (tienda a tienda) con preventa. Potencial enorme: 52% del consumo masivo.</div></div><div class="step-cost">$5M-$10M distribuci&oacute;n</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Primer contenedor de exportaci&oacute;n</strong><div class="step-detail">Ventaja FRUTT&Eacute;: contenedor SECO (no refrigerado) = 50% ahorro log&iacute;stico vs congelada. Tr&aacute;nsito 30-60 d&iacute;as sin riesgo. Mercados: USA (Florida/NY), Espa&ntilde;a, Chile.</div></div><div class="step-cost">$15M-$25M primer env&iacute;o</div></div>
+            <div class="step"><div class="step-check"></div><div class="step-content"><strong>Contactar ProColombia</strong><div class="step-detail">Agencia del gobierno, GRATUITA. Ayuda con: ferias internacionales, contactos de importadores, requisitos por pa&iacute;s, co-financiaci&oacute;n. Web: procolombia.co</div></div><div class="step-cost free">GRATIS</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE VISUAL -->
+<section id="timeline">
+    <span class="section-label">Timeline</span>
+    <div class="section-title">Resumen de costos acumulados</div>
+
+    <div class="table-wrap" style="margin-bottom:24px">
+        <table>
+            <thead><tr><th>Semana / Mes</th><th>Fase</th><th>Hito clave</th><th class="r">Gasto del per&iacute;odo</th><th class="r">Acumulado</th><th class="r">Primeros ingresos</th></tr></thead>
+            <tbody>
+                <tr><td>Sem 1-2</td><td>0</td><td>PN registrada, RUT, RST, contrato con Fabi&aacute;n</td><td class="r">$1.5M</td><td class="r">$1.5M</td><td class="r" style="color:var(--muted)">—</td></tr>
+                <tr><td>Sem 3-4</td><td>0</td><td>IVA confirmado, 5+ fincas cotizadas, 15 restaurantes visitados</td><td class="r">$1.5M</td><td class="r">$3M</td><td class="r" style="color:var(--muted)">—</td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td colspan="6" style="text-align:center;font-weight:700;color:var(--c3);font-size:.75rem">&#9989; GATE 0: Finca OK + clientes interesados &rarr; GO</td></tr>
+                <tr><td>Sem 5-6</td><td>1</td><td>Lote piloto producido, muestras a laboratorio</td><td class="r">$4M</td><td class="r">$7M</td><td class="r" style="color:var(--muted)">—</td></tr>
+                <tr><td>Sem 7-10</td><td>1</td><td>Resultados lab, pruebas sabor, muestras a clientes</td><td class="r">$4M</td><td class="r">$11M</td><td class="r" style="color:var(--muted)">—</td></tr>
+                <tr><td>Sem 11-12</td><td>1</td><td>5+ cartas intenci&oacute;n, INVIMA en tr&aacute;mite, empaque dise&ntilde;ado</td><td class="r">$2M</td><td class="r">$13M</td><td class="r" style="color:var(--muted)">—</td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td colspan="6" style="text-align:center;font-weight:700;color:var(--c3);font-size:.75rem">&#9989; GATE 1: Lab OK + 5 clientes + vida &uacute;til &ge;90d &rarr; GO</td></tr>
+                <tr><td>Mes 3</td><td>2</td><td>Primera venta real. Maquila o mini-local operando</td><td class="r">$5M</td><td class="r">$18M</td><td class="r pos b">$3-5M</td></tr>
+                <tr><td>Mes 4</td><td>2</td><td>10 clientes activos, operaci&oacute;n estabiliz&aacute;ndose</td><td class="r">$5M</td><td class="r">$23M</td><td class="r pos">$5-8M</td></tr>
+                <tr><td>Mes 5-6</td><td>2</td><td>15+ clientes, $10M+ ventas/mes, cadena fruta estable</td><td class="r">$5M</td><td class="r">$28M</td><td class="r pos b">$10-15M</td></tr>
+                <tr style="background:rgba(39,174,96,.04)"><td colspan="6" style="text-align:center;font-weight:700;color:var(--c3);font-size:.75rem">&#9989; GATE 2: 15 clientes + $10M/mes + margen &ge;25% &rarr; GO</td></tr>
+                <tr><td>Mes 6-7</td><td>3</td><td>Local firmado, adecuaci&oacute;n iniciada, equipos pedidos</td><td class="r">$30M</td><td class="r">$58M</td><td class="r pos">$12-18M</td></tr>
+                <tr><td>Mes 8-9</td><td>3</td><td>Planta operando, operario contratado, ramp-up</td><td class="r">$30M</td><td class="r">$88M</td><td class="r pos">$20-30M</td></tr>
+                <tr><td>Mes 10-12</td><td>3</td><td>50+ clientes, ej. comercial, 6 sabores, $60M+/mes ventas</td><td class="r">$32M</td><td class="r b">$120M</td><td class="r pos b">$60-80M</td></tr>
+                <tr style="background:rgba(41,128,185,.04)"><td>A&ntilde;o 2+</td><td>4</td><td>HTST, doypack, tiendas, HACCP, primer contenedor export</td><td class="r">$50-100M</td><td class="r">$170-220M</td><td class="r pos b">$100M+/mes</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="callout green"><span class="callout-icon">&#128640;</span><div>
+        <h4>Lo m&aacute;s importante: los primeros $13M validan TODO</h4>
+        <p>Con solo <strong>$6.5M por socio</strong> (Fases 0+1) se confirma: precio de fruta real, calidad del producto en laboratorio, vida &uacute;til sin fr&iacute;o, y demanda real de clientes. Si algo falla, se pierden $6.5M — no $60M. <strong>Esa es la diferencia entre un emprendedor y un apostador.</strong></p>
+    </div></div>
+
+    <div class="callout blue"><span class="callout-icon">&#128205;</span><div>
+        <h4>Contactos clave para Fase 0 (esta semana)</h4>
+        <p>
+        <strong>COMEK</strong> (equipos): ventas@comek.com.co &middot; 311 592 2532<br>
+        <strong>Tecnomack</strong> (equipos): 300 237 6031<br>
+        <strong>Helado San Ferm&iacute;n</strong> (cliente piloto): 320 613 6119<br>
+        <strong>Cervecer&iacute;a Gigante</strong> (cliente piloto): 323 698 3597<br>
+        <strong>Compass Group</strong> (catering masivo): centralpropuestas@compass-group.com.co<br>
+        <strong>ProColombia</strong> (exportaci&oacute;n, gratis): procolombia.co<br>
+        <strong>SGS Colombia</strong> (laboratorio): sgs.com/es-co
+        </p>
+    </div></div>
+</section>
+
+</div>
+
+<footer>FRUTT&Eacute; &middot; Plan MVP &rarr; Escenario B &rarr; Exportaci&oacute;n &middot; Marzo 2026<br><a href="gastos-a%C3%B1o1-escenario-b.html">Ver gastos detallados Escenario B</a> &middot; <a href="viabilidad-financiera.html">Dashboard financiero</a></footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&s.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('section:not(.hero)').forEach(s=>obs.observe(s));
+const secs=document.querySelectorAll('section[id]'),navs=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)c=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body>
+</html>

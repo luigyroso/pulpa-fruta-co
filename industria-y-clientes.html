@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUTTÉ — Industria, Mercado y Clientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0c1f13;--c2:#163d24;--c3:#1e6b3a;--c4:#27ae60;--c5:#6edd97;--c6:#c8f7d8;--bg:#f6faf4;--surface:#fff;--accent:#f0812d;--accent2:#ff6b1a;--red:#e74c3c;--yellow:#f39c12;--text:#1a2e1a;--muted:#6b7f6b;--border:rgba(30,107,58,.12);--glass:rgba(255,255,255,.7)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+.hero{position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 24px;overflow:hidden;background:var(--c1)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(39,174,96,.3) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(240,129,45,.2) 0%,transparent 50%)}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='%2327ae60' fill-opacity='.12'/%3E%3C/svg%3E")}
+.hero *{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(39,174,96,.2);border:1px solid rgba(39,174,96,.3);border-radius:100px;padding:8px 20px;font-size:.75rem;color:var(--c5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px;backdrop-filter:blur(8px);animation:fadeDown .8s ease both}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c4);animation:pulse 2s infinite}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;animation:fadeDown .8s .1s ease both}
+.hero h1 span{background:linear-gradient(135deg,var(--c5),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(.9rem,1.8vw,1.1rem);color:rgba(255,255,255,.55);font-weight:300;max-width:550px;animation:fadeDown .8s .2s ease both}
+.hero-stats{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap;justify-content:center;animation:fadeDown .8s .35s ease both}
+.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px 24px;backdrop-filter:blur(12px);text-align:center;min-width:130px}
+.hero-stat .v{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:800;color:#fff}
+.hero-stat .v.ac{color:var(--accent)}
+.hero-stat .l{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+
+nav{position:sticky;top:0;z-index:100;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+nav .inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{padding:14px 16px;font-size:.8rem;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+nav a:hover,nav a.active{color:var(--c3);border-color:var(--c4)}
+
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+section:not(.hero){opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+section:not(.hero).visible{opacity:1;transform:none}
+.section-label{display:inline-block;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--c4);margin-bottom:8px}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:var(--c1);margin-bottom:6px}
+.section-desc{font-size:.9rem;color:var(--muted);max-width:580px;margin-bottom:28px}
+
+.grid{display:grid;gap:14px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-5{grid-template-columns:repeat(5,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .25s}
+.card:hover{box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-2px)}
+.card-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
+.card-val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--c2)}
+.card-val.accent{color:var(--accent)}.card-val.sm{font-size:1.2rem}
+.card-sub{font-size:.75rem;color:var(--muted);margin-top:3px}
+
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead{background:var(--c1)}th{padding:10px 14px;text-align:left;font-weight:600;color:#fff;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+td{padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.04)}
+tbody tr:hover{background:rgba(39,174,96,.04)}
+.r{text-align:right}.b{font-weight:700}.pos{color:var(--c3)}.neg{color:var(--red)}
+tr.total{background:var(--c2)!important;color:#fff;font-weight:700}tr.total td{border:none;color:#fff}
+tr.highlight{background:rgba(240,129,45,.06)!important}
+
+/* BARS */
+.bar-wrap{margin:6px 0}.bar-outer{background:rgba(0,0,0,.06);border-radius:8px;height:28px;position:relative;overflow:hidden}
+.bar-inner{height:100%;border-radius:8px;display:flex;align-items:center;padding:0 10px;font-size:.72rem;font-weight:600;color:#fff;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
+.bar-label{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.filter-tab{padding:8px 18px;border-radius:100px;font-size:.78rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s}
+.filter-tab.active,.filter-tab:hover{background:var(--c1);color:#fff;border-color:var(--c1)}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 10px;border-radius:100px;font-size:.65rem;font-weight:600}
+.badge-green{background:rgba(39,174,96,.12);color:var(--c3)}
+.badge-orange{background:rgba(240,129,45,.12);color:var(--accent)}
+.badge-red{background:rgba(231,76,60,.12);color:var(--red)}
+.badge-blue{background:rgba(52,152,219,.12);color:#2980b9}
+
+/* CALLOUT */
+.callout{border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start;margin:20px 0}
+.callout.green{background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.15)}
+.callout.orange{background:rgba(240,129,45,.06);border:1px solid rgba(240,129,45,.15)}
+.callout-icon{font-size:1.3rem;flex-shrink:0}.callout h4{font-size:.88rem;font-weight:700;margin-bottom:3px}.callout p{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+/* SEARCH */
+.search-bar{display:flex;gap:10px;margin-bottom:20px}
+.search-input{flex:1;padding:12px 18px;border-radius:12px;border:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:.88rem;outline:none;transition:border .2s}
+.search-input:focus{border-color:var(--c4)}
+.search-count{font-size:.78rem;color:var(--muted);margin-bottom:16px}
+
+/* CLIENT ROW */
+.client-row{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:10px;transition:all .2s;cursor:pointer}
+.client-row:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);border-color:var(--c4)}
+.client-header{display:flex;justify-content:space-between;align-items:center}
+.client-name{font-weight:700;font-size:.95rem}
+.client-cat{font-size:.7rem;color:var(--muted);margin-top:2px}
+.client-detail{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:.84rem;line-height:1.7}
+.client-detail.open{display:block;animation:fadeIn .3s ease}
+.client-detail a{color:var(--c3);text-decoration:none;font-weight:500}
+.client-detail a:hover{text-decoration:underline}
+.client-contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:10px}
+.client-field{font-size:.8rem}.client-field strong{color:var(--text)}.client-field span{color:var(--muted)}
+.chevron{transition:transform .2s;color:var(--muted);font-size:.8rem}
+.client-row.expanded .chevron{transform:rotate(90deg)}
+
+/* COMPETITOR BAR */
+.comp-bar{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.04)}
+.comp-bar:last-child{border:none}
+.comp-name{width:140px;font-size:.82rem;font-weight:600;flex-shrink:0}
+.comp-track{flex:1;background:rgba(0,0,0,.04);border-radius:6px;height:24px;position:relative;overflow:hidden}
+.comp-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:.68rem;font-weight:600;color:#fff}
+.comp-rev{width:100px;text-align:right;font-size:.8rem;font-weight:700;color:var(--c2);flex-shrink:0}
+
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:.78rem}
+footer a{color:var(--accent);text-decoration:none;font-weight:600}
+
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+@media(max-width:768px){
+.grid-2,.grid-3,.grid-4,.grid-5{grid-template-columns:1fr}
+.hero-stats{flex-direction:column;align-items:center}
+.hero{min-height:auto;padding:48px 16px}
+.comp-name{width:90px;font-size:.72rem}
+.comp-rev{width:70px;font-size:.72rem}
+section{padding:48px 0}
+.client-contact{grid-template-columns:1fr}
+.search-bar{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-badge">Inteligencia de Mercado &middot; Marzo 2026</div>
+<h1>Industria, Mercado<br>y <span>Clientes</span></h1>
+<p class="hero-sub">Datos reales de la industria de pulpa de fruta en Colombia. Competidores, market share, y directorio de clientes potenciales B2B para FRUTT&Eacute;.</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="v">USD $447.5M</div><div class="l">Mercado pulpa tropical</div></div>
+<div class="hero-stat"><div class="v ac">&lt;10</div><div class="l">Competidores pasteurizada</div></div>
+<div class="hero-stat"><div class="v">132K</div><div class="l">Restaurantes Colombia</div></div>
+<div class="hero-stat"><div class="v">500K</div><div class="l">Tiendas de barrio</div></div>
+</div>
+</section>
+
+<!-- NAV -->
+<nav><div class="inner">
+<a href="#industria">Industria</a>
+<a href="#competencia">Competencia</a>
+<a href="#mercado">Mercado Objetivo</a>
+<a href="#clientes">Clientes Potenciales</a>
+</div></nav>
+
+<div class="container">
+
+<!-- 1. INDUSTRIA -->
+<section id="industria">
+<span class="section-label">La industria</span>
+<div class="section-title">Pulpa de fruta en Colombia</div>
+<p class="section-desc">Un mercado de USD $447.5M donde el 95% vende congelada. El segmento pasteurizado es &lt;8% del total &mdash; ah&iacute; est&aacute; la oportunidad.</p>
+
+<div class="grid grid-3" style="margin-bottom:24px">
+<div class="card" style="text-align:center"><div class="card-label">Mercado total pulpa</div><div class="card-val">$447.5M</div><div class="card-sub">USD &middot; CAGR 4.8%</div></div>
+<div class="card" style="text-align:center"><div class="card-label">Frutas &amp; vegetales Colombia</div><div class="card-val">$6.9B</div><div class="card-sub">USD (2025)</div></div>
+<div class="card" style="text-align:center"><div class="card-label">Mercado global pulpa</div><div class="card-val">$10B+</div><div class="card-sub">USD proyecci&oacute;n 2034</div></div>
+</div>
+
+<div class="section-title" style="font-size:1.2rem;margin:32px 0 16px">Segmentaci&oacute;n del mercado</div>
+
+<div class="grid grid-2" style="margin-bottom:24px">
+<div class="card">
+<div class="card-label">Por tipo de producto</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Pulpa congelada</span><span class="b">70-75% &middot; ~$335M</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:73%;background:var(--c3)">34,000+ empresas</div></div>
+</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Concentrados y otros</span><span>18-25% &middot; ~$96M</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:22%;background:var(--c4)"></div></div>
+</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Pasteurizada / larga vida</span><span class="b" style="color:var(--accent)">5-8% &middot; ~$29M</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:7%;background:var(--accent)">&lt;10</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-label">Por canal de distribuci&oacute;n</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Retail / tiendas</span><span>40-45%</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:43%;background:var(--c3)"></div></div>
+</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>HoReCa</span><span>25-30%</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:28%;background:var(--c4)"></div></div>
+</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Industrial</span><span>20-25%</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:23%;background:var(--accent)"></div></div>
+</div>
+<div class="bar-wrap">
+<div class="bar-label"><span>Exportaci&oacute;n</span><span class="pos b">8-12% (+79% YoY)</span></div>
+<div class="bar-outer"><div class="bar-inner" style="width:10%;background:var(--accent2)"></div></div>
+</div>
+</div>
+</div>
+
+<div class="grid grid-4">
+<div class="card" style="text-align:center"><div class="card-label">Empresas registradas</div><div class="card-val sm">34,268</div><div class="card-sub">Casi todas congelada</div></div>
+<div class="card" style="text-align:center"><div class="card-label">Exportaciones pulpa</div><div class="card-val sm accent">+79%</div><div class="card-sub">Crecimiento YoY</div></div>
+<div class="card" style="text-align:center"><div class="card-label">Colombia es #</div><div class="card-val sm">2</div><div class="card-sub">Exportador global (tras Per&uacute;)</div></div>
+<div class="card" style="text-align:center"><div class="card-label">Exportadores activos</div><div class="card-val sm">180</div><div class="card-sub">Empresas</div></div>
+</div>
+</section>
+
+<!-- 2. COMPETENCIA -->
+<section id="competencia">
+<span class="section-label">Competencia</span>
+<div class="section-title">Qui&eacute;n vende pulpa en Colombia</div>
+<p class="section-desc">Nutrium domina industrialmente pero est&aacute; diversificado en 10+ categor&iacute;as. En pasteurizada larga vida hay menos de 10 jugadores.</p>
+
+<div class="card" style="margin-bottom:24px">
+<div class="card-label" style="margin-bottom:14px">Revenue estimado (segmento pulpa)</div>
+<div class="comp-bar">
+<div class="comp-name">Nutrium</div>
+<div class="comp-track"><div class="comp-fill" style="width:80%;background:linear-gradient(90deg,var(--c2),var(--c3))">Diversificado 10+ categor&iacute;as</div></div>
+<div class="comp-rev">~COP $100B</div>
+</div>
+<div class="comp-bar">
+<div class="comp-name">CI Agrofrut</div>
+<div class="comp-track"><div class="comp-fill" style="width:38%;background:var(--c4)">Congelada &middot; Canoa</div></div>
+<div class="comp-rev">COP $49B</div>
+</div>
+<div class="comp-bar">
+<div class="comp-name">Alimentos SAS</div>
+<div class="comp-track"><div class="comp-fill" style="width:25%;background:var(--accent)">Pioneer as&eacute;ptico</div></div>
+<div class="comp-rev">~COP $30B</div>
+</div>
+<div class="comp-bar">
+<div class="comp-name">Frugy</div>
+<div class="comp-track"><div class="comp-fill" style="width:10%;background:#7f8c8d"></div></div>
+<div class="comp-rev">~COP $10B</div>
+</div>
+<div class="comp-bar">
+<div class="comp-name">Fresh &amp; Natural</div>
+<div class="comp-track"><div class="comp-fill" style="width:6%;background:#95a5a6"></div></div>
+<div class="comp-rev">~COP $5B</div>
+</div>
+<div class="comp-bar">
+<div class="comp-name">Frutysabor</div>
+<div class="comp-track"><div class="comp-fill" style="width:5%;background:#bdc3c7"></div></div>
+<div class="comp-rev">~COP $5B</div>
+</div>
+</div>
+
+<div class="table-wrap" style="margin-bottom:24px">
+<table>
+<thead><tr><th>Empresa</th><th>Ubicaci&oacute;n</th><th class="r">Empleados</th><th class="r">Revenue</th><th>Tipo</th><th>Tendencia</th></tr></thead>
+<tbody>
+<tr><td class="b">Nutrium (Ardila L&uuml;lle)</td><td>Malambo / Copacabana</td><td class="r">1,500+</td><td class="r b">COP $264B total</td><td><span class="badge badge-blue">Diversificado</span></td><td><span class="neg b">-21.9%</span></td></tr>
+<tr><td class="b">CI Agrofrut (Canoa)</td><td>La Estrella, Antioquia</td><td class="r">318</td><td class="r b">USD $11.2M</td><td><span class="badge badge-blue">Congelada</span></td><td><span class="pos b">+5.2%</span></td></tr>
+<tr><td class="b">Alimentos SAS</td><td>Bogot&aacute;</td><td class="r">135</td><td class="r">~COP $30B est.</td><td><span class="badge badge-orange">As&eacute;ptico</span></td><td><span class="neg">-1.98%</span></td></tr>
+<tr><td>Frugy SA</td><td>Manizales</td><td class="r">75</td><td class="r">~COP $10B est.</td><td><span class="badge badge-green">Export</span></td><td><span class="pos">+8.12%</span></td></tr>
+<tr><td>Fresh &amp; Natural</td><td>Yumbo, Valle</td><td class="r">Peque&ntilde;a</td><td class="r">~500 tons/a&ntilde;o</td><td><span class="badge badge-green">Export</span></td><td>&mdash;</td></tr>
+<tr><td>Frutysabor</td><td>Colombia</td><td class="r">&mdash;</td><td class="r">&mdash;</td><td><span class="badge badge-orange">Larga vida</span></td><td>&mdash;</td></tr>
+<tr><td>Frutihelen</td><td>Cali</td><td class="r">&mdash;</td><td class="r">&mdash;</td><td><span class="badge badge-blue">HoReCa</span></td><td>&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout green">
+<span class="callout-icon">&#128161;</span>
+<div>
+<h4>Oportunidad FRUTT&Eacute;</h4>
+<p>Alimentos SAS (pioneer del as&eacute;ptico, 2012) est&aacute; en declive. Nutrium solo exporta as&eacute;ptico B2B, no retail. Frutysabor tiene l&iacute;nea larga vida pero peque&ntilde;a. <strong>El espacio de pulpa pasteurizada retail est&aacute; pr&aacute;cticamente vac&iacute;o.</strong></p>
+</div>
+</div>
+</section>
+
+<!-- 3. MERCADO OBJETIVO -->
+<section id="mercado">
+<span class="section-label">Mercado objetivo</span>
+<div class="section-title">A qui&eacute;n le vendemos</div>
+<p class="section-desc">580,000+ establecimientos que hoy no pueden vender pulpa congelada (sin congelador). Ese es el mercado que FRUTT&Eacute; desbloquea.</p>
+
+<div class="grid grid-3" style="margin-bottom:24px">
+<div class="card" style="text-align:center;border-top:3px solid var(--c4)">
+<div class="card-label">Restaurantes Colombia</div>
+<div class="card-val">132,000</div>
+<div class="card-sub">41% formales &middot; 95% independientes</div>
+<div style="font-size:.72rem;color:var(--muted);margin-top:6px">Bogot&aacute;: ~22,000-30,000</div>
+</div>
+<div class="card" style="text-align:center;border-top:3px solid var(--accent)">
+<div class="card-label">Tiendas de barrio</div>
+<div class="card-val">450-500K</div>
+<div class="card-sub">52% del consumo masivo &middot; 93% hogares</div>
+<div style="font-size:.72rem;color:var(--muted);margin-top:6px">La mayor&iacute;a SIN congelador</div>
+</div>
+<div class="card" style="text-align:center;border-top:3px solid var(--c2)">
+<div class="card-label">Food service market</div>
+<div class="card-val">$13.6B</div>
+<div class="card-sub">USD (2025) &middot; CAGR 11%+</div>
+<div style="font-size:.72rem;color:var(--muted);margin-top:6px">Hoteles, catering, cadenas</div>
+</div>
+</div>
+
+<div class="table-wrap" style="margin-bottom:24px">
+<table>
+<thead><tr><th>Segmento</th><th class="r">Establecimientos</th><th>Producto ideal</th><th>Ventaja pasteurizada</th><th>Prioridad</th></tr></thead>
+<tbody>
+<tr><td class="b">Juguer&iacute;as / smoothie bars</td><td class="r">5,000+</td><td>Mango, maracuy&aacute;, lulo</td><td>Lista para usar, sin descongelar</td><td><span class="badge badge-green">Alta</span></td></tr>
+<tr><td class="b">Restaurantes independientes</td><td class="r">~125,000</td><td>Todas las frutas</td><td>No necesita congelador</td><td><span class="badge badge-green">Alta</span></td></tr>
+<tr><td class="b">Catering institucional</td><td class="r">~200</td><td>Mango, guayaba, mora</td><td>Volumen alto, log&iacute;stica simple</td><td><span class="badge badge-green">Alta</span></td></tr>
+<tr><td>Tiendas de barrio</td><td class="r">450-500K</td><td>Mango, mora (sachets peque&ntilde;os)</td><td>Producto de estante</td><td><span class="badge badge-orange">Media</span></td></tr>
+<tr><td>Hoteles</td><td class="r">~3,000</td><td>Maracuy&aacute;, lulo, guan&aacute;bana</td><td>Sin cadena fr&iacute;o, exotico</td><td><span class="badge badge-orange">Media</span></td></tr>
+<tr><td>Helader&iacute;as</td><td class="r">~2,000</td><td>Todas las frutas</td><td>Base lista para mezclar</td><td><span class="badge badge-orange">Media</span></td></tr>
+<tr><td>Panader&iacute;as / reposter&iacute;a</td><td class="r">~15,000</td><td>Mora, guayaba, maracuy&aacute;</td><td>Rellenos, glaseados</td><td><span class="badge badge-orange">Media</span></td></tr>
+<tr><td>Cervecer&iacute;as artesanales</td><td class="r">~300</td><td>Maracuy&aacute;, lulo, mango</td><td>Cervezas frutales</td><td><span class="badge badge-blue">Nicho</span></td></tr>
+<tr><td>Hard discount (D1, Ara)</td><td class="r">~4,000</td><td>Mango, mora (marca blanca)</td><td>Estante seco, no congelador</td><td><span class="badge badge-blue">Futuro</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout orange">
+<span class="callout-icon">&#127793;</span>
+<div>
+<h4>Total Addressable Market (TAM) para FRUTT&Eacute;</h4>
+<p>580,000+ establecimientos que la competencia congelada NO puede servir eficientemente. Con un ticket promedio de $200K/mes por cliente B2B, capturar apenas el 0.1% (580 clientes) = <strong>$116M/mes en ventas</strong>.</p>
+</div>
+</div>
+</section>
+
+<!-- 4. CLIENTES POTENCIALES -->
+<section id="clientes">
+<span class="section-label">Directorio</span>
+<div class="section-title">Clientes potenciales B2B</div>
+<p class="section-desc">Contactos reales verificados de empresas en Bogot&aacute; y Colombia. Click en cada empresa para ver datos de contacto.</p>
+
+<div class="search-bar">
+<input type="text" class="search-input" placeholder="Buscar por nombre, categor&iacute;a o ciudad..." id="searchInput" oninput="filterClients()">
+</div>
+
+<div class="filter-tabs" id="filterTabs">
+<div class="filter-tab active" onclick="setFilter('all')">Todos</div>
+<div class="filter-tab" onclick="setFilter('jugueria')">Juguer&iacute;as</div>
+<div class="filter-tab" onclick="setFilter('cadena')">Cadenas</div>
+<div class="filter-tab" onclick="setFilter('catering')">Catering</div>
+<div class="filter-tab" onclick="setFilter('heladeria')">Helader&iacute;as</div>
+<div class="filter-tab" onclick="setFilter('cerveceria')">Cervecer&iacute;as</div>
+<div class="filter-tab" onclick="setFilter('panaderia')">Panader&iacute;as</div>
+<div class="filter-tab" onclick="setFilter('hotel')">Hoteles</div>
+<div class="filter-tab" onclick="setFilter('restaurante')">Restaurantes</div>
+</div>
+
+<div class="search-count" id="searchCount">Mostrando 28 contactos</div>
+
+<div id="clientList"></div>
+</section>
+
+</div>
+
+<footer>
+<strong>FRUTT&Eacute;</strong> &middot; Inteligencia de Mercado &middot; Marzo 2026<br>
+<a href="viabilidad-financiera.html">Ver Viabilidad Financiera</a> &middot;
+<a href="https://docs.google.com/spreadsheets/d/1AB3inJJQJ4rY48k0QskmFjJsyrhvFqCa1pbVygMGCcg/edit" target="_blank">Google Sheet</a>
+</footer>
+
+<script>
+const clients=[
+{name:"Cosechas",cat:"jugueria",catLabel:"Juguería / Franquicia",city:"Bogotá (400+ puntos, 26 dptos)",tel:"(601) 805-1066 / 313-801-8562",email:"servicioalcliente2@cosechasexpress.com",web:"cosechasexpress.com",products:"Mango, Maracuyá, Lulo, Mora, Guanábana",priority:"alta",note:"Franquicia de jugos naturales. Origen Costa Rica. Altísimo volumen. Target #1."},
+{name:"Tostao Café & Pan",cat:"cadena",catLabel:"Cadena / Cafetería",city:"Bogotá (1,000+ puntos)",tel:"+57 (601) 794-5470",email:"ventas@bbi.com.co",web:"nosotros.tostao.com",products:"Mango, Mora, Maracuyá",priority:"alta",note:"BBI Colombia SAS. 1,001-5,000 empleados. Jugos en combo. Email de ventas institucionales directo."},
+{name:"Compass Group Colombia",cat:"catering",catLabel:"Catering Institucional",city:"Bogotá",tel:"+57 (601) 748-6090",email:"centralpropuestas@compass-group.com.co",web:"compass-group.com.co",products:"Mango, Guayaba, Mora, Maracuyá",priority:"alta",note:"Multinacional catering. EMAIL COMERCIAL DIRECTO. Target #1 en institucional. Cel: 317-423-9180 / 321-976-0905"},
+{name:"Wok",cat:"cadena",catLabel:"Cadena / Restaurante",city:"Bogotá (15 sedes)",tel:"(601) 580-7272 ext. 6024",email:"—",web:"wok.com.co",products:"Mango, Maracuyá, Lulo",priority:"alta",note:"200 proveedores directos. Modelo sostenibilidad con proveedores colombianos — FIT PERFECTO para FRUTTÉ."},
+{name:"Crepes & Waffles",cat:"cadena",catLabel:"Cadena / Restaurante",city:"Bogotá (sede: Cra 20 No. 164A-05)",tel:"(601) 676-7600",email:"Formulario web",web:"crepesywaffles.com",products:"Todas las frutas",priority:"alta",note:"Corp B certificada. Gran consumidor de frutas para jugos, postres, helados. Target premium."},
+{name:"Pan Pa' Ya",cat:"panaderia",catLabel:"Panadería / Cadena",city:"Bogotá (Calle 144 No. 49-30)",tel:"(601) 485-1189 / 313-433-6443",email:"luz.alarcon@panpaya.com.co",web:"panpaya.com",products:"Mora, Guayaba, Maracuyá",priority:"alta",note:"Email DIRECTO con nombre. Cadena de panaderías, usan fruta en jugos y rellenos."},
+{name:"Popsy Helados",cat:"heladeria",catLabel:"Heladería",city:"Bogotá (Cl 67B #67-22)",tel:"310-223-1909",email:"sugerencias@heladospopsy.com",web:"heladospopsy.com",products:"Todas las frutas",priority:"alta",note:"Desde 1981, líder helado gourmet. Colombia, Perú, Panamá. Gran consumidor de pulpa."},
+{name:"Crem Helado / Meals",cat:"heladeria",catLabel:"Heladería / Industrial",city:"Bogotá (3 plantas, 14 centros)",tel:"01-8000-111-671 / (601) 489-7966",email:"lineaetica@gruponutresa.com",web:"meals.com.co",products:"Todas las frutas",priority:"alta",note:"MAYOR heladería de Colombia. Grupo Nutresa. Approach corporativo."},
+{name:"Andrés Carne de Res",cat:"restaurante",catLabel:"Restaurante",city:"Bogotá (Calle 82 No. 12-21) + Chía",tel:"(601) 861-2233 / 315-355-9096",email:"andresologia@andrescarnederes.com",web:"andrescarnederes.com",products:"Maracuyá, Lulo, Mango, Guanábana",priority:"alta",note:"Restaurante icónico. Altísimo volumen. Jugos y cocktails con fruta. WhatsApp: 318-455-9745"},
+{name:"Sodexo Colombia",cat:"catering",catLabel:"Catering Institucional",city:"Bogotá (Av. Cra 19 No. 95-20, Of. 2601)",tel:"(601) 877-0840 / (601) 742-1460",email:"Formulario web",web:"sodexo.co",products:"Mango, Guayaba, Mora",priority:"media",note:"Multinacional. Servicios alimentación corporativa. Contratos grandes."},
+{name:"Gate Gourmet Colombia",cat:"catering",catLabel:"Catering Aéreo",city:"Bogotá (zona aeropuerto)",tel:"(601) 414-7979",email:"—",web:"—",products:"Mango, Maracuyá, Mora",priority:"media",note:"Catering aéreo para aerolíneas. Volumen alto, contratos corporativos. L-V 7am-4:30pm."},
+{name:"CBC Banquetes",cat:"catering",catLabel:"Catering / Banquetes",city:"Bogotá (Calle 19 No. 66-30)",tel:"(601) 743-4105",email:"—",web:"cbc.com.co",products:"Mango, Guayaba, Mora, Maracuyá",priority:"media",note:"Compañía de Banquetes y Catering. SAS. Contactar por teléfono."},
+{name:"Juan Valdez Café",cat:"cadena",catLabel:"Cadena / Cafetería",city:"Bogotá (CC Titan Plaza)",tel:"(601) 482-4151 / 01-8000-517-711",email:"franquicias.juanvaldez@juanvaldezcafe.com",web:"juanvaldez.com/en/suppliers/",products:"Mango, Maracuyá, Mora",priority:"media",note:"Portal de proveedores en la web. Procomer/Federación de Cafeteros."},
+{name:"El Corral",cat:"cadena",catLabel:"Cadena / Hamburguesas",city:"Bogotá (208+ locales)",tel:"01-8000-121-323 / 333-622-2122",email:"—",web:"elcorral.com",products:"Mango, Mora",priority:"media",note:"Grupo Nutresa. Malteadas/jugos. Approach vía Nutresa corporate."},
+{name:"Frisby",cat:"cadena",catLabel:"Cadena / Pollo",city:"Dosquebradas (170+ restaurantes)",tel:"01-8000-93-9000",email:"servicio@frisby.com.co",web:"frisby.com.co",products:"Mango, Maracuyá",priority:"media",note:"170+ restaurantes en 31 ciudades. Jugos en combo."},
+{name:"Mimo's Helados",cat:"heladeria",catLabel:"Heladería",city:"Bogotá",tel:"01-8000-114-111",email:"servicioalcliente@mimos.com.co",web:"mimos.com.co",products:"Todas las frutas",priority:"media",note:"Cadena grande. Pedir área de compras al PBX."},
+{name:"La Palettería",cat:"heladeria",catLabel:"Heladería Artesanal",city:"Bogotá (Parque El Virrey, Zona G)",tel:"Formulario web",email:"Formulario web",web:"lapaletteria.com.co",products:"Mango, Maracuyá, Mora, Lulo",priority:"media",note:"Fusión colombiana-italiana. Paletas artesanales premium. Buen fit con FRUTTÉ."},
+{name:"Nativos Bebidas",cat:"jugueria",catLabel:"Juguería / Açaí",city:"Colombia",tel:"+57 310-281-3828",email:"Gerencia@bebidasnativos.com",web:"bebidasnativos.co",products:"Mango, Mora, Maracuyá, Açaí mixes",priority:"media",note:"Marca de bebidas naturales con açaí."},
+{name:"JW Marriott Bogotá",cat:"hotel",catLabel:"Hotel",city:"Bogotá (Calle 73 No. 8-60)",tel:"+57 (601) 481-6000",email:"Vía Marriott corporate",web:"marriott.com",products:"Maracuyá, Lulo, Guanábana, Mango",priority:"media",note:"Pedir departamento de compras al PBX. Room service, bar, restaurante interno."},
+{name:"Four Seasons Bogotá",cat:"hotel",catLabel:"Hotel",city:"Bogotá (Cra 13 #85-46)",tel:"+57 (601) 325-7930",email:"reservations.BHA@fourseasons.com",web:"fourseasons.com/bogota/",products:"Lulo, Guanábana, Maracuyá",priority:"media",note:"Hotel de lujo. Ingredientes premium. Contactar purchasing vía PBX."},
+{name:"Ind. Santa Clara",cat:"panaderia",catLabel:"Panadería Industrial",city:"Bogotá (Puente Aranda)",tel:"(601) 244-2777 ext. 1683",email:"recepcionfactura@industriasantaclara.co",web:"industriasantaclara.co",products:"Mora, Guayaba, Maracuyá",priority:"media",note:"Industrial. Usan fruta en repostería. Volumen."},
+{name:"Bogotá Beer Company",cat:"cerveceria",catLabel:"Cervecería Artesanal",city:"Bogotá (Cra 12 No. 83-33)",tel:"(601) 742-9292",email:"—",web:"bogotabeercompany.com",products:"Maracuyá, Lulo, Mango",priority:"media",note:"AB InBev. 22 pubs. Cervezas frutales y cocktails."},
+{name:"3 Cordilleras",cat:"cerveceria",catLabel:"Cervecería Artesanal",city:"Medellín (Calle 30 No. 44-176)",tel:"+57 (604) 232-7792",email:"Formulario web",web:"3cordilleras.com",products:"Maracuyá, Lulo, Mora",priority:"media",note:"Cervecería artesanal grande. Cervezas frutales."},
+{name:"Restaurante Leo",cat:"restaurante",catLabel:"Restaurante de Autor",city:"Bogotá (Calle 65bis #4-23)",tel:"+57 317-661-6866",email:"reservas@restauranteleo.com",web:"restauranteleo.com",products:"Lulo, Guanábana, Borojó, exóticas",priority:"baja",note:"Top 100 mundial. Chef Leonor Espinosa. Volumen bajo pero referencia de marca."},
+{name:"Salvo Patria",cat:"restaurante",catLabel:"Restaurante de Autor",city:"Bogotá (Cra 4 Bis #58-60)",tel:"+57 (601) 702-6367",email:"123xmi@salvopatria.com",web:"salvopatria.com",products:"Lulo, Maracuyá, Guanábana",priority:"baja",note:"Cocina colombiana contemporánea. Chapinero. Ingredientes locales."},
+{name:"Mini Mal",cat:"restaurante",catLabel:"Restaurante de Autor",city:"Bogotá (Transv 4Bis No. 56A-52)",tel:"+57 (601) 347-5464",email:"antonuelita@yahoo.com.mx",web:"mini-mal.org",products:"Lulo, Guanábana, Borojó",priority:"baja",note:"Cocina colombiana contemporánea. Ingredientes locales."},
+{name:"La Brioche",cat:"panaderia",catLabel:"Panadería / Bistro",city:"Bogotá / Cartagena",tel:"+57 305-390-9290",email:"brioche.artesanal@gmail.com",web:"labrioche.com.co",products:"Mora, Maracuyá, Guayaba",priority:"baja",note:"Pastelería francesa. Verificar ubicación exacta en Bogotá."},
+{name:"Helado San Fermín",cat:"heladeria",catLabel:"Heladería",city:"Colombia",tel:"WhatsApp: +57 320-613-6119",email:"Formulario web",web:"heladosanfermin.com",products:"Mora, Mango, Maracuyá",priority:"media",note:"Helados con trozos de fruta. Ofrece maquila. Paletas artesanales."},
+];
+
+let currentFilter='all';
+let searchTerm='';
+
+function renderClients(){
+const list=document.getElementById('clientList');
+const filtered=clients.filter(c=>{
+const matchFilter=currentFilter==='all'||c.cat===currentFilter;
+const matchSearch=searchTerm===''||c.name.toLowerCase().includes(searchTerm)||c.cat.toLowerCase().includes(searchTerm)||c.city.toLowerCase().includes(searchTerm)||c.products.toLowerCase().includes(searchTerm);
+return matchFilter&&matchSearch;
+});
+document.getElementById('searchCount').textContent=`Mostrando ${filtered.length} contactos`;
+list.innerHTML=filtered.map((c,i)=>`
+<div class="client-row" onclick="toggleClient(this)" data-idx="${i}">
+<div class="client-header">
+<div>
+<div class="client-name">${c.name} ${c.priority==='alta'?'<span class="badge badge-green">Prioridad alta</span>':c.priority==='media'?'<span class="badge badge-orange">Media</span>':'<span class="badge badge-blue">Referencia</span>'}</div>
+<div class="client-cat">${c.catLabel} &middot; ${c.city}</div>
+</div>
+<span class="chevron">&#9654;</span>
+</div>
+<div class="client-detail">
+<div class="client-contact">
+<div class="client-field"><strong>Tel:</strong> <span>${c.tel}</span></div>
+<div class="client-field"><strong>Email:</strong> <span>${c.email}</span></div>
+<div class="client-field"><strong>Web:</strong> <span><a href="https://${c.web}" target="_blank">${c.web}</a></span></div>
+<div class="client-field"><strong>Productos:</strong> <span>${c.products}</span></div>
+</div>
+<p style="margin-top:10px;font-size:.8rem;color:var(--muted);font-style:italic">${c.note}</p>
+</div>
+</div>
+`).join('');
+}
+
+function toggleClient(el){
+const wasOpen=el.classList.contains('expanded');
+document.querySelectorAll('.client-row').forEach(r=>{r.classList.remove('expanded');r.querySelector('.client-detail').classList.remove('open')});
+if(!wasOpen){el.classList.add('expanded');el.querySelector('.client-detail').classList.add('open')}
+}
+
+function setFilter(f){
+currentFilter=f;
+document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+event.target.classList.add('active');
+renderClients();
+}
+
+function filterClients(){
+searchTerm=document.getElementById('searchInput').value.toLowerCase();
+renderClients();
+}
+
+// Init
+renderClients();
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.05,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('section:not(.hero)').forEach(s=>obs.observe(s));
+setTimeout(()=>{document.querySelectorAll('section:not(.hero)').forEach(s=>s.classList.add('visible'))},2000);
+
+// Active nav
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)c=s.id});document.querySelectorAll('nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+
+</body>
+</html>
